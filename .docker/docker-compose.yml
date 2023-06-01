@@ -1,0 +1,49 @@
+services:
+  nginx:
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    image: nginx:alpine
+    volumes:
+      - ../api/public:/var/www/html/public
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "81:80"
+    networks:
+      - public
+
+  php:
+    container_name: ${COMPOSE_PROJECT_NAME}_php
+    build:
+      context: ../
+      dockerfile: .docker/php/Dockerfile
+    image: ${COMPOSE_PROJECT_NAME}/php:fpm-alpine-8.2
+    volumes:
+      - ../api:/var/www/html
+    networks:
+      - public
+      - backend
+
+  mysql:
+    container_name: ${COMPOSE_PROJECT_NAME}_mysql
+    image: mysql:8.0
+#    command: "--default-authentication-plugin=mysql_native_password --default-time-zone=Europe/Prague"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: develop
+      MYSQL_USER: develop
+      MYSQL_PASSWORD: develop
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+
+networks:
+  public:
+    name: ${COMPOSE_PROJECT_NAME}_public
+  backend:
+    name: ${COMPOSE_PROJECT_NAME}_backend
+
+volumes:
+  mysql-data:
+    name: ${COMPOSE_PROJECT_NAME}_mysql-data
