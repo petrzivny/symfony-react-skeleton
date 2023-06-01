@@ -1,6 +1,6 @@
 services:
   nginx:
-    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_nginx
     image: nginx:alpine
     volumes:
       - ../api/public:/var/www/html/public
@@ -11,11 +11,11 @@ services:
       - public
 
   php:
-    container_name: ${COMPOSE_PROJECT_NAME}_php
+    container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_php
     build:
       context: ../
       dockerfile: .docker/php/Dockerfile
-    image: ${COMPOSE_PROJECT_NAME}/php:fpm-alpine-8.2
+    image: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}/php:fpm-alpine-8.2
     volumes:
       - ../api:/var/www/html
     networks:
@@ -23,16 +23,16 @@ services:
       - backend
 
   mysql:
-    container_name: ${COMPOSE_PROJECT_NAME}_mysql
-    image: mysql:8.0
+    container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_mysql
+    image: mysql:${DATABASE_SERVER_VERSION:-8}
 #    command: "--default-authentication-plugin=mysql_native_password --default-time-zone=Europe/Prague"
     volumes:
       - mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: develop
-      MYSQL_USER: develop
-      MYSQL_PASSWORD: develop
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     ports:
       - "3306:3306"
     networks:
@@ -40,10 +40,10 @@ services:
 
 networks:
   public:
-    name: ${COMPOSE_PROJECT_NAME}_public
+    name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_public
   backend:
-    name: ${COMPOSE_PROJECT_NAME}_backend
+    name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_backend
 
 volumes:
   mysql-data:
-    name: ${COMPOSE_PROJECT_NAME}_mysql-data
+    name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_mysql-data
