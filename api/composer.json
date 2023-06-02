@@ -21,6 +21,7 @@
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-doctrine": "^1.3",
         "phpstan/phpstan-strict-rules": "^1.5",
+        "roave/security-advisories": "dev-latest",
         "symfony/maker-bundle": "^1.48",
         "symfony/stopwatch": "6.3.*",
         "symfony/web-profiler-bundle": "6.3.*"
@@ -63,8 +64,10 @@
             "@auto-scripts"
         ],
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1g",
+        "vuln": "composer update --dry-run roave/security-advisories",
         "test": [
-            "@phpstan"
+            "@phpstan",
+            "@vuln"
         ]
     },
     "conflict": {
