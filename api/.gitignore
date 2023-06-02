@@ -8,3 +8,7 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+###> squizlabs/php_codesniffer ###
+/phpcs.xml
+###< squizlabs/php_codesniffer ###

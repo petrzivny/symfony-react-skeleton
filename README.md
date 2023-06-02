@@ -1,4 +1,5 @@
-[PHPStan usage](documentation%2Fphpstan%2FREADME.md)
+- [PHPStan usage](documentation%2Fphpstan%2FREADME.md)
+- [PHP_CodeSniffer usage](documentation%2Fphpcs%2FREADME.md)
 
 ## How to start local development
 ```bash
@@ -12,6 +13,7 @@ cd .docker && docker compose --env-file ../api/.env up -d
 2. Symfony framework as a backed REST api
     - [x] Xdebug setup to debug both html requests and CLI commands
     - [x] Phpstan in a very strict level
+    - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them)
     - [x] Roave/SecurityAdvisories to prevent using dependencies with known security vulnerabilities
 
 ### XDEBUG setup in PphStorm (with first debug call)
