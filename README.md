@@ -14,7 +14,10 @@ cd .docker && docker compose --env-file ../api/.env up -d
     - [x] Xdebug setup to debug both html requests and CLI commands
     - [x] Phpstan in a very strict level
     - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them)
+    - [x] Psalm
     - [x] Roave/SecurityAdvisories to prevent using dependencies with known security vulnerabilities
+    - [x] PHPUnit
+    - [x] Other linters (Composer, Yaml, Symfony container)
 
 ### XDEBUG setup in PphStorm (with first debug call)
 Xdebug is configured out of the box in container for all CLI commands, for browser I recommend to install [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc), or other similar tool to add XDEBUG_SESSION cookie to requests.
