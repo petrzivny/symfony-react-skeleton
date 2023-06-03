@@ -23,13 +23,6 @@ RUN apk --update add --virtual .build-dependencies $PHPIZE_DEPS linux-headers &&
     apk del .build-dependencies                                               && \
     rm -rf /tmp/* /var/cache/apk/*
 
-## Install mbstring extension
-#RUN apk add --no-cache \
-#    oniguruma-dev \
-#    && docker-php-ext-install mbstring \
-#    && docker-php-ext-enable mbstring \
-#    && rm -rf /tmp/*
-
 # Install opcache extension
 RUN apk add --no-cache \
     && docker-php-ext-install -j$(nproc) opcache \
