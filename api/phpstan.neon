@@ -6,6 +6,9 @@ includes:
 parameters:
     level: max
     paths:
+        - bin
+        - config
+        - public
         - src
         - tests
 
