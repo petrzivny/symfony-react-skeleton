@@ -1,4 +1,6 @@
 {
+    "name": "tetea/symfony-react-skeleton",
+    "description": "A minimal template to start Symfony and React project. Following best practices and defense programming.",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -68,10 +70,16 @@
         "phpcs": "./vendor/bin/phpcs -sp",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1g",
         "vuln": "composer update --dry-run roave/security-advisories",
+        "composer": "composer validate --strict",
+        "yaml": "bin/console lint:yaml --parse-tags config",
+        "container": "bin/console lint:container",
         "test": [
             "@phpcs",
             "@phpstan",
-            "@vuln"
+            "@vuln",
+            "@composer",
+            "@yaml",
+            "@container"
         ]
     },
     "conflict": {
