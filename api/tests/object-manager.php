@@ -9,6 +9,7 @@ use Symfony\Component\Dotenv\Dotenv;
 require dirname(__DIR__) . '/vendor/autoload.php';
 (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
 
+// phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
 $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
 $kernel->boot();
 

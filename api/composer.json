@@ -65,7 +65,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "phpcs": "./vendor/bin/phpcs",
+        "phpcs": "./vendor/bin/phpcs -sp",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1g",
         "vuln": "composer update --dry-run roave/security-advisories",
         "test": [

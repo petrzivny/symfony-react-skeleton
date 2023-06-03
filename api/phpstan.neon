@@ -15,3 +15,5 @@ parameters:
         objectManagerLoader: tests/object-manager.php
 
     tmpDir: var/cache/phpstan
+    ignoreErrors:
+        - message: '#Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.#'
