@@ -23,7 +23,25 @@ RUN apk --update add --virtual .build-dependencies $PHPIZE_DEPS linux-headers &&
     apk del .build-dependencies                                               && \
     rm -rf /tmp/* /var/cache/apk/*
 
+## Install mbstring extension
+#RUN apk add --no-cache \
+#    oniguruma-dev \
+#    && docker-php-ext-install mbstring \
+#    && docker-php-ext-enable mbstring \
+#    && rm -rf /tmp/*
+
+# Install opcache extension
+RUN apk add --no-cache \
+    && docker-php-ext-install -j$(nproc) opcache \
+    && docker-php-ext-enable opcache \
+    && rm -rf /tmp/*
+
 RUN cp /usr/local/etc/php/php.ini-${environment} /usr/local/etc/php/php.ini
+
+# Only for PROD
+#RUN echo "opcache.preload=/var/www/html/var/cache/prod/App_KernelProdContainer.preload.php" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+#RUN echo "opcache.preload_user=www-data" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+# Add JIT var_dump(opcache_get_status()['jit']); https://stitcher.io/blog/php-8-jit-setup
 
 COPY .docker/php/profile.d/aliases.sh /etc/profile.d/
 

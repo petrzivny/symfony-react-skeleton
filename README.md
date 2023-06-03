@@ -11,6 +11,7 @@ cd .docker && docker compose --env-file ../api/.env up -d
 ### What is included out of the box
 1. Docker to run complete dev environment (php + nginx + mysql)
 2. Symfony framework as a backed REST api
+    - [x] Symfony opcache preloading with JIT in prod
     - [x] Xdebug setup to debug both html requests and CLI commands
     - [x] Phpstan in a very strict level
     - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them)
