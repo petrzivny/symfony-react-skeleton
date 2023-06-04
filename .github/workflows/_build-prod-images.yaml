@@ -6,10 +6,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Dump github context
-        run:   echo "$GITHUB_CONTEXT"
-        shell: bash
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: env
 
       - name: Checkout repository
         uses: actions/checkout@v3
