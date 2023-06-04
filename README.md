@@ -43,11 +43,4 @@ xphp bin/console debug:dotenv
 2. git installed
 
 #### Recommended prerequisites
-1. Crete global `.gitignore` file in a parent directory for your project and add `.idea` line in it. This directory created by PhpStorm in every project should not be versioned but should not be included in project's scope .gitignore file either <span style="color:green">*best-practice*</span>.
-- ![#f03c15](https://placehold.co/15x15/f03c15/f03c15.png) `#f03c15`
-
-$${\color{red}Red}$$
-$${\color{red}Red}$$
-
-When $a \ne 0$, there are two solutions to $(ax^2 + bx + c = 0)$ and they are
-$$ x = {-b \pm \sqrt{b^2-4ac} \over 2a} $$
+1. Crete global `.gitignore` file in a parent directory for your project and add `.idea` line in it. This directory created by PhpStorm in every project should not be versioned but should not be included in project's scope .gitignore file either ($${\color{green}best-practice}$$).
