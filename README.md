@@ -43,4 +43,4 @@ xphp bin/console debug:dotenv
 2. git installed
 
 #### Recommended prerequisites
-1. Crete global `.gitignore` file in a parent directory for your project and add `.idea` line in it. This directory created by PhpStorm in every project should not be versioned but should not be included in project's scope .gitignore file either [<span style="color:green">*best-practice*</span>].
+1. Crete global `.gitignore` file in a parent directory for your project and add `.idea` line in it. This directory created by PhpStorm in every project should not be versioned but should not be included in project's scope .gitignore file either <span style="color:green">*best-practice*</span>.
