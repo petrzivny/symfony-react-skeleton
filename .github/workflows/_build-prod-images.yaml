@@ -5,6 +5,12 @@ jobs:
   php:
     runs-on: self-hosted
     steps:
+      - name: Dump github context
+        run:   echo "$GITHUB_CONTEXT"
+        shell: bash
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -17,7 +23,7 @@ jobs:
           context: .
           file: .docker/php/Dockerfile
           target: deployment
-          tags: latest
+          tags: php:latest
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
