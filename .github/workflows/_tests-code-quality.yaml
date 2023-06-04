@@ -60,7 +60,7 @@ jobs:
 
   phpunit:
     runs-on: self-hosted
-    name: Symfony container lint
+    name: Unit tests
     steps:
       - name: Perform test
         run: |

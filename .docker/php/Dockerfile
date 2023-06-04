@@ -65,6 +65,9 @@ COPY api/psalm.xml .
 COPY api/tests tests
 
 RUN echo "APP_ENV=test" > .env
+RUN bin/console cache:clear
+
+
 
 #RUN if [ "$symfony_mode" = "prod" ]; then \
 #      rm -R phpcs.xml.dist phpstan.neon phpunit.xml.dist psalm.xml tests; \
