@@ -6,7 +6,7 @@ jobs:
 
   build-test-images:
     name: Build Test Image
-    uses: ./_build-test-images.yaml
+    uses: _build-test-images.yaml
 #
 #  php-code-quality-tests:
 #    needs: [build-test-image]
