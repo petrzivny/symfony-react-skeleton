@@ -7,17 +7,18 @@ jobs:
   build-test-images:
     name: Build Test Image
     uses: ./.github/workflows/_build-test-images.yaml
-#
-#  php-code-quality-tests:
-#    needs: [build-test-image]
-#    name: PHP Test
-#    uses: ./.github/workflows/_tests-code-quality.yaml
+
+  php-code-quality-tests:
+    needs: [build-test-images]
+    name: PHP Test
+    uses: ./.github/workflows/_tests-code-quality.yaml
 #
 #  react-tests:
 #    name: React tests
 #    uses: ./.github/workflows/_tests-react.yaml
 
   build-prod-images:
+    needs: [php-code-quality-tests]
     name: Build Prod Images
     uses: ./.github/workflows/_build-prod-images.yaml
 
