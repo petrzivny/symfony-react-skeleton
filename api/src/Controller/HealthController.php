@@ -12,8 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use function array_key_exists;
 use function dirname;
 use function file_exists;
+use function file_get_contents;
 use function getenv;
 use function opcache_get_status;
+use function str_contains;
 
 /** @psalm-api */
 final class HealthController extends AbstractController
@@ -33,6 +35,7 @@ final class HealthController extends AbstractController
             'getenv(APP_ENV)' => getenv('APP_ENV') ?: 'NA',
             // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
             '$_ENV[DATABASE_HOST]' => $_ENV['DATABASE_HOST'] ?? 'NA',
+            'php.ini file used' => $this->getPhpIniFileVersion(),
             'connection to DB' => $entityManager->getConnection()->isConnected() ? 'OK' : 'NA',
             'preloadingFile' => $preloadingFile,
             'classesPreloaded' => $classesPreloaded,
@@ -64,5 +67,26 @@ final class HealthController extends AbstractController
         }
 
         return [$preloadingFile, $classesPreloaded];
+    }
+
+    private function getPhpIniFileVersion(): string
+    {
+        $version = 'NA';
+
+        $phpIniFile = file_get_contents('/usr/local/etc/php/php.ini');
+
+        if ($phpIniFile === false) {
+            return $version;
+        }
+
+        if (str_contains($phpIniFile, 'This is the php.ini-production INI file.')) {
+            $version = 'php.ini-production';
+        }
+
+        if (str_contains($phpIniFile, 'This is the php.ini-development INI file.')) {
+            $version = 'php.ini-development';
+        }
+
+        return $version;
     }
 }

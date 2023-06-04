@@ -1,0 +1,20 @@
+services:
+  nginx:
+    build:
+      context: ../
+      dockerfile: .docker/nginx/Dockerfile
+    ports:
+      - "81:80"
+    networks:
+      - public
+
+  php:
+    build:
+      context: ../
+      dockerfile: .docker/php/Dockerfile
+    networks:
+      public:
+        aliases:
+          - php_fpm
+      backend:
+

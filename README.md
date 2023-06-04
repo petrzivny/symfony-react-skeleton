@@ -3,9 +3,15 @@
 
 ## How to start local development
 ```bash
-git clone
-cd .docker && docker compose --env-file ../api/.env up -d
+git clone git@github.com:petrzivny/symfony-react-skeleton.git
+cd symfony-react-skeleton
+mv api/.env.local.dist api/.env.local
+cd .docker && docker compose --env-file ../api/.env.local up -d
+```
 
+### Run production (deployment) version of php and nginx
+```bash
+cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod.yaml up -d
 ```
 
 ### What is included out of the box

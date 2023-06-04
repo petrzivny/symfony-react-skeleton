@@ -8,13 +8,30 @@ RUN apk update                                                          && \
     docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" pdo_mysql   && \
     rm -rf /var/cache/apk/*
 
-ARG environment=development
-
 RUN apk add git                                                          && \
     rm -rf /var/cache/apk/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer;
 
+# Install opcache extension
+RUN apk add --no-cache \
+    && docker-php-ext-install -j$(nproc) opcache \
+    && docker-php-ext-enable opcache \
+    && rm -rf /tmp/*
+
+COPY .docker/php/profile.d/aliases.sh /etc/profile.d/
+
+ARG symfony_mode
+
+RUN #cp /usr/local/etc/php/php.ini-${symfony_mode} /usr/local/etc/php/php.ini
+
+RUN if [ "$symfony_mode" = "dev" ]; \
+    then cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini; \
+    else cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini; \
+    fi
+
+
+FROM base as local
 # Xdebug
 COPY .docker/php/conf.d/ext-xdebug.ini /usr/local/etc/php/conf.d/ext-xdebug.ini
 RUN apk --update add --virtual .build-dependencies $PHPIZE_DEPS linux-headers && \
@@ -23,19 +40,30 @@ RUN apk --update add --virtual .build-dependencies $PHPIZE_DEPS linux-headers &&
     apk del .build-dependencies                                               && \
     rm -rf /tmp/* /var/cache/apk/*
 
-# Install opcache extension
-RUN apk add --no-cache \
-    && docker-php-ext-install -j$(nproc) opcache \
-    && docker-php-ext-enable opcache \
-    && rm -rf /tmp/*
+FROM base as deployment
+COPY api/composer.lock api/composer.json ./
 
-RUN cp /usr/local/etc/php/php.ini-${environment} /usr/local/etc/php/php.ini
+RUN if [ "$symfony_mode" = "dev" ]; \
+    then composer i --no-progress --no-scripts --ansi && composer clear-cache; \
+    else composer i --no-dev --no-progress --no-scripts --ansi && composer clear-cache; \
+    fi
+
+COPY api/bin bin
+COPY api/config config
+COPY api/migrations migrations
+COPY api/public public
+COPY api/src src
+COPY api/.env .
+
 
 # Only for PROD
+#RUN if [ "$symfony_mode" = "prod" ]; then  \
+#      COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative; \
+#      COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod; \
+#    fi
+#
+#RUN bin/console cache:clear --env $symfony_mode
+
 #RUN echo "opcache.preload=/var/www/html/var/cache/prod/App_KernelProdContainer.preload.php" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 #RUN echo "opcache.preload_user=www-data" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 # Add JIT var_dump(opcache_get_status()['jit']); https://stitcher.io/blog/php-8-jit-setup
-
-COPY .docker/php/profile.d/aliases.sh /etc/profile.d/
-
-CMD ["php-fpm"]
