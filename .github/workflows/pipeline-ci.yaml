@@ -24,7 +24,7 @@ jobs:
 
   cleanup:
     if: success() || failure()
-    needs: [php-code-quality-tests]
+#    needs: [php-code-quality-tests]
     runs-on: self-hosted
     steps:
       - name: Remove php test docker image
