@@ -17,7 +17,7 @@ cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod
 ### What is included out of the box
 1. Docker to run complete dev environment (php + nginx + mysql)
 2. Symfony framework as a backed REST api
-    - [x] Symfony opcache preloading with JIT in prod [<span style="color:orange">*performance*</span>]
+    - [x] Symfony opcache preloading with JIT in prod (_performance_ ⏩)
     - [x] Xdebug setup to debug both html requests and CLI commands
     - [x] Phpstan in a very strict level
     - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them)
@@ -43,4 +43,4 @@ xphp bin/console debug:dotenv
 2. git installed
 
 #### Recommended prerequisites
-1. Crete global `.gitignore` file in a parent directory for your project and add `.idea` line in it. This directory created by PhpStorm in every project should not be versioned but should not be included in project's scope .gitignore file either (💽 best-practice).
+1. Crete global `.gitignore` file in a parent directory for your project and add `.idea` line in it. This directory created by PhpStorm in every project should not be versioned but should not be included in project's scope .gitignore file either (_best-practice_ 👍).
