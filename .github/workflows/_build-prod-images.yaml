@@ -5,8 +5,8 @@ jobs:
   php:
     runs-on: self-hosted
     steps:
-      - name: Dump github context
-        run: env
+#      - name: Dump github context
+#        run: env
 
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
           context: .
           file: .docker/php/Dockerfile
           target: deployment
-          tags: php:latest
+          tags: ${{ github.repository }}-php:latest
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
