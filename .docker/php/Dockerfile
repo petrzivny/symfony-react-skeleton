@@ -56,6 +56,18 @@ COPY api/src src
 COPY api/.env .
 
 
+FROM deployment as ci-pipeline-test
+COPY api/.env.test .
+COPY api/phpcs.xml.dist .
+COPY api/phpstan.neon .
+COPY api/phpunit.xml.dist .
+COPY api/psalm.xml .
+COPY api/tests tests
+
+#RUN if [ "$symfony_mode" = "prod" ]; then \
+#      rm -R phpcs.xml.dist phpstan.neon phpunit.xml.dist psalm.xml tests; \
+#    fi
+
 # Only for PROD
 #RUN if [ "$symfony_mode" = "prod" ]; then  \
 #      COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative; \
