@@ -4,9 +4,9 @@ on: [push]
 
 jobs:
 
-#  build-test-image:
-#    name: Build Test Image
-#    uses: ./.github/workflows/_build-test-image.yaml
+  build-test-images:
+    name: Build Test Image
+    uses: ./_build-test-images.yaml
 #
 #  php-code-quality-tests:
 #    needs: [build-test-image]
