@@ -5,24 +5,33 @@ jobs:
   php:
     runs-on: self-hosted
     steps:
-#      - name: Dump github context
-#        run: env
-
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build and export to Docker
+      - name: Build and export to Docker - php
         uses: docker/build-push-action@v3
         with:
           context: .
           file: .docker/php/Dockerfile
           target: deployment
-          tags: ${{ github.repository }}-php:latest
+          tags: ${{ github.repository }}/php:latest
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
           build-args: |
             symfony_mode=prod
+
+      - name: Build and export to Docker - nginx
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: .docker/nginx/Dockerfile
+          target: deployment
+          tags: ${{ github.repository }}/nginx:latest
+          load: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
+
