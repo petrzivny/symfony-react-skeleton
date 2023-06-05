@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} ./vendor/bin/phpcs --warning-severity=0
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer phpcs
 
   phpstan:
     runs-on: self-hosted
@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} ./vendor/bin/phpstan analyse --debug          
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer phpstan          
           
   psalm:
     runs-on: self-hosted
@@ -58,10 +58,10 @@ jobs:
         run: |
           docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer container          
 
-  phpunit:
+  unit:
     runs-on: self-hosted
     name: Unit tests
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer phpunit  
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer unit  

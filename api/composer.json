@@ -83,7 +83,8 @@
         "composer": "composer validate --strict",
         "yaml": "bin/console lint:yaml --parse-tags config",
         "container": "bin/console lint:container",
-        "phpunit": "php bin/phpunit --testdox",
+        "unit": "php bin/phpunit tests/Unit --testdox",
+        "functional": "php bin/phpunit tests/Functional --testdox",
         "test": [
             "@phpcs",
             "@phpstan",

@@ -22,9 +22,6 @@ RUN apk add --no-cache \
 COPY .docker/php/profile.d/aliases.sh /etc/profile.d/
 
 ARG symfony_mode
-
-RUN #cp /usr/local/etc/php/php.ini-${symfony_mode} /usr/local/etc/php/php.ini
-
 RUN if [ "$symfony_mode" = "dev" ]; \
     then cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini; \
     else cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini; \
@@ -39,6 +36,7 @@ RUN apk --update add --virtual .build-dependencies $PHPIZE_DEPS linux-headers &&
     docker-php-ext-enable xdebug                                              && \
     apk del .build-dependencies                                               && \
     rm -rf /tmp/* /var/cache/apk/*
+
 
 FROM base as deployment
 COPY api/composer.lock api/composer.json ./
@@ -69,11 +67,7 @@ RUN bin/console cache:clear
 
 
 
-#RUN if [ "$symfony_mode" = "prod" ]; then \
-#      rm -R phpcs.xml.dist phpstan.neon phpunit.xml.dist psalm.xml tests; \
-#    fi
-
-# Only for PROD
+# Only for PROD after deploy
 #RUN if [ "$symfony_mode" = "prod" ]; then  \
 #      COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative; \
 #      COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod; \

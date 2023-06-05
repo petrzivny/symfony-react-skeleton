@@ -11,7 +11,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Build and export to Docker - php
+      - name: Build and load to local docker images - php
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -24,7 +24,7 @@ jobs:
           build-args: |
             symfony_mode=prod
 
-      - name: Build and export to Docker - nginx
+      - name: Build and load to local docker images - nginx
         uses: docker/build-push-action@v3
         with:
           context: .
