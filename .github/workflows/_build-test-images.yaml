@@ -16,22 +16,10 @@ jobs:
         with:
           context: .
           file: .docker/php/Dockerfile
-          target: deployment
-          tags: ${{ github.repository }}/php:latest
+          target: ci-pipeline-test
+          tags: ${{ github.repository }}/php-test:${{ github.sha }}
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
           build-args: |
-            symfony_mode=prod
-
-      - name: Build and load to local docker images - nginx
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: .docker/nginx/Dockerfile
-          target: deployment
-          tags: ${{ github.repository }}/nginx:latest
-          load: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
-
+            symfony_mode=dev

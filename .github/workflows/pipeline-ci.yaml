@@ -4,23 +4,19 @@ on: [push]
 
 jobs:
 
-#  build-test-image:
-#    name: Build Test Image
-#    uses: ./.github/workflows/_build-test-image.yaml
-#
-#  php-code-quality-tests:
-#    needs: [build-test-image]
-#    name: PHP Test
-#    uses: ./.github/workflows/_tests-code-quality.yaml
-#
-#  react-tests:
-#    name: React tests
-#    uses: ./.github/workflows/_tests-react.yaml
+  build-test-images:
+    name: Build Test Image
+    uses: ./.github/workflows/_build-test-images.yaml
+
+  php-code-quality-tests:
+    needs: [build-test-images]
+    name: PHP Test
+    uses: ./.github/workflows/_tests-code-quality.yaml
 
   build-prod-images:
+    needs: [php-code-quality-tests]
     name: Build Prod Images
     uses: ./.github/workflows/_build-prod-images.yaml
-
 
   cleanup:
     if: success() || failure()
@@ -29,4 +25,4 @@ jobs:
     steps:
       - name: Remove php test docker image
         run: |
-          docker image rm php-test:${{ github.sha }}
+          docker image rm ${{ github.repository }}/php-test:${{ github.sha }}

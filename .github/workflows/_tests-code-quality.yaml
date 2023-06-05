@@ -1,0 +1,67 @@
+on:
+  workflow_call:
+
+jobs:
+  phpcs:
+    runs-on: self-hosted
+    name: PHP_CodeSniffer
+    steps:
+      - name: Perform test
+        run: |
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer phpcs
+
+  phpstan:
+    runs-on: self-hosted
+    name: PHPStan
+    steps:
+      - name: Perform test
+        run: |
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer phpstan          
+          
+  psalm:
+    runs-on: self-hosted
+    name: Psalm
+    steps:
+      - name: Perform test
+        run: |
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer psalm 
+
+  vulnerabilities:
+    runs-on: self-hosted
+    name: Vendors scan (SAST)
+    steps:
+      - name: Perform test
+        run: |
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer vuln           
+
+  composer:
+    runs-on: self-hosted
+    name: Composer
+    steps:
+      - name: Perform test
+        run: |
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer validate --strict
+
+  yaml:
+    runs-on: self-hosted
+    name: Yaml lint
+    steps:
+      - name: Perform test
+        run: |
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer yaml
+
+  symfony_container:
+    runs-on: self-hosted
+    name: Symfony container lint
+    steps:
+      - name: Perform test
+        run: |
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer container          
+
+  unit:
+    runs-on: self-hosted
+    name: Unit tests
+    steps:
+      - name: Perform test
+        run: |
+          docker run --rm ${{ github.repository }}/php-test:${{ github.sha }} composer unit  
