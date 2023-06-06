@@ -18,6 +18,11 @@ jobs:
     name: Build Prod Images
     uses: ./.github/workflows/_build-prod-images.yaml
 
+  push-prod-images:
+    needs: [build-prod-images]
+    name: Push Prod Images
+    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+
   cleanup:
     if: success() || failure()
     needs: [php-code-quality-tests]

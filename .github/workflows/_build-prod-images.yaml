@@ -1,3 +1,9 @@
+# To use this and subsequent jobs you need to fulfill all following requirements:
+# 1. Create REGISTRY_NAME configuration variable in your GitHub (see https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository),
+#    e.g. for a GCP the variable should have a value "{LOCATION}-docker.pkg.dev/{PROJECT-ID}/{REPOSITORY}" (see https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling#tag)
+# 2. Make sure your self-hosted GitHub runner is authenticated to your registry provider and has sufficient rights to push.
+#    (e.g. for a GCP see https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling#auth)
+
 on:
   workflow_call:
 
@@ -17,7 +23,7 @@ jobs:
           context: .
           file: .docker/php/Dockerfile
           target: deployment
-          tags: ${{ github.repository }}/php:latest
+          tags: ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/php
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
@@ -30,7 +36,7 @@ jobs:
           context: .
           file: .docker/nginx/Dockerfile
           target: deployment
-          tags: ${{ github.repository }}/nginx:latest
+          tags: ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/nginx
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache

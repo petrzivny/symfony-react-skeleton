@@ -1,0 +1,15 @@
+on:
+  workflow_call:
+
+jobs:
+  all:
+    runs-on: self-hosted
+    name: Yaml lint
+    steps:
+      - name: Push php image
+        run: |
+          docker push ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/php
+
+      - name: Push nginx image
+        run: |
+          docker push ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/nginx
