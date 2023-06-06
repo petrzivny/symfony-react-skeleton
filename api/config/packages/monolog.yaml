@@ -50,7 +50,8 @@ when@prod:
                 type: stream
                 path: php://stderr
                 level: debug
-                formatter: monolog.formatter.json
+#                formatter: monolog.formatter.json
+                formatter: Monolog\Formatter\GoogleCloudLoggingFormatter
             console:
                 type: console
                 process_psr_3_messages: false
