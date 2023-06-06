@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-deployment
+  labels:
+    app.kubernetes.io/name: php
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: php-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: php-app
+    spec:
+      containers:
+        - name: php
+          image: europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/php
+          ports:
+            - containerPort: 9000
+          env:
+            - name: DATABASE_HOST
+              value: "placeholder-k8"
+            - name: DATABASE_SERVER_VERSION
+              value: "placeholder-k8"
+            - name: DATABASE_PORT
+              value: "placeholder-k8"
+            - name: DATABASE_NAME
+              value: "placeholder-k8"
+            - name: DATABASE_USER
+              value: "placeholder-k8"
+            - name: DATABASE_PASSWORD
+              value: "placeholder-k8"
+            - name: DATABASE_ROOT_PASSWORD
+              value: "placeholder-k8"
+
