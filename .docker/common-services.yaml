@@ -15,6 +15,6 @@ services:
     networks:
       public:
         aliases:
-          - php_fpm
+          - php-fpm
       backend:
 

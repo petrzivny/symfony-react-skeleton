@@ -30,6 +30,10 @@ cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod
     - [x] Run all tests from point 2 on final (test) docker image (_best-practice_ 👍).
     - [x] If everything passes there are php and nginx environment agnostic (_best-practice_ 👍) containers ready to be shipped into any environment (including prod of course).
     - [x] Pipeline expects self-hosted GitHub runner(s). [See](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners) for more information.
+4. DevOps: Kubernetes deploy manifests
+    - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy` dir to deploy to your environment (just a test, not production ready!).
+    - [x] One pod for nginx, one pod for php for better scalability (_best-practice_ 👍).
+    - [x] Ingress to connect your kubernetes cluster with outside world (you can use platform Load Balancer, but it is usually billed).
 
 ### XDEBUG setup in PphStorm (with first debug call)
 Xdebug is configured out-of-the-box in container for all CLI commands, for browser I recommend to install [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc), or other similar tool to add XDEBUG_SESSION cookie to requests.
