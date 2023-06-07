@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: nginx
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app.kubernetes.io/name: web-server
@@ -18,4 +18,4 @@ spec:
         - name: nginx
           image: europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/nginx
           ports:
-            - containerPort: 80
+            - containerPort: 8080
