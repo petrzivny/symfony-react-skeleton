@@ -26,6 +26,8 @@ cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod
     - [x] PHPUnit Unit tests.
     - [x] PHPUnit Functional tests (including smoke tests).
     - [x] Other linters (Composer, Yaml, Symfony container).
+    - [x] Php-fpm access proper logging (json format, GCP [LogEntry](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) compatible, correct severity, trying to fix https://bugs.php.net/bug.php?id=73886)
+    - [x] Symfony monolog proper logging (json format, GCP compatible using GoogleCloudLoggingFormatter)
 3. DevOps: CI pipeline to build both test and prod images
     - [x] Run all tests from point 2 on final (test) docker image (_best-practice_ 👍).
     - [x] If everything passes there are php and nginx environment agnostic (_best-practice_ 👍) containers ready to be shipped into any environment (including prod of course).

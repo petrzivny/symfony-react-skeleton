@@ -27,6 +27,8 @@ RUN if [ "$symfony_mode" = "dev" ]; \
     else cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini; \
     fi
 
+COPY .docker/php/conf.d/docker.conf /usr/local/etc/php-fpm.d/docker.conf
+
 
 FROM base as local
 # Xdebug
