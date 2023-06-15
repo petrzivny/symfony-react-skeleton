@@ -84,7 +84,7 @@
     <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing" />
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch" />
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty" />
-    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowNullSafeObjectOperator" />
+<!--    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowNullSafeObjectOperator" />-->
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowTrailingMultiLineTernaryOperator" />
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison" />
     <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit" />
@@ -147,10 +147,10 @@
 <!--        </properties>-->
     </rule>
     <rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile" />
-    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses" >
-<!--        <properties>-->
-<!--            <property name="searchAnnotations" value="true" />-->
-<!--        </properties>-->
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <property name="searchAnnotations" value="true" />
+        </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash" />
     <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace" />
@@ -226,6 +226,9 @@
     <rule ref="PEAR.Functions.ValidDefaultValue"/>
     <rule ref="PSR2.Files.EndFileNewline"/>
     <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
+        <severity>0</severity>
+    </rule>
     <rule ref="Zend.Files.ClosingTag"/>
     <rule ref="Zend.Debug.CodeAnalyzer"/>
 

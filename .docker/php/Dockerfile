@@ -8,7 +8,7 @@ RUN apk update                                                          && \
     docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" pdo_mysql   && \
     rm -rf /var/cache/apk/*
 
-RUN apk add git                                                          && \
+RUN apk add git acl           && \
     rm -rf /var/cache/apk/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer;
@@ -29,6 +29,10 @@ RUN if [ "$symfony_mode" = "dev" ]; \
 
 COPY .docker/php/conf.d/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 
+# Install bcmath extension
+RUN apk add --no-cache                        && \
+    docker-php-ext-install -j$(nproc) bcmath  && \
+    rm -rf /tmp/*
 
 FROM base as local
 # Xdebug
@@ -68,14 +72,6 @@ RUN echo "APP_ENV=test" > .env
 RUN bin/console cache:clear
 
 
-
-# Only for PROD after deploy
-#RUN if [ "$symfony_mode" = "prod" ]; then  \
-#      COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative; \
-#      COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod; \
-#    fi
-#
-#RUN bin/console cache:clear --env $symfony_mode
 
 #RUN echo "opcache.preload=/var/www/html/var/cache/prod/App_KernelProdContainer.preload.php" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 #RUN echo "opcache.preload_user=www-data" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
