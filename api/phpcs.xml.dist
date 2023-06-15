@@ -226,6 +226,9 @@
     <rule ref="PEAR.Functions.ValidDefaultValue"/>
     <rule ref="PSR2.Files.EndFileNewline"/>
     <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
+        <severity>0</severity>
+    </rule>
     <rule ref="Zend.Files.ClosingTag"/>
     <rule ref="Zend.Debug.CodeAnalyzer"/>
 

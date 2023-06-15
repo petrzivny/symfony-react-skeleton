@@ -29,6 +29,10 @@ RUN if [ "$symfony_mode" = "dev" ]; \
 
 COPY .docker/php/conf.d/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 
+# Install bcmath extension
+RUN apk add --no-cache                        && \
+    docker-php-ext-install -j$(nproc) bcmath  && \
+    rm -rf /tmp/*
 
 FROM base as local
 # Xdebug
@@ -53,6 +57,7 @@ COPY api/config config
 COPY api/migrations migrations
 COPY api/public public
 COPY api/src src
+COPY api/templates templates
 COPY api/.env .
 
 
@@ -68,14 +73,6 @@ RUN echo "APP_ENV=test" > .env
 RUN bin/console cache:clear
 
 
-
-# Only for PROD after deploy
-#RUN if [ "$symfony_mode" = "prod" ]; then  \
-#      COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative; \
-#      COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod; \
-#    fi
-#
-#RUN bin/console cache:clear --env $symfony_mode
 
 #RUN echo "opcache.preload=/var/www/html/var/cache/prod/App_KernelProdContainer.preload.php" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 #RUN echo "opcache.preload_user=www-data" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
