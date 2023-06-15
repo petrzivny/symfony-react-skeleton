@@ -14,24 +14,13 @@ spec:
       labels:
         app.kubernetes.io/name: php-app
     spec:
+      serviceAccountName: mypodserviceaccount
       containers:
         - name: php
           image: europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/php
           ports:
             - containerPort: 9000
-          env:
-            - name: DATABASE_HOST
-              value: "placeholder-k8"
-            - name: DATABASE_SERVER_VERSION
-              value: "placeholder-k8"
-            - name: DATABASE_PORT
-              value: "placeholder-k8"
-            - name: DATABASE_NAME
-              value: "placeholder-k8"
-            - name: DATABASE_USER
-              value: "placeholder-k8"
-            - name: DATABASE_PASSWORD
-              value: "placeholder-k8"
-            - name: DATABASE_ROOT_PASSWORD
-              value: "placeholder-k8"
-
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "bin/postdeploy.sh"]

@@ -8,7 +8,7 @@ RUN apk update                                                          && \
     docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" pdo_mysql   && \
     rm -rf /var/cache/apk/*
 
-RUN apk add git                                                          && \
+RUN apk add git acl           && \
     rm -rf /var/cache/apk/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer;

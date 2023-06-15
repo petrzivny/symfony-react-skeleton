@@ -6,6 +6,20 @@
 parameters:
     placeholder: "**placeholder**"
 
+    #   app.env-variable-templates is consumed by secrets:external:decrypt-to-file command. Format:
+    #   ENV_NAME:
+    #       secretName - specify a name used in external vault, if you omit this, environmental name is used as default
+    #       secretVersion - specify a version of secret used in external vault, if you omit this, "latest" is used as default
+    app.env-variable-templates:
+        DATABASE_HOST:
+            secretName: 'DATABASE_HOST'
+            secretVersion: 'latest' # latest is actually default if you omit secretVersion
+        DATABASE_NAME:
+            secretName: 'DATABASE_NAME'
+        DATABASE_USER:
+            secretVersion: 'latest'
+        DATABASE_PASSWORD:
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -25,3 +39,7 @@ services:
     # please note that last definitions always *replace* previous ones
 
     Monolog\Formatter\GoogleCloudLoggingFormatter:
+
+    App\Service\GcpExternalSecretsRetriever:
+        arguments:
+            $template: '%app.env-variable-templates%'
