@@ -57,7 +57,6 @@ COPY api/config config
 COPY api/migrations migrations
 COPY api/public public
 COPY api/src src
-COPY api/templates templates
 COPY api/.env .
 
 
