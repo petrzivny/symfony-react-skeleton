@@ -11,6 +11,7 @@ setfacl -dR -m u:"$HTTPD_USER":rwX -m u:"$CONSOLE_USER":rwX var
 setfacl -R -m u:"$HTTPD_USER":rwX -m u:"$CONSOLE_USER":rwX var
 setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .
 
+# Comment next line if you don't want to use GCP Secret Manager
 bin/console secrets:external:decrypt-to-file $GCP_SECRET_MANAGER_PROJECT_ID
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod
