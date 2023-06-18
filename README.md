@@ -15,12 +15,10 @@ cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod
 ```
 
 ### Deploy to GCP cloud (this example is configured out-of-the-box for [this infrastructure](https://github.com/petrzivny/infrastructure))
-```bash
-# Prepare your infrastructure (or use mentioned infrastructure template)
-cd .deploy
-# edit Chart.yaml and values.yaml files (use outputs from infrastructure terraform provisioning
-helm install {your-app-name} . --namespace {app_k8_namespace outout from terraform} --create-namespace
-```
+1. Provision your infrastructure by using mentioned infrastructure template. Save output values from terraform apply. You will use them in point 3. and 4. (or use your own infrastructure).
+2. `cd .deploy`
+3. Edit Chart.yaml and values.yaml files (use outputs from infrastructure terraform provisioning).
+4. `helm install your-app-name . --namespace {app_k8_namespace} --create-namespace`
 
 ### What is included out-of-the-box
 1. Docker to run complete dev environment (php + nginx + mysql)

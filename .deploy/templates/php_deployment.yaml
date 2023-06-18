@@ -15,7 +15,7 @@ spec:
         app.kubernetes.io/name: php-app
     spec:
       # Comment next line if you don't want to use GCP Secret Manager
-      serviceAccountName: {{ .Values.k8ServiceAccountName }}
+      serviceAccountName: {{ .Values.app_k8_service_account_name }}
       containers:
         - name: php
           image: {{ .Values.image.repository }}/{{.Chart.Name}}/php
