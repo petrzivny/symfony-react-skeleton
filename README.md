@@ -1,6 +1,8 @@
 - [PHPStan usage](documentation%2Fphpstan%2FREADME.md)
 - [PHP_CodeSniffer usage](documentation%2Fphpcs%2FREADME.md)
 
+:warning: **This project is in work in progress state**: For example React (FE) is not implemented so far. Symfony (BE) and DevOps is functional. See [What is included out-of-the-box](what-is-included-out-of-the-box) section for what is already included.
+
 ## How to start local development
 ```bash
 git clone git@github.com:petrzivny/symfony-react-skeleton.git
