@@ -12,7 +12,7 @@ spec:
       port:
         number: 8080
   rules:
-    - host: "*.bungo.cz"
+    - host: {{ .Values.host | quote }}
       http:
         paths:
           - path: /

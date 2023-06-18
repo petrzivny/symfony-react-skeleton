@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php-deployment
+  name: php
   labels:
     app.kubernetes.io/name: php
 spec:
@@ -15,10 +15,10 @@ spec:
         app.kubernetes.io/name: php-app
     spec:
       # Comment next line if you don't want to use GCP Secret Manager
-      serviceAccountName: gcp-secret-manager-binding-service-account
+      serviceAccountName: {{ .Values.k8ServiceAccountName }}
       containers:
         - name: php
-          image: europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/php
+          image: {{ .Values.image.repository }}/{{.Chart.Name}}/php
           ports:
             - containerPort: 9000
           lifecycle:

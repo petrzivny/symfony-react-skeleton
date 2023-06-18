@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: nginx
   labels:
     app.kubernetes.io/name: nginx
 spec:
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/nginx
+          image: {{ .Values.image.repository }}/{{.Chart.Name}}/nginx
           ports:
             - containerPort: 8080

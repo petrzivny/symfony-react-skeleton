@@ -9,9 +9,17 @@ mv api/.env.local.dist api/.env.local
 cd .docker && docker compose --env-file ../api/.env.local up -d
 ```
 
-### Run production (deployment) version of php and nginx
+### Run production (deployment) version of php and nginx locally
 ```bash
 cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod.yaml up -d
+```
+
+### Deploy to GCP cloud (this example is configured out-of-the-box for [this infrastructure](https://github.com/petrzivny/infrastructure))
+```bash
+# Prepare your infrastructure (or use mentioned infrastructure template)
+cd .deploy
+# edit Chart.yaml and values.yaml files (use outputs from infrastructure terraform provisioning
+helm install {your-app-name} . --namespace {app_k8_namespace outout from terraform} --create-namespace
 ```
 
 ### What is included out-of-the-box
