@@ -69,7 +69,7 @@ COPY api/phpunit.xml.dist .
 COPY api/psalm.xml .
 COPY api/tests tests
 
-RUN echo "APP_ENV=test" > .env
+RUN echo "APP_ENV=test" > .env.local
 RUN bin/console cache:clear
 
 
