@@ -116,9 +116,9 @@
     <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction" />
     <rule ref="SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse" />
     <rule ref="SlevomatCodingStandard.Functions.FunctionLength" >
-<!--        <properties>-->
-<!--            <property name="maxLinesLength" value="30" />-->
-<!--        </properties>-->
+        <properties>
+            <property name="maxLinesLength" value="25" />
+        </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction" />
     <rule ref="SlevomatCodingStandard.Functions.RequireMultiLineCall" >

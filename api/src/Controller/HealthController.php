@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Throwable;
 
 use function array_key_exists;
 use function dirname;
@@ -20,11 +23,26 @@ use function str_contains;
 /** @psalm-api */
 final class HealthController extends AbstractController
 {
+    #[Route('/', name: 'default')]
+    public function default(): JsonResponse
+    {
+        return $this->json(1);
+    }
+
     #[Route('/health', name: 'api_health')]
     public function index(EntityManagerInterface $entityManager): JsonResponse
     {
         // to force connect to DB
-        $entityManager->getConnection()->getNativeConnection();
+
+        try {
+            $entityManager->getConnection()->getNativeConnection();
+            $connectionDb = $entityManager->getConnection()->isConnected()
+                ? 'OK'
+                : 'NA'
+            ;
+        } catch (Throwable $throwable) {
+            $connectionDb = $throwable->getMessage();
+        }
 
         [$preloadingFile, $classesPreloaded] = $this->getPreloadInfo();
 
@@ -34,12 +52,31 @@ final class HealthController extends AbstractController
             '$_ENV[APP_ENV]' => $_ENV['APP_ENV'] ?? 'NA',
             'getenv(APP_ENV)' => getenv('APP_ENV') ?: 'NA',
             // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+            '$_ENV[DATABASE_NAME]' => $_ENV['DATABASE_NAME'] ?? 'NA',
+            'getenv(DATABASE_NAME)' => getenv('DATABASE_NAME') ?: 'NA',
+            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
             '$_ENV[DATABASE_HOST]' => $_ENV['DATABASE_HOST'] ?? 'NA',
+            'getenv(DATABASE_HOST)' => getenv('DATABASE_HOST') ?: 'NA',
             'php.ini file used' => $this->getPhpIniFileVersion(),
-            'connection to DB' => $entityManager->getConnection()->isConnected() ? 'OK' : 'NA',
+            'connection to DB' => $connectionDb,
             'preloadingFile' => $preloadingFile,
             'classesPreloaded' => $classesPreloaded,
         ]);
+    }
+
+    #[Route('/test', name: 'test')]
+    public function test(LoggerInterface $logger): Response
+    {
+        $logger->debug('DEBUG message');
+        $logger->info('INFO message');
+        $logger->notice('NOTICE message');
+        $logger->warning('WARNING message');
+        $logger->error('ERROR message');
+        $logger->critical('CRITICAL message');
+        $logger->alert('ALERT message');
+        $logger->emergency('EMERGENCY message');
+
+        return new Response('test');
     }
 
     /** @return array<int, int|string> */

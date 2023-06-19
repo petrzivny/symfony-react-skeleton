@@ -2,10 +2,11 @@ FROM php:8.2-fpm-alpine as base
 
 LABEL maintainer="Petr Zivny | Totea (zivny@totea.cz)"
 
-# PDO MySQL
-# Driver to enable access from PHP to MySQL databases. Implements PDO (doesn't need it). $dbh = new PDO($dsn, $user, $password);
+# PDO PgSQL
+# Driver to enable access from PHP to Postgres databases. Implements PDO (doesn't need it).
 RUN apk update                                                          && \
-    docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" pdo_mysql   && \
+    apk add libpq-dev                                                   && \
+    docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" pdo_pgsql   && \
     rm -rf /var/cache/apk/*
 
 RUN apk add git acl           && \
