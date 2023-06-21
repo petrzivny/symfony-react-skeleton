@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: web-server
+        date: "{{ now | unixEpoch }}"  # replace :latest with :commit-sha in CI build process
     spec:
       containers:
         - name: nginx

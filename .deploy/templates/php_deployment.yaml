@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: php-app
+        date: "{{ now | unixEpoch }}"  # replace :latest with :commit-sha in CI build process
     spec:
       # Comment next line if you don't want to use GCP Secret Manager
       serviceAccountName: {{ .Values.app_k8_service_account_name }}
