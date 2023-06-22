@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
 
@@ -58,25 +56,10 @@ final class HealthController extends AbstractController
             '$_ENV[DATABASE_HOST]' => $_ENV['DATABASE_HOST'] ?? 'NA',
             'getenv(DATABASE_HOST)' => getenv('DATABASE_HOST') ?: 'NA',
             'php.ini file used' => $this->getPhpIniFileVersion(),
-            'connection to DB' => $connectionDb,
+            'connectionToDb' => $connectionDb,
             'preloadingFile' => $preloadingFile,
             'classesPreloaded' => $classesPreloaded,
         ]);
-    }
-
-    #[Route('/test', name: 'test')]
-    public function test(LoggerInterface $logger): Response
-    {
-        $logger->debug('DEBUG message');
-        $logger->info('INFO message');
-        $logger->notice('NOTICE message');
-        $logger->warning('WARNING message');
-        $logger->error('ERROR message');
-        $logger->critical('CRITICAL message');
-        $logger->alert('ALERT message');
-        $logger->emergency('EMERGENCY message');
-
-        return new Response('test');
     }
 
     /** @return array<int, int|string> */
