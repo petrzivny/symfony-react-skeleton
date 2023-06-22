@@ -3,6 +3,10 @@
 
 :warning: **This project is in work in progress state**: For example React (FE) is not implemented so far. Symfony (BE) and DevOps is functional. See [What is included out-of-the-box](#what-is-included-out-of-the-box) section for what is already included.
 
+### Prerequisites
+1. [Docker (and docker compose) installed. You don't need Docker Desktop for this project.](https://docs.docker.com/engine/install/)
+2. npm? node? npm install -g npm@latest
+
 ## How to start local development
 ```bash
 git clone git@github.com:petrzivny/symfony-react-skeleton.git
@@ -25,25 +29,33 @@ cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod
 ### What is included out-of-the-box
 1. Docker to run complete dev environment (php + nginx + PostgreSQL)
 2. Symfony framework as a backed REST api
-    - [x] Symfony opcache preloading with JIT in prod (_performance_ ⏩).
-    - [x] Xdebug setup to debug both html requests and CLI commands.
-    - [x] Phpstan in a very strict level.
-    - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them).
-    - [x] Psalm.
-    - [x] Roave/SecurityAdvisories to prevent using dependencies with known security vulnerabilities.
-    - [x] PHPUnit Unit tests.
-    - [x] PHPUnit Functional tests (including smoke tests).
-    - [x] Other linters (Composer, Yaml, Symfony container).
-    - [x] Php-fpm access proper logging (json format, GCP [LogEntry](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) compatible, correct severity, trying to fix https://bugs.php.net/bug.php?id=73886)
-    - [x] Symfony monolog proper logging (json format, GCP compatible using GoogleCloudLoggingFormatter)
-3. DevOps: CI pipeline to build both test and prod images, test them and push prod images to registry
-    - [x] Run all tests from point 2 on final (test) docker image (_best-practice_ 👍).
-    - [x] If everything passes there are php and nginx environment agnostic (_best-practice_ 👍) containers ready to be shipped into any environment (including prod of course).
-    - [x] Pipeline expects self-hosted GitHub runner(s). [See](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners) for more information.
-4. DevOps: Kubernetes deploy manifests
-    - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy` dir to deploy to your environment (just a test, not production ready!).
-    - [x] One pod for nginx, one pod for php for better scalability (_best-practice_ 👍).
-    - [x] Ingress to connect your kubernetes cluster with outside world (you can use platform Load Balancer, but it is usually billed).
+   - Independent on any used frontend. Communicating via REST (_best-practice_ 🎯)
+   - [x] Symfony opcache preloading with JIT in prod (_performance_ ⏩).
+   - [x] Xdebug setup to debug both html requests and CLI commands.
+   - [x] Phpstan in a very strict level.
+   - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them).
+   - [x] Psalm.
+   - [x] Roave/SecurityAdvisories to prevent using dependencies with known security vulnerabilities.
+   - [x] PHPUnit Unit tests.
+   - [x] PHPUnit Functional tests (including smoke tests).
+   - [x] Other linters (Composer, Yaml, Symfony container).
+   - [x] Php-fpm access proper logging (json format, GCP [LogEntry](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) compatible, correct severity, trying to fix https://bugs.php.net/bug.php?id=73886)
+   - [x] Symfony monolog proper logging (json format, GCP compatible using GoogleCloudLoggingFormatter)
+3. React framework as a frontend SPA
+   - Independent on any used backend. Communicating via REST (_best-practice_ 🎯)
+   - [x] Typescript
+   - [x] Eslint
+   - [x] Vite
+   - [x] wsc (should be 20x faster than Babel but see the current [caveats](https://github.com/vitejs/vite-plugin-react-swc#caveats))
+   - [x] Prettier
+4. DevOps: CI pipeline to build both test and prod images, test them and push prod images to registry
+   - [x] Run all tests from point 2 on final (test) docker image (_best-practice_ 👍).
+   - [x] If everything passes there are php and nginx environment agnostic (_best-practice_ 👍) containers ready to be shipped into any environment (including prod of course).
+   - [x] Pipeline expects self-hosted GitHub runner(s). [See](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners) for more information.
+5. DevOps: Kubernetes deploy manifests
+   - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy` dir to deploy to your environment (just a test, not production ready!).
+   - [x] One pod for nginx, one pod for php for better scalability (_best-practice_ 👍).
+   - [x] Ingress to connect your kubernetes cluster with outside world (you can use platform Load Balancer, but it is usually billed).
 
 ### XDEBUG setup in PphStorm (with first debug call)
 Xdebug is configured out-of-the-box in container for all CLI commands, for browser I recommend to install [Xdebug helper](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc), or other similar tool to add XDEBUG_SESSION cookie to requests.
@@ -65,3 +77,9 @@ xphp bin/console debug:dotenv
 1. Crete global `.gitignore` file in a parent directory for your project and add `.idea` line in it. This directory created by PhpStorm in every project should not be versioned but should not be included in project's scope .gitignore file either (_best-practice_ 👍).
 2. GitHub repository.
 3. At least one self-hosted GitHub runner to fully enjoy benefits of out-of-the-box CI pipeline.
+
+## Frequently Asked Questions
+- [How to run CI tests locally?](#how-to-run-ci-tests-locally)
+#### How to run CI tests locally?
+A developer can run all BE tests at once `composer test` or only selected BE test can be ran e.g. `composer phpstan`. Commands should be run inside php container.
+A developer can run all FE tests at once `pnpm run test` or only selected FE test can be ran e.g. `pnpm run lint`.
