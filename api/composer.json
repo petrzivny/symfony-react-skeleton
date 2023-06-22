@@ -30,6 +30,7 @@
         "psalm/plugin-phpunit": "^0.18.4",
         "psalm/plugin-symfony": "^5.0",
         "roave/security-advisories": "dev-latest",
+        "shipmonk/phpstan-rules": "^2.6",
         "slevomat/coding-standard": "^8.12",
         "symfony/browser-kit": "6.3.*",
         "symfony/css-selector": "6.3.*",

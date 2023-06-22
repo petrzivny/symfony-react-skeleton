@@ -32,8 +32,8 @@ cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod
    - Independent on any used frontend. Communicating via REST (_best-practice_ 🎯)
    - [x] Symfony opcache preloading with JIT in prod (_performance_ ⏩).
    - [x] Xdebug setup to debug both html requests and CLI commands.
-   - [x] Phpstan in a very strict level.
-   - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them).
+   - [x] Phpstan in a very strict level. Including [shipmonk-rules](https://github.com/shipmonk-rnd/phpstan-rules).
+   - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them) .Including [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) and [slevomat-coding-standard](https://github.com/slevomat/coding-standard)
    - [x] Psalm.
    - [x] Roave/SecurityAdvisories to prevent using dependencies with known security vulnerabilities.
    - [x] PHPUnit Unit tests.

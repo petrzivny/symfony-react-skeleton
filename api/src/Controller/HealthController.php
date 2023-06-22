@@ -81,7 +81,7 @@ final class HealthController extends AbstractController
         $opcachePreloadStatistics = $opcacheStatus['preload_statistics'];
 
         if (array_key_exists('classes', $opcachePreloadStatistics)) {
-            $classesPreloaded = count($opcachePreloadStatistics['classes']);
+            $classesPreloaded = (string) (count($opcachePreloadStatistics['classes']));
         }
 
         return [$preloadingFile, $classesPreloaded];

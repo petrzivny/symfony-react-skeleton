@@ -2,6 +2,7 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
     - vendor/phpstan/phpstan-doctrine/extension.neon
     - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/shipmonk/phpstan-rules/rules.neon
 
 parameters:
     level: max
@@ -18,5 +19,14 @@ parameters:
         objectManagerLoader: tests/object-manager.php
 
     tmpDir: var/cache/phpstan
+    shipmonkRules:
+        forbidCustomFunctions:
+            list:
+                'var_dump': 'Debug code could pose a risk if deployed. Please remove it.'
+        classSuffixNaming:
+            superclassToSuffixMapping!:
+                \Exception: Exception
+                \PHPUnit\Framework\TestCase: Test
+                \Symfony\Component\Console\Command\Command: Command
     ignoreErrors:
         - message: '#Short ternary operator is not allowed. Use null coalesce operator if applicable or consider using long ternary.#'
