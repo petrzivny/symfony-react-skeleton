@@ -47,6 +47,7 @@ cd .docker && docker compose --env-file ../api/.env.local -f docker-compose-prod
    - [x] Eslint
    - [x] Vite
    - [x] wsc (should be 20x faster than Babel but see the current [caveats](https://github.com/vitejs/vite-plugin-react-swc#caveats))
+   - [x] Prettier
 4. DevOps: CI pipeline to build both test and prod images, test them and push prod images to registry
    - [x] Run all tests from point 2 on final (test) docker image (_best-practice_ 👍).
    - [x] If everything passes there are php and nginx environment agnostic (_best-practice_ 👍) containers ready to be shipped into any environment (including prod of course).
@@ -76,3 +77,9 @@ xphp bin/console debug:dotenv
 1. Crete global `.gitignore` file in a parent directory for your project and add `.idea` line in it. This directory created by PhpStorm in every project should not be versioned but should not be included in project's scope .gitignore file either (_best-practice_ 👍).
 2. GitHub repository.
 3. At least one self-hosted GitHub runner to fully enjoy benefits of out-of-the-box CI pipeline.
+
+## Frequently Asked Questions
+- [How to run CI tests locally?](#how-to-run-ci-tests-locally)
+#### How to run CI tests locally?
+A developer can run all BE tests at once `composer test` or only selected BE test can be ran e.g. `composer phpstan`. Commands should be run inside php container.
+A developer can run all FE tests at once `pnpm run test` or only selected FE test can be ran e.g. `pnpm run lint`.
