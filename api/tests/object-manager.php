@@ -10,7 +10,7 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 (new Dotenv())->bootEnv(dirname(__DIR__) . '/.env');
 
 // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-if (!array_key_exists('APP_ENV', $_SERVER)) {
+if (array_key_exists('APP_ENV', $_SERVER) === false) {
     throw new RuntimeException('APP_ENV env variable is not defined');
 }
 
@@ -18,7 +18,7 @@ if (!array_key_exists('APP_ENV', $_SERVER)) {
 $appEnv = $_SERVER['APP_ENV'];
 
 // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-if (!array_key_exists('APP_DEBUG', $_SERVER)) {
+if (array_key_exists('APP_DEBUG', $_SERVER) === false) {
     throw new RuntimeException('APP_DEBUG env variable is not defined');
 }
 

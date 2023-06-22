@@ -30,36 +30,34 @@ final class HealthController extends AbstractController
     #[Route('/health', name: 'api_health')]
     public function index(EntityManagerInterface $entityManager): JsonResponse
     {
-        // to force connect to DB
-
         try {
+            // To force connect to DB.
             $entityManager->getConnection()->getNativeConnection();
-            $connectionDb = $entityManager->getConnection()->isConnected()
-                ? 'OK'
-                : 'NA'
-            ;
+            $connectionDb = $entityManager->getConnection()->isConnected() ? 'OK' : 'NA';
         } catch (Throwable $throwable) {
             $connectionDb = $throwable->getMessage();
         }
 
         [$preloadingFile, $classesPreloaded] = $this->getPreloadInfo();
 
-        return $this->json([
-            'status' => 'OK',
-            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-            '$_ENV[APP_ENV]' => $_ENV['APP_ENV'] ?? 'NA',
-            'getenv(APP_ENV)' => getenv('APP_ENV') ?: 'NA',
-            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-            '$_ENV[DATABASE_NAME]' => $_ENV['DATABASE_NAME'] ?? 'NA',
-            'getenv(DATABASE_NAME)' => getenv('DATABASE_NAME') ?: 'NA',
-            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-            '$_ENV[DATABASE_HOST]' => $_ENV['DATABASE_HOST'] ?? 'NA',
-            'getenv(DATABASE_HOST)' => getenv('DATABASE_HOST') ?: 'NA',
-            'php.ini file used' => $this->getPhpIniFileVersion(),
-            'connectionToDb' => $connectionDb,
-            'preloadingFile' => $preloadingFile,
-            'classesPreloaded' => $classesPreloaded,
-        ]);
+        return $this->json(
+            [
+                'status' => 'OK',
+                // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+                '$_ENV[APP_ENV]' => ($_ENV['APP_ENV'] ?? 'NA'),
+                'getenv(APP_ENV)' => getenv('APP_ENV') ?: 'NA',
+                // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+                '$_ENV[DATABASE_NAME]' => ($_ENV['DATABASE_NAME'] ?? 'NA'),
+                'getenv(DATABASE_NAME)' => getenv('DATABASE_NAME') ?: 'NA',
+                // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+                '$_ENV[DATABASE_HOST]' => ($_ENV['DATABASE_HOST'] ?? 'NA'),
+                'getenv(DATABASE_HOST)' => getenv('DATABASE_HOST') ?: 'NA',
+                'php.ini file used' => $this->getPhpIniFileVersion(),
+                'connectionToDb' => $connectionDb,
+                'preloadingFile' => $preloadingFile,
+                'classesPreloaded' => $classesPreloaded,
+            ],
+        );
     }
 
     /** @return array<int, int|string> */

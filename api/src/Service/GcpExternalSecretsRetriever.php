@@ -12,16 +12,18 @@ use function count;
 
 final class GcpExternalSecretsRetriever
 {
- /**
-  * @param array<string, (array<string, string>|null)> $template
-  * @psalm-api
-  */
+    /**
+     * @param array<string, (array<string, string>|null)> $template
+     *
+     * @psalm-api
+     */
     public function __construct(private readonly array $template)
     {
     }
 
     /**
      * @return array<string, string>
+     *
      * @throws ApiException
      */
     public function getAllSecrets(string $projectId): array
@@ -31,8 +33,8 @@ final class GcpExternalSecretsRetriever
         $variables = [];
 
         foreach ($this->template as $variableName => $variableOptions) {
-            $secretName = $variableOptions['secretName'] ?? $variableName;
-            $secretVersion = $variableOptions['$secretVersion'] ?? 'latest';
+            $secretName = ($variableOptions['secretName'] ?? $variableName);
+            $secretVersion = ($variableOptions['$secretVersion'] ?? 'latest');
 
             $secretFqn = $client::secretVersionName($projectId, $secretName, $secretVersion);
             $response = $client->accessSecretVersion($secretFqn);

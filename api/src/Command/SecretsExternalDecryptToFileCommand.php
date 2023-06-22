@@ -41,9 +41,7 @@ final class SecretsExternalDecryptToFileCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->addArgument('project', InputArgument::REQUIRED, 'GCP project id')
-        ;
+        $this->addArgument('project', InputArgument::REQUIRED, 'GCP project id');
     }
 
     /** @throws ApiException */
