@@ -20,8 +20,8 @@ services:
     image: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_php_prod:8.2-fpm-alpine
     environment:
       DATABASE_HOST: mysql
-      DATABASE_SERVER_VERSION: 8.0.33
-      DATABASE_PORT: 3306
+      DATABASE_SERVER_VERSION: ${DATABASE_SERVER_VERSION:-15.3}
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
       DATABASE_NAME: develop
       DATABASE_USER: develop
       DATABASE_PASSWORD: develop
