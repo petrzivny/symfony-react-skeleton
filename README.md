@@ -143,9 +143,11 @@ This example is configured out-of-the-box for [this infrastructure](https://gith
 2. `cd .deploy`
 3. Edit Chart.yaml and values.yaml files (use outputs from infrastructure terraform provisioning).
 4. `helm install your-app-name . --namespace {app_k8_namespace} --create-namespace`
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Pictures
 ![ci-pipeline.png](documentation%2Fimages%2Fci-pipeline.png)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -159,21 +161,17 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
+- [ ] CI: Add linter for helm
+- [ ] CI: Add dry deploy to k8 as a test
+- [ ] Helm: Add liveness probe
+- [ ] Helm: Add readiness probe
+- [ ] Add static URL as a Live Demo link
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-   - [ ] Chinese
-   - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -184,7 +182,7 @@ A developer can run all BE tests at once `composer test` or only selected BE tes
 A developer can run all FE tests at once `pnpm run test` or only selected FE test can be ran e.g. `pnpm run lint`.
 #### How to run BE application in prod mode locally?
 `cd .docker && docker compose -f docker-compose-prod.yaml up -d`
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
 ## License
