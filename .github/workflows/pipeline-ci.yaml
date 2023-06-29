@@ -13,7 +13,7 @@ jobs:
     uses: ./.github/workflows/_build-test-images.yaml
 
   php-code-quality-tests:
-    needs: [build-test-images]
+    needs: [build-php-test-image]
     name: PHP Test
     uses: ./.github/workflows/_tests-code-quality.yaml
 
