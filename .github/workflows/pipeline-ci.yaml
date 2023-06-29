@@ -27,11 +27,11 @@ jobs:
 #    name: Push Prod Images
 #    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
 
-  cleanup:
-    if: success() || failure()
-    needs: [php-code-quality-tests]
-    runs-on: self-hosted
-    steps:
-      - name: Remove php test docker image
-        run: |
-          docker image rm ${{ github.repository }}/php-test:${{ github.sha }}
+#  cleanup:
+#    if: success() || failure()
+#    needs: [php-code-quality-tests]
+#    runs-on: self-hosted
+#    steps:
+#      - name: Remove php test docker image
+#        run: |
+#          docker image rm ${{ github.repository }}/php-test:${{ github.sha }}
