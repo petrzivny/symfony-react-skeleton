@@ -38,11 +38,11 @@ A template to jumpstart your new greenfield project. If you are a startup or an 
 
 This project covers common (repetitive) parts of most greenfield projects. Fully functional and communicating BE and FE parts via REST, CI pipeline with robust tests and helm deployment.
 
-On top of it you will receive BE, FE and DevOps best practices already implemented. You software development team can use these guidance to deliver sustainable and maintainable top quality product.
+On top of it you will receive BE, FE and DevOps best practices already implemented. You software development team can follow these guidance to deliver sustainable and maintainable top quality product.
 
 Don't forget to give the project a star!
 
-<a href="https://34.76.96.12/">Live Demo</a>
+<a href="http://skeleton.totea.cz">Live Demo</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -57,9 +57,6 @@ Don't forget to give the project a star!
 * OPTIONAL: [helm](https://helm.sh/docs/intro/install/) for deploying to kubernetes cluster 
 
 ### Installation
-
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
 1. Clone the repo
    ```sh
    git clone https://github.com/petrzivny/symfony-react-skeleton.git
@@ -75,20 +72,22 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
 4. Run FE react app in dev mode
    ```sh
-   cd fe && pnpm run dev
+   cd ../fe && pnpm run dev
    ```
 5. Visit http://localhost:5173/
-Next time you only need to perform points 3., 4. and 5. to start developing. You can set up alias for it, see <a href="#how-to-code-like-a-pro">How to code like a PRO</a> section.
+
+Next time you only need to perform points 3., 4. and 5. to start developing. I recommend to set up an <a href="#setup-alias-for-fast-start-of-development">alias</a> for them.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## What is included out-of-the-box
 1. Docker to run complete dev environment (php + nginx + PostgreSQL)
 2. Symfony framework as a backed REST api
-   - Independent on any used frontend. Communicating via REST (_best-practice_ 🎯)
-   - [x] Symfony opcache preloading with JIT in prod (_performance_ ⏩).
+   - [x] Independent on any used frontend. Communicating via REST (_best-practice_ 🎯)
+   - [x] Symfony tuned for best performance in prod (opcache preloading with JIT) (_performance_ ⏩).
+   - [x] Zero trust, the least privilege and giving as minimum as possible information principles used in nginx.conf (_best-practice_ 🎯).
    - [x] Xdebug setup to debug both html requests and CLI commands.
    - [x] Phpstan in a very strict level. Including [shipmonk-rules](https://github.com/shipmonk-rnd/phpstan-rules).
-   - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them) .Including [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) and [slevomat-coding-standard](https://github.com/slevomat/coding-standard)
+   - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them). Including [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) and [slevomat-coding-standard](https://github.com/slevomat/coding-standard)
    - [x] Psalm.
    - [x] Roave/SecurityAdvisories to prevent using dependencies with known security vulnerabilities.
    - [x] PHPUnit Unit tests.
@@ -165,6 +164,8 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- ROADMAP -->
 ## Roadmap
+- [ ] Add OPCache
+- [ ] Add JIT
 - [ ] CI: Add linter for helm
 - [ ] CI: Add dry deploy to k8 as a test
 - [ ] Helm: Add liveness probe
@@ -186,6 +187,6 @@ A developer can run all FE tests at once `pnpm run test` or only selected FE tes
 
 <!-- LICENSE -->
 ## License
-Distributed under the MIT License. Use it however you want. And if you like it, you can give me a star at GutHub. 
+Distributed under the MIT License. Use it however you want. And if you like it, don't forget to give the project a star at GutHub. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

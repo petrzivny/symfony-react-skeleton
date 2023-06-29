@@ -5,7 +5,7 @@
 # namespace: symfony-react-skeleton-prod
 
 image:
-  repository: europe-central2-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar
+  repository: europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar
 
 # Use terraform output "app_gcp_service_account_name" from infrastructure repo.
 # Or if you use your own infrastructure, use cloud provider service account identifier.
@@ -16,4 +16,4 @@ app_gcp_service_account_name: skeleton-prod-gke-workload@basic-388908.iam.gservi
 app_k8_service_account_name: gcp-secret-manager-binding-service-account
 
 # Nginx ingress controller will route all request from {host} to your nginx service. If you want to test url with IP only, provide host header "anything.example.com"
-host: "*.example.com"
+host: "*.totea.cz"
