@@ -21,12 +21,6 @@ use function str_contains;
 /** @psalm-api */
 final class HealthController extends AbstractController
 {
-    #[Route('/', name: 'default')]
-    public function default(): JsonResponse
-    {
-        return $this->json(1);
-    }
-
     #[Route('/health', name: 'api_health')]
     public function index(EntityManagerInterface $entityManager): JsonResponse
     {
