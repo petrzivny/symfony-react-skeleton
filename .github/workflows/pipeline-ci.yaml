@@ -5,12 +5,12 @@ on: [push]
 jobs:
 
   build-nginx-prod-image:
-    name: Build Test Image
+    name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
 
   build-php-test-image:
     name: Build Test Image
-    uses: ./.github/workflows/_build-test-images.yaml
+    uses: ./.github/workflows/_build-test-image-php.yaml
 
   php-code-quality-tests:
     needs: [build-php-test-image]
@@ -19,7 +19,7 @@ jobs:
 
   build-php-prod-images:
     needs: [php-code-quality-tests]
-    name: Build Prod Images
+    name: Build Php Prod Image
     uses: ./.github/workflows/_build-prod-image-php.yaml
 
   push-prod-images:

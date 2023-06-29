@@ -2,7 +2,7 @@ on:
   workflow_call:
 
 jobs:
-  all:
+  php:
     runs-on: self-hosted
     steps:
       - name: Checkout repository
