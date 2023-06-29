@@ -8,30 +8,30 @@ jobs:
     name: Build Test Image
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
 
-#  build-php-test-image:
-#    name: Build Test Image
-#    uses: ./.github/workflows/_build-test-images.yaml
-#
-#  php-code-quality-tests:
-#    needs: [build-test-images]
-#    name: PHP Test
-#    uses: ./.github/workflows/_tests-code-quality.yaml
-#
-#  build-php-prod-images:
-#    needs: [php-code-quality-tests]
-#    name: Build Prod Images
-#    uses: ./.github/workflows/_build-prod-image-php.yaml
-#
-#  push-prod-images:
-#    needs: [build-prod-images]
-#    name: Push Prod Images
-#    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+  build-php-test-image:
+    name: Build Test Image
+    uses: ./.github/workflows/_build-test-images.yaml
 
-#  cleanup:
-#    if: success() || failure()
-#    needs: [php-code-quality-tests]
-#    runs-on: self-hosted
-#    steps:
-#      - name: Remove php test docker image
-#        run: |
-#          docker image rm ${{ github.repository }}/php-test:${{ github.sha }}
+  php-code-quality-tests:
+    needs: [build-test-images]
+    name: PHP Test
+    uses: ./.github/workflows/_tests-code-quality.yaml
+
+  build-php-prod-images:
+    needs: [php-code-quality-tests]
+    name: Build Prod Images
+    uses: ./.github/workflows/_build-prod-image-php.yaml
+
+  push-prod-images:
+    needs: [build-php-prod-images, build-nginx-prod-image]
+    name: Push Prod Images
+    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+
+  cleanup:
+    if: success() || failure()
+    needs: [php-code-quality-tests]
+    runs-on: self-hosted
+    steps:
+      - name: Remove php test docker image
+        run: |
+          docker image rm ${{ github.repository }}/php-test:${{ github.sha }}
