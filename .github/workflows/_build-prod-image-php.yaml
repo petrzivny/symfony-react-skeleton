@@ -30,14 +30,3 @@ jobs:
           build-args: |
             symfony_mode=prod
 
-      - name: Build and load to local docker images - nginx
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: .docker/nginx/Dockerfile
-          target: deployment
-          tags: ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/nginx
-          load: true
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
-

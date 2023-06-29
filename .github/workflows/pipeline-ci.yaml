@@ -4,24 +4,28 @@ on: [push]
 
 jobs:
 
-  build-test-images:
+  build-nginx-prod-image:
     name: Build Test Image
-    uses: ./.github/workflows/_build-test-images.yaml
+    uses: ./.github/workflows/_build-prod-image-nginx.yaml
 
-  php-code-quality-tests:
-    needs: [build-test-images]
-    name: PHP Test
-    uses: ./.github/workflows/_tests-code-quality.yaml
-
-  build-prod-images:
-    needs: [php-code-quality-tests]
-    name: Build Prod Images
-    uses: ./.github/workflows/_build-prod-images.yaml
-
-  push-prod-images:
-    needs: [build-prod-images]
-    name: Push Prod Images
-    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+#  build-php-test-image:
+#    name: Build Test Image
+#    uses: ./.github/workflows/_build-test-images.yaml
+#
+#  php-code-quality-tests:
+#    needs: [build-test-images]
+#    name: PHP Test
+#    uses: ./.github/workflows/_tests-code-quality.yaml
+#
+#  build-php-prod-images:
+#    needs: [php-code-quality-tests]
+#    name: Build Prod Images
+#    uses: ./.github/workflows/_build-prod-image-php.yaml
+#
+#  push-prod-images:
+#    needs: [build-prod-images]
+#    name: Push Prod Images
+#    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
 
   cleanup:
     if: success() || failure()

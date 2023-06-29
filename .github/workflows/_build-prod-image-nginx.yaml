@@ -1,0 +1,30 @@
+on:
+  workflow_call:
+
+jobs:
+  all:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - run: pnpm install --frozen-lockfile
+        working-directory: fe
+
+      - run: pnpm run build
+        working-directory: fe
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and load to local docker images - nginx
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: .docker/nginx/Dockerfile
+          target: deployment
+          tags: ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/nginx
+          load: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
+
