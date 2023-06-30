@@ -20,7 +20,7 @@ spec:
       containers:
         - name: php
           image: {{ .Values.image.repository }}/{{.Chart.Name}}/php
-          imagePullPolicy: Always
+          imagePullPolicy: Never
           readinessProbe:
             exec:
               command:
