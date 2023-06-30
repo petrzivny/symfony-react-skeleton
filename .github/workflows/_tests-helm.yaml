@@ -60,8 +60,10 @@ jobs:
           kubectl version --client -o yaml
           echo "=== GET ALL ==="
           kubectl -n chart-testing get all
+          kubectl -n default get all
           echo "=== DESCRIBE PODS ==="
           kubectl -n chart-testing describe pods
+          kubectl -n default describe pods
           echo "=== GET DEPLOY ==="
           kubectl -n chart-testing get deploy
           echo "=== LOGS ==="
