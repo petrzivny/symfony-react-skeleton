@@ -33,8 +33,8 @@ jobs:
       - name: List changed charts
         id: list-changed
         run: |
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-          ct list-changed --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy
+          ct list-changed
+      #          echo "changed=true" >> "$GITHUB_OUTPUT"
 #          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy)
       #          if [[ -n "$changed" ]]; then
 #          fi
