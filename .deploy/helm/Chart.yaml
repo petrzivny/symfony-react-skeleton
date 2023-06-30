@@ -1,6 +1,8 @@
 apiVersion: v2
 name: symfony-react-skeleton
 description: A Helm chart for Kubernetes
+maintainers:
+  - name: petrzivny
 
 # A chart can be either an 'application' or a 'library' chart.
 #
