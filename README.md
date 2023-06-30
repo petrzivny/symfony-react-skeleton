@@ -70,6 +70,7 @@ Don't forget to give the project a star!
    ```sh
    cd .docker && docker compose --env-file ../api/.env.local up -d
    ```
+   Try to run http://localhost:81/health to check if BE is running properly (you should see 200 JSON response with debug info).
 4. Run FE react app in dev mode
    ```sh
    cd ../fe && pnpm run dev
@@ -168,9 +169,12 @@ Don't forget to give the project a star! Thanks again!
 - [ ] Add JIT
 - [ ] CI: Add linter for helm
 - [ ] CI: Add dry deploy to k8 as a test
+- [ ] CI: Push prod images only for main branch
+- [ ] CI: Use SHA for prod images
 - [ ] Helm: Add liveness probe
 - [ ] Helm: Add readiness probe
 - [ ] Add static URL as a Live Demo link
+- [ ] Add .dockerignore instead of multiple COPY in Dockerfile
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 

@@ -1,0 +1,12 @@
+on:
+  workflow_call:
+
+jobs:
+  all:
+    runs-on: self-hosted
+    name: Helm
+    steps:
+      - name: Upgrade (or install) - idempotent
+        run: |
+          helm upgrade --install symfony-react-skeleton .deploy --set image.repository=${{ vars.REGISTRY_NAME }}
+

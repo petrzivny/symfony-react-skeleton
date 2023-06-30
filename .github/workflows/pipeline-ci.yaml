@@ -19,12 +19,17 @@ jobs:
 
   build-php-prod-images:
     needs: [php-code-quality-tests]
-    name: Build Php Prod Image
+    name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-php.yaml
 
   push-prod-images:
     needs: [build-php-prod-images, build-nginx-prod-image]
     name: Push Prod Images
+    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+
+  continuous-deployment:
+    needs: [push-prod-images]
+    name: CD
     uses: ./.github/workflows/_push-prod-images-to-registry.yaml
 
   cleanup:

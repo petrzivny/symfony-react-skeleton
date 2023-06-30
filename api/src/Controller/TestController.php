@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use function array_key_exists;
-use function header;
 use function sprintf;
 
 /** @psalm-api */
@@ -22,22 +20,9 @@ final class TestController extends AbstractController
     private const SUB_FEATURE_NAME = 'UPDATE privilege at the table level';
     private const COLUMN_NAME = 'is_supported';
 
-    private const APP_DEBUG_VARIABLE_NAME = 'APP_DEBUG';
-    private const APP_ENV_VARIABLE_NAME = 'APP_ENV';
-
     #[Route('/test-get-db-value', name: 'app_test')]
     public function index(EntityManagerInterface $entityManager): JsonResponse
     {
-        // phpcs:disable SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-        if (array_key_exists(self::APP_DEBUG_VARIABLE_NAME, $_ENV)
-            && array_key_exists(self::APP_ENV_VARIABLE_NAME, $_ENV)
-            && $_ENV[self::APP_DEBUG_VARIABLE_NAME] === '1'
-            && $_ENV[self::APP_ENV_VARIABLE_NAME] === 'dev'
-            // phpcs:enable
-        ) {
-            header('Access-Control-Allow-Origin: *');
-        }
-
         $connection = $entityManager->getConnection();
         $sql = sprintf(
             "SELECT %s FROM information_schema.sql_features WHERE sub_feature_name = '%s'",
