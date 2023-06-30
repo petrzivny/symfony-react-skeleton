@@ -32,7 +32,7 @@ jobs:
 
       - name: List changed charts
         id: list-changed
-        run: ct list-changed --config ./.github/workflows/ct.yaml
+        run: ct list-changed -all --config ./.github/workflows/ct.yaml
 
       - name: Store old kubectl default context
         if: steps.list-changed.outputs.changed == 'true'
