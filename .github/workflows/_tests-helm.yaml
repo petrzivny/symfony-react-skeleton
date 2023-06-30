@@ -15,7 +15,7 @@ jobs:
 
       - name: helm lint
         run: |
-          cd .deploy && helm lint --strict --with-subcharts
+          cd .deploy/helm && helm lint --strict --with-subcharts
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
@@ -38,10 +38,17 @@ jobs:
         run: |
           ls -ls .deploy
           echo "-------------"
-          ct list-changed --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy --print-config
+          ct list-changed --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy
           echo "-------------"
           ct --config ./.github/configs/ct-lint.yaml list-changed
           echo "-------------"
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy)
+          echo "-------2------"
+          echo $changed
+          echo "-------2------"
+          if [[ -n "$changed" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
 
       - name: Store old kubectl default context
