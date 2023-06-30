@@ -18,6 +18,7 @@ spec:
       containers:
         - name: nginx
           image: {{ .Values.image.repository }}/{{.Chart.Name}}/nginx
+          imagePullPolicy: Never
           readinessProbe:
             httpGet:
               path: /nginx-health

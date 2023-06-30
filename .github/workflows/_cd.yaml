@@ -4,8 +4,13 @@ on:
 jobs:
   all:
     runs-on: self-hosted
-    name: Helm
+    name: Helm***
     steps:
+      - name: Restore old kubectl default context
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          kubectl config use-context gke_basic-388908_europe-west1-b_cluster-1
+
       - name: Upgrade (or install) - idempotent
         run: |
           helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm --set image.repository=${{ vars.REGISTRY_NAME }}
