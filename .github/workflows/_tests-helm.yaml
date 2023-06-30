@@ -28,11 +28,11 @@ jobs:
         uses: helm/chart-testing-action@v2.4.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --config ct.yaml
+        run: ct lint --config ./.github/workflows/ct.yaml
 
       - name: List changed charts
         id: list-changed
-        run: ct list-changed --config ct.yaml
+        run: ct list-changed --config ./.github/workflows/ct.yaml
 
       - name: Store old kubectl default context
         if: steps.list-changed.outputs.changed == 'true'
