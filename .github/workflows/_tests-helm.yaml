@@ -28,11 +28,11 @@ jobs:
         uses: helm/chart-testing-action@v2.4.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy --check-version-increment false
+        run: ct lint --config ct.yaml
 
       - name: List changed charts
         id: list-changed
-        run: ct list-changed --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy
+        run: ct list-changed --config ct.yaml
 
       - name: Store old kubectl default context
         if: steps.list-changed.outputs.changed == 'true'
