@@ -58,7 +58,6 @@ jobs:
         env:
           SLACK_MESSAGE: ${{ steps.old-context.outputs.context }}
         run: |
-          env
           echo ${{ env.SLACK_MESSAGE }}
           echo ${{ steps.old-context.outputs.context }}
           echo "$steps.old-context.outputs.context"
