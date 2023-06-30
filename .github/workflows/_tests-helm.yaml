@@ -10,6 +10,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
+          # disable shallow checkout to prevent ct to "failed identifying charts to process"
           fetch-depth: "0"
 
       - name: helm lint
@@ -30,11 +31,15 @@ jobs:
         uses: helm/chart-testing-action@v2.4.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --debug --config ./.github/workflows/ct.yaml
+        run: ct lint --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy
 
       - name: List changed charts
         id: list-changed
-        run: ct list-changed --config ./.github/workflows/ct.yaml
+        run: |
+          changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy)
+          if [[ -n "$changed" ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Store old kubectl default context
         if: steps.list-changed.outputs.changed == 'true'
