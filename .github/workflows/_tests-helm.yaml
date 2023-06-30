@@ -49,7 +49,8 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         run: |
           eval $(minikube docker-env)
-          kind load docker-image nginx --name chart-testing
+          kind load docker-image basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/php --name chart-testing
+          kind load docker-image basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/nginx --name chart-testing
           
           helm upgrade --install --wait --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm
           kubectl get pods
