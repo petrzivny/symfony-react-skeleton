@@ -28,7 +28,7 @@ jobs:
         uses: helm/chart-testing-action@v2.4.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --all --config ./.github/workflows/ct.yaml
+        run: ct lint --all --debug --config ./.github/workflows/ct.yaml
 
       - name: List changed charts
         id: list-changed
