@@ -37,7 +37,11 @@ jobs:
         id: list-changed
         run: |
           ls -ls .deploy
+          echo "-------------"
           ct list-changed --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy --print-config
+          echo "-------------"
+          ct --config ./.github/configs/ct-lint.yaml list-changed
+          echo "-------------"
 
 
       - name: Store old kubectl default context
