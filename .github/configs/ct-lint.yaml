@@ -1,4 +1,0 @@
-target-branch: main
-chart-dirs:
-  - .deploy
-check-version-increment: false
