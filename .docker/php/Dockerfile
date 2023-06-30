@@ -35,8 +35,8 @@ RUN apk add --no-cache                        && \
     docker-php-ext-install -j$(nproc) bcmath  && \
     rm -rf /tmp/*
 
+# Needed for php-fpm-healthcheck.sh which is used for k8 readinessProbe and livenessProbe
 RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
-COPY api/bin/php-fpm-healthcheck.sh /usr/local/bin/
 
 FROM base as local
 # Xdebug
