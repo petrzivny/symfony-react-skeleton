@@ -12,6 +12,10 @@ jobs:
     name: Build Test Image
     uses: ./.github/workflows/_build-test-image-php.yaml
 
+  helm-tests:
+    name: Helm test
+    uses: ./.github/workflows/_tests-helm.yaml
+
   php-code-quality-tests:
     needs: [build-php-test-image]
     name: PHP Test
@@ -30,7 +34,7 @@ jobs:
   continuous-deployment:
     needs: [push-prod-images]
     name: CD
-    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+    uses: ./.github/workflows/_cd.yaml
 
   cleanup:
     if: success() || failure()
