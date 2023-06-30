@@ -105,13 +105,15 @@ Next time you only need to perform points 3., 4. and 5. to start developing. I r
    - [x] wsc (should be 20x faster than Babel but see the current [caveats](https://github.com/vitejs/vite-plugin-react-swc#caveats))
    - [x] Prettier
 4. DevOps: CI pipeline to build both test and prod images, test them and push prod images to registry
-   - [x] Run all tests from point 2 on final (test) docker image (_best-practice_ 👍).
+   - [x] Run all BE tests from point 2 on final (test) docker image (_best-practice_ 👍) (Phpstan, CodeSniffer, Psalm, PHPUnit, linters, etc ...).
+   - [x] Run helm lint and helm dry installation into minikube cluster to ensure real deployment will be without surprises.
    - [x] If everything passes there are php and nginx environment agnostic (_best-practice_ 👍) containers ready to be shipped into any environment (including prod of course).
    - [x] Pipeline expects self-hosted GitHub runner(s). [See](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners) for more information.
-5. DevOps: Kubernetes deploy manifests
-   - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy` dir to deploy to your environment (just a test, not production ready!).
-   - [x] One pod for nginx, one pod for php for better scalability (_best-practice_ 👍).
-   - [x] Ingress to connect your kubernetes cluster with outside world (you can use platform Load Balancer, but it is usually billed).
+5. DevOps: CD
+   - [x] Helm kubernetes deploy manifests prepared to deploy your app in any kubernetes environment.
+   - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy` dir to deploy to your environment.
+   - [x] Separate pods for nginx and php for better scalability (_best-practice_ 👍).
+   - [x] Optional: Ingress to connect your kubernetes cluster with outside world (you can use platform Load Balancer, but it is usually billed).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## How to code like a PRO
