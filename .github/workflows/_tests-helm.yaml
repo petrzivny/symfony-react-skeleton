@@ -43,8 +43,7 @@ jobs:
         id: old-context
         run: |
           context=(kubectl config current-context)
-          echo "context=$changed" >> "$GITHUB_OUTPUT"
-
+          echo "context=`$context`" >> "$GITHUB_OUTPUT"
 
       - name: Create kind cluster
 #        if: steps.list-changed.outputs.changed == 'true'
