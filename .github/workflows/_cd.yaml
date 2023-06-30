@@ -8,5 +8,5 @@ jobs:
     steps:
       - name: Upgrade (or install) - idempotent
         run: |
-          helm upgrade --install symfony-react-skeleton .deploy --set image.repository=${{ vars.REGISTRY_NAME }}
+          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m symfony-react-skeleton .deploy --set image.repository=${{ vars.REGISTRY_NAME }}
 

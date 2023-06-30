@@ -113,6 +113,8 @@ Next time you only need to perform points 3., 4. and 5. to start developing. I r
    - [x] Helm kubernetes deploy manifests prepared to deploy your app in any kubernetes environment.
    - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy` dir to deploy to your environment.
    - [x] Separate pods for nginx and php for better scalability (_best-practice_ 👍).
+   - [x] Both nginx and php pods have readiness probes.
+   - [x] Both nginx and php pods have liveness probes.
    - [x] Optional: Ingress to connect your kubernetes cluster with outside world (you can use platform Load Balancer, but it is usually billed).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
