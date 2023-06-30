@@ -22,7 +22,7 @@ jobs:
     uses: ./.github/workflows/_tests-code-quality.yaml
 
   build-php-prod-images:
-    needs: [php-code-quality-tests]
+    needs: [php-code-quality-tests, helm-tests]
     name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-php.yaml
 
