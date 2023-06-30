@@ -36,7 +36,7 @@ RUN apk add --no-cache                        && \
     rm -rf /tmp/*
 
 RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
-COPY bin/php-fpm-healthcheck.sh /usr/local/bin/
+COPY api/bin/php-fpm-healthcheck.sh /usr/local/bin/
 
 FROM base as local
 # Xdebug
