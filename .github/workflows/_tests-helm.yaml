@@ -38,6 +38,14 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Store old kubectl default context
+        #        if: steps.list-changed.outputs.changed == 'true'
+        id: old-context
+        run: |
+          context=(kubectl config current-context)
+          echo "context=$changed" >> "$GITHUB_OUTPUT"
+
+
       - name: Create kind cluster
 #        if: steps.list-changed.outputs.changed == 'true'
         uses: helm/kind-action@v1.4.0
@@ -45,3 +53,29 @@ jobs:
       - name: Run chart-testing (install)
 #        if: steps.list-changed.outputs.changed == 'true'
         run: ct install --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy
+
+      - name: Restore old kubectl default context
+        #        if: steps.list-changed.outputs.changed == 'true'
+        env:
+          SLACK_MESSAGE: ${{ steps.old-context.outputs.context }}
+        run: |
+          env
+          echo ${{ env.SLACK_MESSAGE }}
+          echo ${{ steps.old-context.outputs.context }}
+          echo "$steps.old-context.outputs.context"
+          kubectl config use-context ${{ steps.old-context.outputs.context }}
+
+      - name: Debug On Failure
+        if: failure()
+        run: |
+          kubectl version --client --short
+          echo "=== GET ALL ==="
+          kubectl -n chart-testing get all
+          echo "=== DESCRIBE PODS ==="
+          kubectl -n chart-testing describe pods
+          echo "=== GET DEPLOY ==="
+          kubectl -n chart-testing get deploy
+          echo "=== LOGS ==="
+          kubectl -n chart-testing logs -l app=workboard-teams-management
+          echo "=== PREVIOUS LOGS ==="
+          kubectl -n chart-testing logs -l app=workboard-teams-management --previous
