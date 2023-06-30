@@ -48,17 +48,9 @@ jobs:
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-          docker images
-          env
           eval $(minikube docker-env)
-          echo "------------1------------"
-          docker images
-          env
-          echo "------------2------------"
           kubectl config current-context
-          echo "------------3------------"
-          cd .deploy/helm
-          helm install skeleton .
+          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm
           kubectl get pods
 #          ct install --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy --helm-extra-args "--timeout 1m"
 
