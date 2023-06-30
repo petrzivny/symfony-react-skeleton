@@ -169,14 +169,17 @@ Don't forget to give the project a star! Thanks again!
 ## Roadmap
 - [ ] Add OPCache
 - [ ] Add JIT
-- [ ] CI: Add linter for helm
-- [ ] CI: Add dry deploy to k8 as a test
+- [x] CI: Add linter for helm
+- [x] CI: Add dry deploy to k8 as a test
 - [ ] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
-- [ ] Helm: Add liveness probe
-- [ ] Helm: Add readiness probe
-- [ ] Add static URL as a Live Demo link
+- [x] Helm: Add liveness probe
+- [x] Helm: Add readiness probe
+- [x] Add static URL as a Live Demo link
 - [ ] Add .dockerignore instead of multiple COPY in Dockerfile
+- [ ] Add CI e2e tests against prod images
+- [ ] Add Prometheus
+- [ ] Add Grafana (and disable GCP logs)
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 

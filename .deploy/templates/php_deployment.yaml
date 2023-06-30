@@ -20,6 +20,21 @@ spec:
       containers:
         - name: php
           image: {{ .Values.image.repository }}/{{.Chart.Name}}/php
+          imagePullPolicy: Always
+          readinessProbe:
+            exec:
+              command:
+                - php-fpm-healthcheck.sh # a simple ping since this means it's ready to handle traffic
+            initialDelaySeconds: 1
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - php-fpm-healthcheck.sh
+                - --listen-queue=10 # fails if there are more than 10 processes waiting in the fpm queue
+                - --accepted-conn=5000 # fails after fpm has served more than 5k requests, this will force the pod to reset, use with caution
+            initialDelaySeconds: 0
+            periodSeconds: 15
           ports:
             - containerPort: 9000
           lifecycle:

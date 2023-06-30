@@ -18,5 +18,19 @@ spec:
       containers:
         - name: nginx
           image: {{ .Values.image.repository }}/{{.Chart.Name}}/nginx
+          readinessProbe:
+            httpGet:
+              path: /nginx-health
+              port: 8080
+            initialDelaySeconds: 2
+            timeoutSeconds: 1
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /nginx-health
+              port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+            periodSeconds: 60
           ports:
             - containerPort: 8080
