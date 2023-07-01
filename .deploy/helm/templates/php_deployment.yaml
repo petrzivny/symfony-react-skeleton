@@ -42,3 +42,6 @@ spec:
               exec:
                 command:
                   - bin/postdeploy.sh
+                  {{- if not .Values.fetch_external_secrets_in_post_deploy_script }}
+                  - --skip-vault-fetch
+                  {{- end }}
