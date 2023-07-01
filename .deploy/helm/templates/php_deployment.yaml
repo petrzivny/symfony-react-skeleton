@@ -41,4 +41,5 @@ spec:
             postStart:
               exec:
                 command:
-                  - bin/postdeploy.sh {{ .Values.fetch_external_secrets_in_post_deploy_script | ternary "" "--skip-vault-fetch" }}
+                  - bin/postdeploy.sh
+                  - --skip-vault-fetch
