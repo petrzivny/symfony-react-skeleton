@@ -9,10 +9,13 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          # disable shallow checkout to prevent ct to "failed identifying charts to process"
+          fetch-depth: "0"
 
       - name: helm lint
         run: |
-          cd .deploy && helm lint --strict --with-subcharts
+          cd .deploy/helm && helm lint --strict --with-subcharts
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
@@ -28,7 +31,7 @@ jobs:
         uses: helm/chart-testing-action@v2.4.0
 
       - name: Run chart-testing (lint)
-        run: ct lint --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy --check-version-increment false
+        run: ct lint --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy
 
       - name: List changed charts
         id: list-changed
@@ -38,34 +41,28 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Store old kubectl default context
-        if: steps.list-changed.outputs.changed == 'true'
-        id: old-context
-        run: |
-          context=$(kubectl config current-context)
-          echo "context=$context" >> "$GITHUB_OUTPUT"
-
       - name: Create kind cluster
         if: steps.list-changed.outputs.changed == 'true'
         uses: helm/kind-action@v1.4.0
 
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
-        run: ct install --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy
-
-      - name: Restore old kubectl default context
-        if: steps.list-changed.outputs.changed == 'true'
         run: |
-          kubectl config use-context ${{ steps.old-context.outputs.context }}
+          kind load docker-image europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/php:latest --name chart-testing
+          kind load docker-image europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/nginx:latest --name chart-testing
+          ct install --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy --helm-extra-args "--timeout 1m" --helm-extra-set-args "--set=fetch_external_secrets_in_post_deploy_script=false"
+        # You can also use: helm upgrade --install symfony-react-skeleton .deploy/helm --wait --create-namespace --timeout 1m --set fetch_external_secrets_in_post_deploy_script=false
 
       - name: Debug On Failure
         if: failure()
         run: |
-          kubectl version --client --short
+          kubectl version --client -o yaml
           echo "=== GET ALL ==="
           kubectl -n chart-testing get all
+          kubectl -n default get all
           echo "=== DESCRIBE PODS ==="
           kubectl -n chart-testing describe pods
+          kubectl -n default describe pods
           echo "=== GET DEPLOY ==="
           kubectl -n chart-testing get deploy
           echo "=== LOGS ==="

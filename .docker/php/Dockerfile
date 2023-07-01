@@ -9,7 +9,7 @@ RUN apk update                                                          && \
     docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" pdo_pgsql   && \
     rm -rf /var/cache/apk/*
 
-RUN apk add git acl           && \
+RUN apk add git acl fcgi          && \
     rm -rf /var/cache/apk/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer;
@@ -34,6 +34,9 @@ COPY .docker/php/conf.d/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 RUN apk add --no-cache                        && \
     docker-php-ext-install -j$(nproc) bcmath  && \
     rm -rf /tmp/*
+
+# Needed for php-fpm-healthcheck.sh which is used for k8 readinessProbe and livenessProbe
+RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 FROM base as local
 # Xdebug

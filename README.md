@@ -111,8 +111,10 @@ Next time you only need to perform points 3., 4. and 5. to start developing. I r
    - [x] Pipeline expects self-hosted GitHub runner(s). [See](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners) for more information.
 5. DevOps: CD
    - [x] Helm kubernetes deploy manifests prepared to deploy your app in any kubernetes environment.
-   - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy` dir to deploy to your environment.
+   - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy/helm` dir to deploy to your environment.
    - [x] Separate pods for nginx and php for better scalability (_best-practice_ 👍).
+   - [x] Both nginx and php pods have readiness probes.
+   - [x] Both nginx and php pods have liveness probes.
    - [x] Optional: Ingress to connect your kubernetes cluster with outside world (you can use platform Load Balancer, but it is usually billed).
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -142,9 +144,9 @@ Create a global `.gitignore` file in a parent directory for your project and add
 ### Deploy to cloud
 This example is configured out-of-the-box for [this infrastructure](https://github.com/petrzivny/infrastructure-skeleton)
 1. Provision your infrastructure by using mentioned infrastructure skeleton. Save output values from terraform apply. You will use them in point 3. and 4. (or use your own infrastructure).
-2. `cd .deploy`
+2. `cd .deploy/helm`
 3. Edit Chart.yaml and values.yaml files (use outputs from infrastructure terraform provisioning).
-4. `helm install your-app-name . --namespace {app_k8_namespace} --create-namespace`
+4. `helm upgrade --install --create-namespace your-app-name .`
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Pictures
@@ -169,14 +171,17 @@ Don't forget to give the project a star! Thanks again!
 ## Roadmap
 - [ ] Add OPCache
 - [ ] Add JIT
-- [ ] CI: Add linter for helm
-- [ ] CI: Add dry deploy to k8 as a test
+- [x] CI: Add linter for helm
+- [x] CI: Add dry deploy to k8 as a test
 - [ ] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
-- [ ] Helm: Add liveness probe
-- [ ] Helm: Add readiness probe
-- [ ] Add static URL as a Live Demo link
+- [x] Helm: Add liveness probe
+- [x] Helm: Add readiness probe
+- [x] Add static URL as a Live Demo link
 - [ ] Add .dockerignore instead of multiple COPY in Dockerfile
+- [ ] Add CI e2e tests against prod images
+- [ ] Add Prometheus
+- [ ] Add Grafana (and disable GCP logs)
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 
