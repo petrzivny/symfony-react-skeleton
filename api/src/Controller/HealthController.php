@@ -18,6 +18,7 @@ use function getenv;
 use function opcache_get_status;
 use function round;
 use function str_contains;
+use function var_dump;
 
 /** @psalm-api */
 final class HealthController extends AbstractController
@@ -73,7 +74,11 @@ final class HealthController extends AbstractController
         }
 
         $statistics = $opcacheStatus['preload_statistics'];
+        // @phpstan-ignore-next-line
+        var_dump($statistics);
+        die;
 
+        // @phpstan-ignore-next-line
         unset($preloadStatistics['isOperational']);
 
         $preloadStatistics['functions'] = count($statistics['functions']);

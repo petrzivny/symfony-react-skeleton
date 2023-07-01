@@ -22,7 +22,59 @@ parameters:
     shipmonkRules:
         forbidCustomFunctions:
             list:
+                'dd': 'Debug code could pose a risk if deployed. Please remove it.'
+                'dump': 'Debug code could pose a risk if deployed. Please remove it.'
+                # Core-php debug functions
+                'debug_print_backtrace': 'Debug code could pose a risk if deployed. Please remove it.'
+                'debug_zval_dump': 'Debug code could pose a risk if deployed. Please remove it.'
+                'error_log': 'Debug code could pose a risk if deployed. Please remove it.'
+                'phpinfo': 'Debug code could pose a risk if deployed. Please remove it.'
+                'print_r': 'Debug code could pose a risk if deployed. Please remove it.'
+                'var_export': 'Debug code could pose a risk if deployed. Please remove it.'
                 'var_dump': 'Debug code could pose a risk if deployed. Please remove it.'
+                # Drupal-related debug functions
+                'dpm': 'Debug code could pose a risk if deployed. Please remove it.'
+                'dsm': 'Debug code could pose a risk if deployed. Please remove it.'
+                'dvm': 'Debug code could pose a risk if deployed. Please remove it.'
+                'kpr': 'Debug code could pose a risk if deployed. Please remove it.'
+                'dpq': 'Debug code could pose a risk if deployed. Please remove it.'
+                # PHP XDebug extension
+                'xdebug_break': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_call_class': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_call_file': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_call_function': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_call_line': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_code_coverage_started': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_debug_zval': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_debug_zval_stdout': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_dump_superglobals': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_enable': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_code_coverage': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_collected_errors': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_declared_vars': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_function_stack': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_headers': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_monitored_functions': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_profiler_filename': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_stack_depth': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_get_tracefile_name': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_is_enabled': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_memory_usage': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_peak_memory_usage': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_print_function_stack': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_start_code_coverage': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_start_error_collection': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_start_function_monitor': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_start_trace': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_stop_code_coverage': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_stop_error_collection': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_stop_function_monitor': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_stop_trace': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_time_index': 'Debug code could pose a risk if deployed. Please remove it.'
+                'xdebug_var_dump': 'Debug code could pose a risk if deployed. Please remove it.'
+                # WordPress related functions
+                'wp_die': 'Debug code could pose a risk if deployed. Please remove it.'
+                
         classSuffixNaming:
             superclassToSuffixMapping!:
                 \Exception: Exception

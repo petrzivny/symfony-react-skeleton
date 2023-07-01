@@ -34,3 +34,5 @@ COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod
 bin/console cache:clear
 
 setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .en*
+
+kill -USR2 1
