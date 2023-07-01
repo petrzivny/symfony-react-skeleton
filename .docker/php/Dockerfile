@@ -47,6 +47,11 @@ RUN if [ "$symfony_mode" = "dev" ]; \
     else composer i --no-dev --no-progress --no-scripts --ansi && composer clear-cache; \
     fi
 
+RUN echo "opcache.preload=/var/www/html/config/preload.php" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+RUN echo "opcache.preload_user=www-data" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+# Add JIT var_dump(opcache_get_status()['jit']); https://stitcher.io/blog/php-8-jit-setup
+
+
 COPY api/bin bin
 COPY api/config config
 COPY api/migrations migrations
@@ -68,6 +73,3 @@ RUN bin/console cache:clear
 
 
 
-#RUN echo "opcache.preload=/var/www/html/var/cache/prod/App_KernelProdContainer.preload.php" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-#RUN echo "opcache.preload_user=www-data" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-# Add JIT var_dump(opcache_get_status()['jit']); https://stitcher.io/blog/php-8-jit-setup

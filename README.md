@@ -169,16 +169,15 @@ Don't forget to give the project a star! Thanks again!
 
 <!-- ROADMAP -->
 ## Roadmap
-- [ ] Add OPCache
-- [ ] Add JIT
 - [x] CI: Add linter for helm
 - [x] CI: Add dry deploy to k8 as a test
-- [ ] CI: Push prod images only for main branch
-- [ ] CI: Use SHA for prod images
 - [x] Helm: Add liveness probe
 - [x] Helm: Add readiness probe
 - [x] Add static URL as a Live Demo link
-- [ ] Add .dockerignore instead of multiple COPY in Dockerfile
+- [ ] Add OPCache
+- [ ] Add JIT
+- [ ] CI: Push prod images only for main branch
+- [ ] CI: Use SHA for prod images
 - [ ] Add CI e2e tests against prod images
 - [ ] Add Prometheus
 - [ ] Add Grafana (and disable GCP logs)

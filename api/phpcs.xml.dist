@@ -185,7 +185,6 @@
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias" />
-    <rule ref="SlevomatCodingStandard.Numbers.DisallowNumericLiteralSeparator" />
     <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators" />
     <rule ref="SlevomatCodingStandard.Operators.NegationOperatorSpacing" />
     <rule ref="SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator" />
@@ -304,7 +303,6 @@
     <rule ref="Squiz.Commenting.LongConditionClosingComment"/>
     <rule ref="Squiz.Commenting.PostStatementComment"/>
     <rule ref="Squiz.Commenting.VariableComment"/>
-    <rule ref="Squiz.Formatting.OperatorBracket"/>
     <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing"/>
     <rule ref="Squiz.Scope.MethodScope"/>
     <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
