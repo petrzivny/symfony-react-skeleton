@@ -16,7 +16,6 @@
         <ignoreFiles>
             <directory name="vendor"/>
             <directory name="var"/>
-            <file name="src/Controller/HealthController.php" />
         </ignoreFiles>
     </projectFiles>
     <plugins>

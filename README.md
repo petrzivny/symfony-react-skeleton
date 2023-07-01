@@ -174,7 +174,7 @@ Don't forget to give the project a star! Thanks again!
 - [x] Helm: Add liveness probe
 - [x] Helm: Add readiness probe
 - [x] Add static URL as a Live Demo link
-- [ ] Add OPCache
+- [x] Add OPCache
 - [ ] Add JIT
 - [ ] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
