@@ -1,26 +1,27 @@
 FROM php:8.2-fpm-alpine as base
 
-LABEL maintainer="Petr Zivny | Totea (zivny@totea.cz)"
+LABEL maintainer="Petr Zivny (petr.zivny@gmail.com)"
+
+# fcgi is needed for php-fpm-healthcheck.sh
+RUN apk add --no-cache git acl fcgi
 
 # PDO PgSQL
 # Driver to enable access from PHP to Postgres databases. Implements PDO (doesn't need it).
-RUN apk update                                                          && \
-    apk add libpq-dev                                                   && \
-    docker-php-ext-install -j"$(getconf _NPROCESSORS_ONLN)" pdo_pgsql   && \
-    rm -rf /var/cache/apk/*
+RUN apk add --no-cache libpq-dev && docker-php-ext-install -j$(nproc) pdo_pgsql
 
-RUN apk add git acl fcgi          && \
-    rm -rf /var/cache/apk/*
+# Install opcache extension
+RUN docker-php-ext-install -j$(nproc) opcache && docker-php-ext-enable opcache
+
+# Install bcmath extension
+RUN docker-php-ext-install -j$(nproc) bcmath
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer;
 
-# Install opcache extension
-RUN apk add --no-cache \
-    && docker-php-ext-install -j$(nproc) opcache \
-    && docker-php-ext-enable opcache \
-    && rm -rf /tmp/*
-
 COPY .docker/php/profile.d/aliases.sh /etc/profile.d/
+COPY .docker/php/conf.d/docker.conf /usr/local/etc/php-fpm.d/docker.conf
+
+# Needed for php-fpm-healthcheck.sh which is used for k8 readinessProbe and livenessProbe
+RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 ARG symfony_mode
 RUN if [ "$symfony_mode" = "dev" ]; \
@@ -28,24 +29,14 @@ RUN if [ "$symfony_mode" = "dev" ]; \
     else cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini; \
     fi
 
-COPY .docker/php/conf.d/docker.conf /usr/local/etc/php-fpm.d/docker.conf
-
-# Install bcmath extension
-RUN apk add --no-cache                        && \
-    docker-php-ext-install -j$(nproc) bcmath  && \
-    rm -rf /tmp/*
-
-# Needed for php-fpm-healthcheck.sh which is used for k8 readinessProbe and livenessProbe
-RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf
 
 FROM base as local
 # Xdebug
 COPY .docker/php/conf.d/ext-xdebug.ini /usr/local/etc/php/conf.d/ext-xdebug.ini
-RUN apk --update add --virtual .build-dependencies $PHPIZE_DEPS linux-headers && \
-    pecl install xdebug                                                       && \
-    docker-php-ext-enable xdebug                                              && \
-    apk del .build-dependencies                                               && \
-    rm -rf /tmp/* /var/cache/apk/*
+RUN apk --no-cache add --virtual .build-dependencies $PHPIZE_DEPS linux-headers && \
+    pecl install xdebug                                                         && \
+    docker-php-ext-enable xdebug                                                && \
+    apk del .build-dependencies && rm -rf /tmp/*
 
 
 FROM base as deployment
