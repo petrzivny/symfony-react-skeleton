@@ -48,10 +48,9 @@ jobs:
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-          docker images
           kind load docker-image europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/php:latest --name chart-testing
           kind load docker-image europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar/symfony-react-skeleton/nginx:latest --name chart-testing
-          helm upgrade --install --wait --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm
+          helm upgrade --install symfony-react-skeleton .deploy/helm --wait --create-namespace --timeout 1m --set fetch_external_secrets_in_post_deploy_script=false
           kubectl get pods
 #          ct install --all --target-branch ${{ github.event.repository.default_branch }} --chart-dirs .deploy --helm-extra-args "--timeout 1m"
 
