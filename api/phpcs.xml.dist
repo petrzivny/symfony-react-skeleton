@@ -132,10 +132,10 @@
     <rule ref="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch" />
     <rule ref="SlevomatCodingStandard.Files.FileLength" />
     <rule ref="SlevomatCodingStandard.Files.LineLength">
-<!--        <properties>-->
-<!--            <property name="lineLengthLimit" value="200" />-->
-<!--            <property name="ignoreImports" value="true" />-->
-<!--        </properties>-->
+        <properties>
+            <property name="lineLengthLimit" value="140" />
+            <property name="ignoreImports" value="true" />
+        </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration" />
     <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction" />
