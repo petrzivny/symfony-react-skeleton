@@ -36,3 +36,4 @@ bin/console cache:clear
 setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .en*
 
 kill -USR2 1
+rm .env.local.php
