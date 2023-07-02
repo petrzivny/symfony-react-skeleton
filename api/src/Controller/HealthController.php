@@ -76,9 +76,9 @@ final class HealthController extends AbstractController
 
         unset($preloadStatistics['isOperational']);
 
-        $preloadStatistics['functions'] = count($statistics['functions']);
-        $preloadStatistics['classes'] = count($statistics['classes']);
-        $preloadStatistics['scripts'] = count($statistics['scripts']);
+        $preloadStatistics['functions'] = count($statistics['functions'] ?? []);
+        $preloadStatistics['classes'] = count($statistics['classes'] ?? []);
+        $preloadStatistics['scripts'] = count($statistics['scripts'] ?? []);
         $preloadStatistics['memoryConsumption'] = round($statistics['memory_consumption'] / 1_000_000, 2) . 'MB';
 
         return $preloadStatistics;

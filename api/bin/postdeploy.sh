@@ -37,5 +37,9 @@ setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .en*
 
 kill -USR2 1
 sleep 2
-echo "" > .env.local.php
-rm .env .env.prod.local
+
+if ! $skipVaultFetch
+  then
+    echo "" > .env.local.php;
+    rm .env .env.prod.local;
+fi
