@@ -30,6 +30,14 @@ fi
 
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod
-bin/console cache:warmup
+
+bin/console cache:clear
 
 setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .en*
+
+kill -USR2 1
+sleep 2
+
+if ! $skipVaultFetch
+  then echo "" > .env.local.php && rm .env .env.prod.local
+fi

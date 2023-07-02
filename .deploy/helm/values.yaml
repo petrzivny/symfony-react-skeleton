@@ -6,6 +6,7 @@
 
 image:
   repository: europe-west1-docker.pkg.dev/basic-388908/totea-symfony-react-skeleton-ar
+  imagePullPolicy: Always
 
 # Use terraform output "app_gcp_service_account_name" from infrastructure repo.
 # Or if you use your own infrastructure, use cloud provider service account identifier.

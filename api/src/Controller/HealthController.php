@@ -16,6 +16,7 @@ use function file_exists;
 use function file_get_contents;
 use function getenv;
 use function opcache_get_status;
+use function round;
 use function str_contains;
 
 /** @psalm-api */
@@ -32,8 +33,6 @@ final class HealthController extends AbstractController
             $connectionDb = $throwable->getMessage();
         }
 
-        [$preloadingFile, $classesPreloaded] = $this->getPreloadInfo();
-
         return $this->json(
             [
                 'status' => 'OK',
@@ -48,37 +47,41 @@ final class HealthController extends AbstractController
                 'getenv(DATABASE_HOST)' => getenv('DATABASE_HOST') ?: 'NA',
                 'php.ini file used' => $this->getPhpIniFileVersion(),
                 'connectionToDb' => $connectionDb,
-                'preloadingFile' => $preloadingFile,
-                'classesPreloaded' => $classesPreloaded,
+                'preloadStatistics' => $this->getPreloadStatistics(),
             ],
         );
     }
 
-    /** @return array<int, int|string> */
-    private function getPreloadInfo(): array
+    /** @return array<string, int|string> */
+    private function getPreloadStatistics(): array
     {
-        $preloadingFile = 'NA';
+        $preloadStatistics = [
+            'preloadingFile' => 'NA',
+            'isOperational' => 'NO',
+        ];
+
         $file = dirname(__DIR__) . '/../var/cache/prod/App_KernelProdContainer.preload.php';
 
         if (file_exists($file)) {
-            $preloadingFile = $file;
+            $preloadStatistics['preloadingFile'] = $file;
         }
-
-        $classesPreloaded = 'NA';
 
         $opcacheStatus = opcache_get_status();
 
         if ($opcacheStatus === false || !array_key_exists('preload_statistics', $opcacheStatus)) {
-            return [$preloadingFile, $classesPreloaded];
+            return $preloadStatistics;
         }
 
-        $opcachePreloadStatistics = $opcacheStatus['preload_statistics'];
+        $statistics = $opcacheStatus['preload_statistics'];
 
-        if (array_key_exists('classes', $opcachePreloadStatistics)) {
-            $classesPreloaded = (string) (count($opcachePreloadStatistics['classes']));
-        }
+        unset($preloadStatistics['isOperational']);
 
-        return [$preloadingFile, $classesPreloaded];
+        $preloadStatistics['functions'] = count($statistics['functions'] ?? []);
+        $preloadStatistics['classes'] = count($statistics['classes'] ?? []);
+        $preloadStatistics['scripts'] = count($statistics['scripts'] ?? []);
+        $preloadStatistics['memoryConsumption'] = round($statistics['memory_consumption'] / 1_000_000, 2) . 'MB';
+
+        return $preloadStatistics;
     }
 
     private function getPhpIniFileVersion(): string
