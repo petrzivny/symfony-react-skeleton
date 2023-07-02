@@ -40,6 +40,6 @@ sleep 2
 
 if ! $skipVaultFetch
   then
-    echo "" > .env.local.php;
-    rm .env .env.prod.local;
+    echo "" > .env.local.php
+    rm .env .env.prod.local
 fi
