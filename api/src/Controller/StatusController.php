@@ -108,10 +108,8 @@ final class StatusController extends AbstractController
         $opcacheStatistics['preloadedFunctions'] = count($preloadStatistics['functions'] ?? []);
         $opcacheStatistics['preloadedClasses'] = count($preloadStatistics['classes'] ?? []);
         $opcacheStatistics['preloadedScripts'] = count($preloadStatistics['scripts'] ?? []);
-        $opcacheStatistics['preloadingMemoryConsumption'] = round(
-            $preloadStatistics['memory_consumption'] / 1_000_000,
-            2,
-        ) . 'MB';
+        $opcacheStatistics['preloadingMemoryConsumption']
+            = round($preloadStatistics['memory_consumption'] / 1_000_000, 2) . 'MB';
 
         return $opcacheStatistics;
     }
