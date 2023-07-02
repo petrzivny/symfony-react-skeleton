@@ -42,7 +42,7 @@ On top of it you will receive BE, FE and DevOps best practices already implement
 
 Don't forget to give the project a star!
 
-<a href="http://skeleton.totea.cz">Live Demo</a>
+<a href="http://skeleton.totea.cz">Live Demo - FE</a>&nbsp;|&nbsp;<a href="http://skeleton.totea.cz/api/status">Live Demo - BE status</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -85,7 +85,7 @@ Next time you only need to perform points 3., 4. and 5. to start developing. I r
 2. Symfony framework as a backed REST api
    - [x] Independent on any used frontend. Communicating via REST. (_best-practice_ 🎯)
    - [x] Symfony tuned for [best performance](https://symfony.com/doc/current/performance.html) in prod. (_performance_ ⏩).
-   - [x] Opcache php preloading (_performance_ ⏩).
+   - [x] Opcache php preloading + symfony recommended optimization (_performance_ ⏩).
    - [ ] Php JIT not implemented. JIT increase performance only in high concurrency regime while in low concurrency it is more performant to not use JIT (_performance_ ⏩).
    - [x] Zero trust, the least privilege and giving as minimum as possible information principles used in nginx.conf (_best-practice_ 🎯).
    - [x] Xdebug setup to debug both html requests and CLI commands.
@@ -186,6 +186,7 @@ Don't forget to give the project a star! Thanks again!
 - [ ] Add CI e2e tests against prod images
 - [ ] Add Prometheus
 - [ ] Add Grafana (and disable GCP logs)
+- [ ] Add https certificate
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 
