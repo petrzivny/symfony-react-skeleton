@@ -83,8 +83,10 @@ Next time you only need to perform points 3., 4. and 5. to start developing. I r
 ## What is included out-of-the-box
 1. Docker to run complete dev environment (php + nginx + PostgreSQL)
 2. Symfony framework as a backed REST api
-   - [x] Independent on any used frontend. Communicating via REST (_best-practice_ 🎯)
-   - [x] Symfony tuned for best performance in prod (opcache preloading with JIT) (_performance_ ⏩).
+   - [x] Independent on any used frontend. Communicating via REST. (_best-practice_ 🎯)
+   - [x] Symfony tuned for [best performance](https://symfony.com/doc/current/performance.html) in prod. (_performance_ ⏩).
+   - [x] Opcache php preloading (_performance_ ⏩).
+   - [ ] Php JIT not implemented. JIT increase performance only in high concurrency regime while in low concurrency it is more performant to not use JIT (_performance_ ⏩).
    - [x] Zero trust, the least privilege and giving as minimum as possible information principles used in nginx.conf (_best-practice_ 🎯).
    - [x] Xdebug setup to debug both html requests and CLI commands.
    - [x] Phpstan in a very strict level. Including [shipmonk-rules](https://github.com/shipmonk-rnd/phpstan-rules).
@@ -116,6 +118,10 @@ Next time you only need to perform points 3., 4. and 5. to start developing. I r
    - [x] Both nginx and php pods have readiness probes.
    - [x] Both nginx and php pods have liveness probes.
    - [x] Optional: Ingress to connect your kubernetes cluster with outside world (you can use platform Load Balancer, but it is usually billed).
+6. Security:
+   - [x] Secrets are not stored in file system, thus prevent directory traversal attack (_best-practice_ 👍).
+   - [x] Secrets are not stored as environment variables, thus prevent any debug or log attacks or misconfigurations (_best-practice_ 👍).
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## How to code like a PRO
@@ -175,7 +181,6 @@ Don't forget to give the project a star! Thanks again!
 - [x] Helm: Add readiness probe
 - [x] Add static URL as a Live Demo link
 - [x] Add OPCache
-- [ ] Add JIT
 - [ ] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
 - [ ] Add CI e2e tests against prod images
