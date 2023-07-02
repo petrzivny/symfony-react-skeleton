@@ -39,7 +39,5 @@ kill -USR2 1
 sleep 2
 
 if ! $skipVaultFetch
-  then
-    echo "" > .env.local.php
-    rm .env .env.prod.local
+  then echo "" > .env.local.php && rm .env .env.prod.local
 fi
