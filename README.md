@@ -62,8 +62,7 @@ Don't forget to give the project a star!
 1. Clone the repo. Replace {myproject} with a name of your new project/app.
    ```sh
    PROJECT_NAME={myproject}
-   git clone https://github.com/petrzivny/symfony-react-skeleton.git $COMPOSE_PROJECT_NAME
-   cd $PROJECT_NAME
+   git clone https://github.com/petrzivny/symfony-react-skeleton.git $PROJECT_NAME && cd $PROJECT_NAME
    ```
 2. Setup environmental variables by using prepared template
    ```sh
@@ -77,20 +76,16 @@ Don't forget to give the project a star!
    ```sh
    cd .docker && docker compose --env-file ../api/.env.local up -d
    ```
-   Don't worry about nginx Error and php Error, it just means docker images needs to be build.
+   Don't worry about nginx and php Errors or Warnings, it just means docker images needs to be build for a first time.
    Try `docker ps`. 3 containers should be up and running (php, nginx, postgres), if not, try `docker ps -a` and `docker log`.
 5. Install php dependencies (inside php docker container)
    ```sh
-   #use docker ps to get name of php container   
-   docker exec -it ${PROJECT_NAME}_php sh
-   composer i
-   exit
+   docker exec -it ${PROJECT_NAME}_php composer i
    ```
-6. Try to run http://localhost:81/api/status to check if BE is running properly (you should see 200 JSON response with debug info).
+6. Try to run http://localhost:81/api/status to check if BE is running properly (you should see 200 JSON response with debug info). I recommend to use [this chrome extension](https://chrome.google.com/webstore/detail/jsonvue/chklaanhfefbnpoihckbnefhakgolnmc) to format json responses.
 7. Install javascript dependencies
    ```sh
-   cd ../fe 
-   pnpm install
+   cd ../fe && pnpm install
    ```
 8. Run FE hot reload dev server
    ```sh
@@ -191,6 +186,8 @@ This example is configured out-of-the-box for [this infrastructure](https://gith
 
 ## Pictures
 ![ci-pipeline.png](documentation%2Fimages%2Fci-pipeline.png)
+![status-dev.png](documentation%2Fimages%2Fstatus-dev.png)
+![status-prod.png](documentation%2Fimages%2Fstatus-prod.png)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
