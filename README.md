@@ -58,16 +58,16 @@ Don't forget to give the project a star!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Installation
-1. Clone the repo
+1. Clone the repo. Replace {myproject} with a name of your new project/app.
    ```sh
-   git clone https://github.com/petrzivny/symfony-react-skeleton.git myproject.com
-   cd myproject.com
+   git clone https://github.com/petrzivny/symfony-react-skeleton.git {myproject}
+   cd {myproject}
    ```
 2. Setup environmental variables by using prepared template
    ```sh
    cp api/.env.local.dist api/.env.local
    ```
-3. Change `COMPOSE_PROJECT_NAME` environmental variable in api/.env.local to myproject.
+3. Change `COMPOSE_PROJECT_NAME` environmental variable in api/.env.local to {myproject}.
 4. Build BE docker images and run them as docker containers in dev mode
    ```sh
    cd .docker && docker compose --env-file ../api/.env.local up -d
@@ -76,9 +76,10 @@ Don't forget to give the project a star!
    Try `docker ps`. 3 containers should be up and running (php, nginx, postgres), if not, try `docker ps -a` and `docker log`.
 5. Install php dependencies (inside php docker container)
    ```sh
-      docker exec -it myproject_php sh
-      composer i
-      exit
+   #use docker ps to get name of php container   
+   docker exec -it {myproject}_php sh
+   composer i
+   exit
    ```
 6. Try to run http://localhost:81/api/health to check if BE is running properly (you should see 200 JSON response with debug info).
 7. Install javascript dependencies
@@ -90,7 +91,7 @@ Don't forget to give the project a star!
    ```sh
    pnpm run dev
    ```
-9. Visit http://localhost:5173/
+9. Visit http://localhost:5173/. You are ready to start local development. Happy coding.
 
 Next time you only need to perform points 4. and 8. to start developing. I recommend to set up an <a href="#setup-alias-for-fast-start-of-development">alias</a> for them.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -194,11 +195,10 @@ I **greatly appreciate** all suggestions and contributions. Contributions are wh
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+2. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+3. Push to the Branch (`git push origin feature/AmazingFeature`)
+4. Open a Pull Request
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
@@ -222,6 +222,7 @@ See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues
 
 ## Frequently Asked Questions
 - [How to run CI tests locally?](#how-to-run-ci-tests-locally)
+- [How to run BE application in prod mode locally?](#how-to-run-be-application-in-prod-mode-locally)
 #### How to run CI tests locally?
 A developer can run all BE tests at once `composer test` or only selected BE test can be ran e.g. `composer phpstan`. Commands should be run inside php container.
 A developer can run all FE tests at once `pnpm run test` or only selected FE test can be ran e.g. `pnpm run lint`.
