@@ -33,6 +33,7 @@ jobs:
 
   continuous-deployment:
     needs: [push-prod-images]
+    if: github.ref == 'refs/heads/main'
     name: CD
     uses: ./.github/workflows/_cd.yaml
 

@@ -12,6 +12,7 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
+        <li><a href="#linking-your-remote-repository">Linking your remote repository</a></li>
       </ul>
     </li>
     <li><a href="#what-is-included-out-of-the-box">What is included out-of-the-box</a></li>
@@ -50,34 +51,64 @@ Don't forget to give the project a star!
 ## Getting Started
 
 ### Prerequisites
-
-* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Docker (and docker compose) installed.](https://docs.docker.com/engine/install/) You don't need Docker Desktop for this project. 
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [docker (and docker compose) installed.](https://docs.docker.com/engine/install/) You don't need Docker Desktop for this project. 
+* [node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-22-04#option-3-installing-node-using-the-node-version-manager) 
 * [pnpm](https://pnpm.io/installation)
 * OPTIONAL: [helm](https://helm.sh/docs/intro/install/) for deploying to kubernetes cluster 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Installation
-1. Clone the repo
+1. Clone the repo. Replace {myproject} with a name of your new project/app.
    ```sh
-   git clone https://github.com/petrzivny/symfony-react-skeleton.git
-   cd symfony-react-skeleton
+   PROJECT_NAME={myproject}
+   git clone https://github.com/petrzivny/symfony-react-skeleton.git $PROJECT_NAME && cd $PROJECT_NAME
    ```
 2. Setup environmental variables by using prepared template
    ```sh
-   mv api/.env.local.dist api/.env.local
+   cp api/.env.local.dist api/.env.local
    ```
-3. Build BE docker images and run them as docker containers in dev mode
+3. Change `COMPOSE_PROJECT_NAME` environmental variable in api/.env.local to {myproject}. You can do it in your editor or use following command.
+   ```sh
+   sed -i "s/symfony-react-skeleton/$PROJECT_NAME/g" api/.env.local
+   ```
+4. Build BE docker images and run them as docker containers in dev mode
    ```sh
    cd .docker && docker compose --env-file ../api/.env.local up -d
    ```
-   Try to run http://localhost:81/health to check if BE is running properly (you should see 200 JSON response with debug info).
-4. Run FE react app in dev mode
+   Don't worry about nginx and php Errors or Warnings, it just means docker images needs to be build for a first time.
+   Try `docker ps`. 3 containers should be up and running (php, nginx, postgres), if not, try `docker ps -a` and `docker log`.
+5. Install php dependencies (inside php docker container)
    ```sh
-   cd ../fe && pnpm run dev
+   docker exec -it ${PROJECT_NAME}_php composer i
    ```
-5. Visit http://localhost:5173/
+6. Try to run http://localhost:81/api/status to check if BE is running properly (you should see 200 JSON response with debug info). I recommend to use [this chrome extension](https://chrome.google.com/webstore/detail/jsonvue/chklaanhfefbnpoihckbnefhakgolnmc) to format json responses.
+7. Install javascript dependencies
+   ```sh
+   cd ../fe && pnpm install
+   ```
+8. Run FE hot reload dev server
+   ```sh
+   pnpm run dev
+   ```
+9. Visit http://localhost:5173/. You are ready to start local development. Happy coding.
 
-Next time you only need to perform points 3., 4. and 5. to start developing. I recommend to set up an <a href="#setup-alias-for-fast-start-of-development">alias</a> for them.
+Next time you only need to perform points 4. and 8. to start developing. I recommend to set up an <a href="#setup-alias-for-fast-start-of-development">alias</a> for them.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Linking your remote repository
+At this moment your only remote repository is origin: https://github.com/petrzivny/symfony-react-skeleton.git. But you need to have your own remote repository connected too (I recommend to leave original repository if you want to contribute this public project in future).
+```shell
+# rename origin: https://github.com/petrzivny/symfony-react-skeleton.git to template: https://github.com/petrzivny/symfony-react-skeleton.git
+git remote rename origin template
+
+# Create a new repository (preferably on GitHub to use all features of this template)
+git remote add origin url_of_your_repo 
+#eg: git remote add origin git remote add origin git@github.com/petrzivny/myproject.git
+
+git push -u origin main
+```
+Take a look into your GitHub repository. All code should be there and your first GitBub Actions pipeline should be initiated. At this point you will need to configure self-hosted runners. 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## What is included out-of-the-box
@@ -145,9 +176,7 @@ Create a global `.gitignore` file in a parent directory for your project and add
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-### Deploy to cloud
+## Deploy to cloud
 This example is configured out-of-the-box for [this infrastructure](https://github.com/petrzivny/infrastructure-skeleton)
 1. Provision your infrastructure by using mentioned infrastructure skeleton. Save output values from terraform apply. You will use them in point 3. and 4. (or use your own infrastructure).
 2. `cd .deploy/helm`
@@ -155,8 +184,10 @@ This example is configured out-of-the-box for [this infrastructure](https://gith
 4. `helm upgrade --install --create-namespace your-app-name .`
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Pictures
+## Pictures
 ![ci-pipeline.png](documentation%2Fimages%2Fci-pipeline.png)
+![status-dev.png](documentation%2Fimages%2Fstatus-dev.png)
+![status-prod.png](documentation%2Fimages%2Fstatus-prod.png)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
@@ -166,11 +197,10 @@ I **greatly appreciate** all suggestions and contributions. Contributions are wh
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+2. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+3. Push to the Branch (`git push origin feature/AmazingFeature`)
+4. Open a Pull Request
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
@@ -194,6 +224,7 @@ See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues
 
 ## Frequently Asked Questions
 - [How to run CI tests locally?](#how-to-run-ci-tests-locally)
+- [How to run BE application in prod mode locally?](#how-to-run-be-application-in-prod-mode-locally)
 #### How to run CI tests locally?
 A developer can run all BE tests at once `composer test` or only selected BE test can be ran e.g. `composer phpstan`. Commands should be run inside php container.
 A developer can run all FE tests at once `pnpm run test` or only selected FE test can be ran e.g. `pnpm run lint`.

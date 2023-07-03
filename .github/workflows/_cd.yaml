@@ -7,7 +7,7 @@ jobs:
     runs-on: self-hosted
     name: Helm***
     steps:
-      - name: Restore old kubectl default context
+      - name: Set kubectl default context
         run: |
           kubectl config use-context gke_basic-388908_europe-west1-b_cluster-1
 
