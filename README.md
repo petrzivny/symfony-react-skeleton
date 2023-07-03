@@ -51,8 +51,9 @@ Don't forget to give the project a star!
 ## Getting Started
 
 ### Prerequisites
-* [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-* [Docker (and docker compose) installed.](https://docs.docker.com/engine/install/) You don't need Docker Desktop for this project. 
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [docker (and docker compose) installed.](https://docs.docker.com/engine/install/) You don't need Docker Desktop for this project. 
+* [node](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-22-04#option-3-installing-node-using-the-node-version-manager) 
 * [pnpm](https://pnpm.io/installation)
 * OPTIONAL: [helm](https://helm.sh/docs/intro/install/) for deploying to kubernetes cluster 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -60,14 +61,18 @@ Don't forget to give the project a star!
 ### Installation
 1. Clone the repo. Replace {myproject} with a name of your new project/app.
    ```sh
-   git clone https://github.com/petrzivny/symfony-react-skeleton.git {myproject}
-   cd {myproject}
+   PROJECT_NAME={myproject}
+   git clone https://github.com/petrzivny/symfony-react-skeleton.git $COMPOSE_PROJECT_NAME
+   cd $PROJECT_NAME
    ```
 2. Setup environmental variables by using prepared template
    ```sh
    cp api/.env.local.dist api/.env.local
    ```
-3. Change `COMPOSE_PROJECT_NAME` environmental variable in api/.env.local to {myproject}.
+3. Change `COMPOSE_PROJECT_NAME` environmental variable in api/.env.local to {myproject}. You can do it in your editor or use following command.
+   ```sh
+   sed -i "s/symfony-react-skeleton/$PROJECT_NAME/g" api/.env.local
+   ```
 4. Build BE docker images and run them as docker containers in dev mode
    ```sh
    cd .docker && docker compose --env-file ../api/.env.local up -d
@@ -77,11 +82,11 @@ Don't forget to give the project a star!
 5. Install php dependencies (inside php docker container)
    ```sh
    #use docker ps to get name of php container   
-   docker exec -it {myproject}_php sh
+   docker exec -it ${PROJECT_NAME}_php sh
    composer i
    exit
    ```
-6. Try to run http://localhost:81/api/health to check if BE is running properly (you should see 200 JSON response with debug info).
+6. Try to run http://localhost:81/api/status to check if BE is running properly (you should see 200 JSON response with debug info).
 7. Install javascript dependencies
    ```sh
    cd ../fe 
