@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: {{ .Values.image.repository }}/{{.Chart.Name}}/nginx
+          image: {{ .Values.image.artifact_registry }}/{{.Chart.Name}}/nginx
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           readinessProbe:
             httpGet:

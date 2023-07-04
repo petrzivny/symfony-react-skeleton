@@ -108,7 +108,7 @@ git remote add origin url_of_your_repo
 
 git push -u origin main
 ```
-Take a look into your GitHub repository. All code should be there and your first GitBub Actions pipeline should be initiated. At this point you will need to configure self-hosted runners. 
+Take a look into your GitHub repository. All code should be there and your first GitHub Actions pipeline should be initiated. At this point you will need to configure self-hosted runners. 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## What is included out-of-the-box
@@ -181,7 +181,20 @@ This example is configured out-of-the-box for [this infrastructure](https://gith
 1. Provision your infrastructure by using mentioned infrastructure skeleton. Save output values from terraform apply. You will use them in point 3. and 4. (or use your own infrastructure).
 2. `cd .deploy/helm`
 3. Edit Chart.yaml and values.yaml files (use outputs from infrastructure terraform provisioning).
-4. `helm upgrade --install --create-namespace your-app-name .`
+4. Build and push your prod images
+   ```sh
+   REGISTRY={repository}
+   PROJECT_NAME={myproject}
+   cd .docker && REGISTRY="${REGISTRY}" docker compose --env-file ../api/.env.local -f docker-compose-prod.yaml build
+   docker push "${REGISTRY}/${PROJECT_NAME}/nginx"
+   docker push "${REGISTRY}/${PROJECT_NAME}/php"
+   ```
+5. 
+   ```sh
+   cd ../.deploy/helm
+   sed -i "s/symfony-react-skeleton/$PROJECT_NAME/g" Chart.yaml
+   helm upgrade --install --create-namespace --namespace {app_k8_namespace} $PROJECT_NAME .
+   ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Pictures
@@ -211,12 +224,14 @@ Don't forget to give the project a star! Thanks again!
 - [x] Helm: Add readiness probe
 - [x] Add static URL as a Live Demo link
 - [x] Add OPCache
+- [ ] Refactor COMPOSE_PROJECT_NAME
 - [ ] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
 - [ ] Add CI e2e tests against prod images
 - [ ] Add Prometheus
 - [ ] Add Grafana (and disable GCP logs)
 - [ ] Add https certificate
+- [ ] app_gcp_service_account_name, gcp_project and app_k8_service_account_name must set per environment
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 

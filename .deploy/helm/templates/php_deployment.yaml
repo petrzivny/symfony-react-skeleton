@@ -19,7 +19,7 @@ spec:
       serviceAccountName: {{ .Values.app_k8_service_account_name }}
       containers:
         - name: php
-          image: {{ .Values.image.repository }}/{{.Chart.Name}}/php
+          image: {{ .Values.image.artifact_registry }}/{{.Chart.Name}}/php
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           readinessProbe:
             exec:
@@ -40,8 +40,8 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command:
-                  - bin/postdeploy.sh
-                  {{- if not .Values.fetch_external_secrets_in_post_deploy_script }}
-                  - --skip-vault-fetch
-                  {{- end }}
+                command: [
+                  '/bin/sh',
+                  '-c',
+                  'GCP_SECRET_MANAGER_PROJECT_ID={{ .Values.gcp_project | quote }} bin/postdeploy.sh {{ .Values.fetch_external_secrets_in_post_deploy_script | ternary "" "--skip-vault-fetch" }}'
+                ]

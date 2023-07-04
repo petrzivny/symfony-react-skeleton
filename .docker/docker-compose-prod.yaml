@@ -6,7 +6,7 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_nginx_prod
     build:
       target: deployment
-    image: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_nginx_prod:1.25-alpine
+    image: ${REGISTRY:-external_registry}/${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}/nginx
 
   php:
     extends:
@@ -17,15 +17,15 @@ services:
       target: deployment
       args:
         - symfony_mode=prod
-    image: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_php_prod:8.2-fpm-alpine
-    environment:
-      DATABASE_HOST: mysql
-      DATABASE_SERVER_VERSION: ${DATABASE_SERVER_VERSION:-15.3}
-      DATABASE_PORT: ${DATABASE_PORT:-5432}
-      DATABASE_NAME: develop
-      DATABASE_USER: develop
-      DATABASE_PASSWORD: develop
-      DATABASE_ROOT_PASSWORD: root
+    image: ${REGISTRY:-external_registry}/${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}/php
+#    environment:
+#      DATABASE_HOST: mysql
+#      DATABASE_SERVER_VERSION: ${DATABASE_SERVER_VERSION:-15.3}
+#      DATABASE_PORT: ${DATABASE_PORT:-5432}
+#      DATABASE_NAME: develop
+#      DATABASE_USER: develop
+#      DATABASE_PASSWORD: develop
+#      DATABASE_ROOT_PASSWORD: root
 
 networks:
   public:

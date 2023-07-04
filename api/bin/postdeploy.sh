@@ -3,7 +3,6 @@
 # If you don't want fetch secrets from external GCP vault (e.g. in CI pipeline) use flag "./postdeploy.sh --skip-vault-fetch"
 
 set -e
-GCP_SECRET_MANAGER_PROJECT_ID="basic-388908"
 #HTTPD_USER=$(ps axo -o user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1)
 HTTPD_USER=www-data
 CONSOLE_USER=$(whoami)
