@@ -68,7 +68,7 @@ Don't forget to give the project a star!
    ```sh
    cp api/.env.local.dist api/.env.local
    ```
-3. Change `COMPOSE_PROJECT_NAME` environmental variable in api/.env.local to {myproject}. You can do it in your editor or use following command.
+3. Change `PROJECT_NAME` environmental variable in api/.env.local to {myproject}. You can do it in your editor or use following command.
    ```sh
    sed -i "s/symfony-react-skeleton/$PROJECT_NAME/g" api/.env.local
    ```
@@ -183,9 +183,9 @@ This example is configured out-of-the-box for [this infrastructure](https://gith
 3. Edit Chart.yaml and values.yaml files (use outputs from infrastructure terraform provisioning).
 4. Build and push your prod images
    ```sh
-   REGISTRY={repository}
+   REGISTRY={artifact_registry}
    PROJECT_NAME={myproject}
-   cd .docker && REGISTRY="${REGISTRY}" docker compose --env-file ../api/.env.local -f docker-compose-prod.yaml build
+   cd .docker && REGISTRY="${REGISTRY}" PROJECT_NAME="${PROJECT_NAME}" docker compose -f docker-compose-prod.yaml build
    docker push "${REGISTRY}/${PROJECT_NAME}/nginx"
    docker push "${REGISTRY}/${PROJECT_NAME}/php"
    ```
@@ -224,7 +224,6 @@ Don't forget to give the project a star! Thanks again!
 - [x] Helm: Add readiness probe
 - [x] Add static URL as a Live Demo link
 - [x] Add OPCache
-- [ ] Refactor COMPOSE_PROJECT_NAME
 - [ ] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
 - [ ] Add CI e2e tests against prod images
@@ -243,8 +242,9 @@ See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues
 #### How to run CI tests locally?
 A developer can run all BE tests at once `composer test` or only selected BE test can be ran e.g. `composer phpstan`. Commands should be run inside php container.
 A developer can run all FE tests at once `pnpm run test` or only selected FE test can be ran e.g. `pnpm run lint`.
-#### How to run BE application in prod mode locally?
-`cd .docker && docker compose -f docker-compose-prod.yaml up -d`
+#### How to run BE application imitating prod mode locally?
+1. Uncomment services.php.environment section in `.docker/docker-compose-prod.yaml` to be able to connect to local DB if needed.
+2. `cd .docker && docker compose -f docker-compose-prod.yaml up -d`
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->

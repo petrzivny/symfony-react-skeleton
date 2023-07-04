@@ -3,10 +3,10 @@ services:
     extends:
       file: common-services.yaml
       service: nginx
-    container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_nginx
+    container_name: ${PROJECT_NAME:-symfony-react-skeleton}_nginx
     build:
       target: base
-    image: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_nginx:1.25-alpine
+    image: ${PROJECT_NAME:-symfony-react-skeleton}_nginx:1.25-alpine
     volumes:
       - ../fe/dist:/var/www/html
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -15,17 +15,17 @@ services:
     extends:
       file: common-services.yaml
       service: php
-    container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_php
+    container_name: ${PROJECT_NAME:-symfony-react-skeleton}_php
     build:
       target: local
       args:
         - symfony_mode=dev
-    image: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_php:8.2-fpm-alpine
+    image: ${PROJECT_NAME:-symfony-react-skeleton}_php:8.2-fpm-alpine
     volumes:
       - ../api:/var/www/html
 
   postgres:
-    container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_postgres
+    container_name: ${PROJECT_NAME:-symfony-react-skeleton}_postgres
     image: postgres:${DATABASE_SERVER_VERSION:-15.3}
     volumes:
       - postgres-data:/var/lib/mysql
@@ -40,10 +40,10 @@ services:
 
 networks:
   public:
-    name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_public
+    name: ${PROJECT_NAME:-symfony-react-skeleton}_public
   backend:
-    name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_backend
+    name: ${PROJECT_NAME:-symfony-react-skeleton}_backend
 
 volumes:
   postgres-data:
-    name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_postgresql-data
+    name: ${PROJECT_NAME:-symfony-react-skeleton}_postgresql-data

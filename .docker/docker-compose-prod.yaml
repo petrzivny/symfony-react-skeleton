@@ -3,34 +3,34 @@ services:
     extends:
       file: common-services.yaml
       service: nginx
-    container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_nginx_prod
+    container_name: ${PROJECT_NAME:-symfony-react-skeleton}_nginx_prod
     build:
       target: deployment
-    image: ${REGISTRY:-external_registry}/${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}/nginx
+    image: ${REGISTRY:-external_registry}/${PROJECT_NAME:-symfony-react-skeleton}/nginx
 
   php:
     extends:
       file: common-services.yaml
       service: php
-    container_name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_php_prod
+    container_name: ${PROJECT_NAME:-symfony-react-skeleton}_php_prod
     build:
       target: deployment
       args:
         - symfony_mode=prod
-    image: ${REGISTRY:-external_registry}/${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}/php
+    image: ${REGISTRY:-external_registry}/${PROJECT_NAME:-symfony-react-skeleton}/php
 #    environment:
-#      DATABASE_HOST: mysql
-#      DATABASE_SERVER_VERSION: ${DATABASE_SERVER_VERSION:-15.3}
-#      DATABASE_PORT: ${DATABASE_PORT:-5432}
+#      DATABASE_DRIVER: pdo_pgsql
+#      DATABASE_PORT: 5432
+#      DATABASE_SERVER_VERSION: 15.3
+#      DATABASE_HOST: postgres
 #      DATABASE_NAME: develop
 #      DATABASE_USER: develop
 #      DATABASE_PASSWORD: develop
-#      DATABASE_ROOT_PASSWORD: root
 
 networks:
   public:
-    name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_public
+    name: ${PROJECT_NAME:-symfony-react-skeleton}_public
     external: true
   backend:
-    name: ${COMPOSE_PROJECT_NAME:-symfony-react-skeleton}_backend
+    name: ${PROJECT_NAME:-symfony-react-skeleton}_backend
     external: true
