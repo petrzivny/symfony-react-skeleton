@@ -15,7 +15,6 @@ jobs:
 
       - name: helm lint
         run: |
-          env
           cd .deploy/helm && helm lint --strict --with-subcharts
 
       - name: Set up Helm

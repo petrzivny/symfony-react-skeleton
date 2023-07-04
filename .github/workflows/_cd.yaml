@@ -9,9 +9,9 @@ jobs:
     steps:
       - name: Set kubectl default context
         run: |
-          kubectl config use-context gke_basic-388908_europe-west1-b_cluster-1
+          kubectl config use-context gke_basic4-2542859_europe-west1-b_all-gke
 
       - name: Upgrade (or install) - idempotent
         run: |
-          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm --set image.repository=${{ vars.REGISTRY_NAME }}
+          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm --set image.artifact_registry=${{ vars.REGISTRY_NAME }}
 

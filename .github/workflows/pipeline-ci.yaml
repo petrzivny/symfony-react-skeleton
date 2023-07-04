@@ -44,4 +44,4 @@ jobs:
     steps:
       - name: Remove php test docker image
         run: |
-          docker image rm ${{ github.repository }}/php-test:${{ github.sha }}
+          docker image rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }}

@@ -8,8 +8,8 @@ jobs:
     steps:
       - name: Push php image
         run: |
-          docker push ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/php
+          docker push ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php
 
       - name: Push nginx image
         run: |
-          docker push ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/nginx
+          docker push ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/nginx
