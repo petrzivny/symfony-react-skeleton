@@ -177,10 +177,10 @@ Create a global `.gitignore` file in a parent directory for your project and add
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Deploy to cloud
-This example is configured out-of-the-box for [this infrastructure](https://github.com/petrzivny/infrastructure-skeleton)
-1. Provision your infrastructure by using mentioned infrastructure skeleton. Save output values from terraform apply. You will use them in point 3. and 4. (or use your own infrastructure).
+This example is configured out-of-the-box for [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton). It is useful for debugging or if you want to see your app running in prod ASAP. Real world deployment should be setup in CD pipeline.
+1. Provision your infrastructure by using [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton). Save output values from terraform apply. You will use them in point 3. and 4. You can of course use your own infrastructure.
 2. `cd .deploy/helm`
-3. Edit Chart.yaml and values.yaml files (use outputs from infrastructure terraform provisioning).
+3. Edit values.yaml file (use outputs from infrastructure terraform provisioning from point 1.).
 4. Build and push your prod images
    ```sh
    REGISTRY={artifact_registry}
@@ -189,7 +189,7 @@ This example is configured out-of-the-box for [this infrastructure](https://gith
    docker push "${REGISTRY}/${PROJECT_NAME}/nginx"
    docker push "${REGISTRY}/${PROJECT_NAME}/php"
    ```
-5. 
+5. Deploy your pushed images into k8 cluster created in point 1. 
    ```sh
    cd ../.deploy/helm
    sed -i "s/symfony-react-skeleton/$PROJECT_NAME/g" Chart.yaml
