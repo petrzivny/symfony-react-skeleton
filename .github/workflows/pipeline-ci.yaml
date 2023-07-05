@@ -3,7 +3,7 @@ name: CI-pipeline
 on: [push]
 
 env:
-  pokus: 1
+  pokus: "**************ASAS"
   pokus-two: zwei
 
 jobs:
@@ -48,4 +48,5 @@ jobs:
     steps:
       - name: Remove php test docker image
         run: |
+          echo "${{ env.pokus }}"
           docker image rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }}

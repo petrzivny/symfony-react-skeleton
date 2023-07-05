@@ -5,6 +5,10 @@ jobs:
   nginx:
     runs-on: self-hosted
     steps:
+      - name: Debug
+        run: |
+          echo "${{ env.pokus }}"
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
