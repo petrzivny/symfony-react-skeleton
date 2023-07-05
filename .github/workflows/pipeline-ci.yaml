@@ -2,6 +2,10 @@ name: CI-pipeline
 
 on: [push]
 
+env:
+  pokus: 1
+  pokus-two: zwei
+
 jobs:
 
   build-nginx-prod-image:
