@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
 
 jobs:
   nginx:
@@ -7,7 +11,7 @@ jobs:
     steps:
       - name: Debug
         run: |
-          echo "${{ env.pokus }}"
+          echo ${{ inputs.image-name }}
 
       - name: Checkout repository
         uses: actions/checkout@v3
