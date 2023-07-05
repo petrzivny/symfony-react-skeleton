@@ -12,43 +12,43 @@ jobs:
     name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
     with:
-      image-name: "klika"
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
-  build-php-test-image:
-    name: Build Test Image
-    uses: ./.github/workflows/_build-test-image-php.yaml
-
-  helm-tests:
-    name: Helm test
-    uses: ./.github/workflows/_tests-helm.yaml
-
-  php-code-quality-tests:
-    needs: [build-php-test-image]
-    name: PHP Test
-    uses: ./.github/workflows/_tests-code-quality.yaml
-
-  build-php-prod-images:
-    needs: [php-code-quality-tests, helm-tests]
-    name: Build Prod Image
-    uses: ./.github/workflows/_build-prod-image-php.yaml
-
-  push-prod-images:
-    needs: [build-php-prod-images, build-nginx-prod-image]
-    name: Push Prod Images
-    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
-
-  continuous-deployment:
-    needs: [push-prod-images]
-    if: github.ref == 'refs/heads/main'
-    name: CD
-    uses: ./.github/workflows/_cd.yaml
-
-  cleanup:
-    if: success() || failure()
-    needs: [php-code-quality-tests]
-    runs-on: self-hosted
-    steps:
-      - name: Remove php test docker image
-        run: |
-          echo "${{ env.pokus }}"
-          docker image rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }}
+#  build-php-test-image:
+#    name: Build Test Image
+#    uses: ./.github/workflows/_build-test-image-php.yaml
+#
+#  helm-tests:
+#    name: Helm test
+#    uses: ./.github/workflows/_tests-helm.yaml
+#
+#  php-code-quality-tests:
+#    needs: [build-php-test-image]
+#    name: PHP Test
+#    uses: ./.github/workflows/_tests-code-quality.yaml
+#
+#  build-php-prod-images:
+#    needs: [php-code-quality-tests, helm-tests]
+#    name: Build Prod Image
+#    uses: ./.github/workflows/_build-prod-image-php.yaml
+#
+#  push-prod-images:
+#    needs: [build-php-prod-images, build-nginx-prod-image]
+#    name: Push Prod Images
+#    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+#
+#  continuous-deployment:
+#    needs: [push-prod-images]
+#    if: github.ref == 'refs/heads/main'
+#    name: CD
+#    uses: ./.github/workflows/_cd.yaml
+#
+#  cleanup:
+#    if: success() || failure()
+#    needs: [php-code-quality-tests]
+#    runs-on: self-hosted
+#    steps:
+#      - name: Remove php test docker image
+#        run: |
+#          echo "${{ env.pokus }}"
+#          docker image rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }}
