@@ -10,7 +10,7 @@ use RuntimeException;
 
 use function count;
 
-final class GcpExternalSecretsRetriever
+final readonly class GcpExternalSecretsRetriever
 {
     private const SECRET_NAME_KEY = 'secretName';
     private const LATEST_SECRET_TAG = 'latest';
