@@ -1,18 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.host }}-{{ .Values.environmentName }}-php
+  name: {{ include "app.fullname" . }}-php
   labels:
-    app.kubernetes.io/name: php
+    app.kubernetes.io/name: {{ printf "%s-%s" .Chart.Name "php" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    environment: {{ .Values.environmentName }}
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app.kubernetes.io/name: php-app
+      app.kubernetes.io/name: {{ printf "%s-%s" .Chart.Name "php" | trunc 63 | trimSuffix "-" }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: php-app
+        app.kubernetes.io/name: {{ printf "%s-%s" .Chart.Name "php" | trunc 63 | trimSuffix "-" }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
         date: "{{ now | unixEpoch }}"  # replace :latest with :commit-sha in CI build process
     spec:
       # Comment next line if you don't want to use GCP Secret Manager

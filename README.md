@@ -189,22 +189,25 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
 2. Build and push your prod images. For this you need `artifact_registry` terraform output.
    ```sh
    # for {image_name} use {artifact_registry from terraform output}/{myproject} eg.: IMAGE_NAME=europe-west1-docker.pkg.dev/basic4-2542859/all-registry-europe-west1/symfony-react-skeleton
-   IMAGE_NAME=europe-west1-docker.pkg.dev/basic4-2542859/all-registry-europe-west1/symfony-react-skeleton
+   IMAGE_NAME={artifact_registry}
    cd .docker && IMAGE_NAME="${IMAGE_NAME}" docker compose -f docker-compose-prod.yaml build
    docker push "${IMAGE_NAME}/nginx"
    docker push "${IMAGE_NAME}/php"
    ```
-3. Edit values.yaml file (use `app_environment`, `gcp_project_id`, `app_gcp_service_account_name` and `app_k8_service_account_name` outputs from infrastructure terraform output from point 1.).
-4. Change `parameters.application_name:` parameter in api/config/services.yaml. Use applications key from terraform output.
-5. Deploy your pushed images into k8 cluster created in point 1. For this you need `app_k8_namespace` terraform output.
+3. Edit values.yaml file (use `app_environment`, `gcp_project_id`, `app_gcp_service_account_name` and `app_k8_service_account_name` outputs from infrastructure terraform apply from point 1.). Don't forget to edit also `host` which will be your url.
+4. Change `parameters.application_name:` parameter in api/config/services.yaml. Use `app_name` output from terraform apply.
+5. Deploy your pushed images into k8 cluster created in point 1. For this you need `app_k8_namespace` terraform output. You can choose any string for `{helm_release_name}`.
    ```sh
    K8_NAMESPACE={app_k8_namespace}
+   HELM_RELEASE={helm_release_name}
    cd ../.deploy/helm
-   helm upgrade --install --create-namespace $PROJECT_NAME . \
+   helm upgrade --install --create-namespace $HELM_RELEASE . \
       --namespace "${K8_NAMESPACE}" \
       --set image.nginx="${IMAGE_NAME}/nginx" \
       --set image.php="${IMAGE_NAME}/php" 
    ```
+6. Since you probably don't have DNS setup yes, try to access deployed app via curl. IP can be grabbed [here](https://console.cloud.google.com/kubernetes/ingresses).
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Pictures
@@ -234,12 +237,12 @@ Don't forget to give the project a star! Thanks again!
 - [x] Helm: Add readiness probe
 - [x] Add static URL as a Live Demo link
 - [x] Add OPCache
+- [ ] Add https certificate
 - [ ] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
 - [ ] Add CI e2e tests against prod images
 - [ ] Add Prometheus
 - [ ] Add Grafana (and disable GCP logs)
-- [ ] Add https certificate
 - [ ] app_gcp_service_account_name, gcp_project and app_k8_service_account_name must set per environment
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).

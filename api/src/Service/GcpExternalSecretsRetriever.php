@@ -20,7 +20,7 @@ final readonly class GcpExternalSecretsRetriever
      *
      * @psalm-api
      */
-    public function __construct(private array $template, private string $appName, private string $environmentName,)
+    public function __construct(private array $template, private string $appName, private string $environmentName)
     {
     }
 

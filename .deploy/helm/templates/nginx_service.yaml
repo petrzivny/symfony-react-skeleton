@@ -5,6 +5,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app.kubernetes.io/name: web-server
+    app.kubernetes.io/name: {{ printf "%s-%s" .Chart.Name "nginx" | trunc 63 | trimSuffix "-" }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
   ports:
     - port: 8080

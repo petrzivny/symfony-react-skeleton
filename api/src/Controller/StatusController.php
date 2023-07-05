@@ -14,7 +14,6 @@ use function array_key_exists;
 use function dirname;
 use function file_exists;
 use function file_get_contents;
-use function getenv;
 use function opcache_get_status;
 use function round;
 use function sprintf;
@@ -23,29 +22,34 @@ use function str_contains;
 /** @psalm-api */
 final class StatusController extends AbstractController
 {
+    public function __construct(private readonly string $appName, private readonly string $environmentName)
+    {
+    }
     #[Route('/status', name: 'api_status')]
     public function index(EntityManagerInterface $entityManager): JsonResponse
     {
+        $status = 'OK';
+
         try {
             // To force connect to DB.
             $entityManager->getConnection()->getNativeConnection();
             $connectionDb = $entityManager->getConnection()->isConnected() ? 'OK' : 'NA';
         } catch (Throwable $throwable) {
             $connectionDb = $throwable->getMessage();
+            $status = 'No connection to DB';
         }
 
         return $this->json(
             [
-                'status' => 'OK',
+                'status' => $status,
+                'appName' => $this->appName,
+                'environmentName' => $this->environmentName,
                 // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-                '$_ENV[APP_ENV]' => ($_ENV['APP_ENV'] ?? 'NA'),
-                'getenv(APP_ENV)' => getenv('APP_ENV') ?: 'NA',
+                '$_ENV[APP_ENV](aka Symfony app mode)' => ($_ENV['APP_ENV'] ?? 'NA'),
                 // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
                 '$_ENV[DATABASE_NAME]' => ($_ENV['DATABASE_NAME'] ?? 'NA'),
-                'getenv(DATABASE_NAME)' => getenv('DATABASE_NAME') ?: 'NA',
                 // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
                 '$_ENV[DATABASE_HOST]' => ($_ENV['DATABASE_HOST'] ?? 'NA'),
-                'getenv(DATABASE_HOST)' => getenv('DATABASE_HOST') ?: 'NA',
                 'php.ini file used' => $this->getPhpIniFileVersion(),
                 'connectionToDb' => $connectionDb,
                 'opcacheStatistics' => $this->getPreloadStatistics(),
