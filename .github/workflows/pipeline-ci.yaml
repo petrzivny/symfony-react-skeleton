@@ -4,7 +4,7 @@ on: [push]
 
 env:
   pokus: "**************ASAS"
-  pokus-two: zwei
+  pokus-two: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
 jobs:
 
