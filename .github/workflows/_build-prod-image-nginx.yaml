@@ -23,7 +23,7 @@ jobs:
           context: .
           file: .docker/nginx/Dockerfile
           target: deployment
-          tags: ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/nginx
+          tags: ${{ vars.REGISTRY_NAME }}/${{GITHUB_REPOSITORY#*/}}/nginx
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
