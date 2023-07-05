@@ -12,7 +12,7 @@ jobs:
     name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
     with:
-      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
+      image-name: ${{ env.pokus-two }}
 
 #  build-php-test-image:
 #    name: Build Test Image
@@ -43,12 +43,12 @@ jobs:
 #    name: CD
 #    uses: ./.github/workflows/_cd.yaml
 #
-#  cleanup:
-#    if: success() || failure()
+  cleanup:
+    if: success() || failure()
 #    needs: [php-code-quality-tests]
-#    runs-on: self-hosted
-#    steps:
-#      - name: Remove php test docker image
-#        run: |
-#          echo "${{ env.pokus }}"
-#          docker image rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }}
+    runs-on: self-hosted
+    steps:
+      - name: Remove php test docker image
+        run: |
+          echo "${{ env.pokus-two }}"
+          docker image rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }}
