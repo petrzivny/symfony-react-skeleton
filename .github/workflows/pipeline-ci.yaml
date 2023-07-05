@@ -12,7 +12,7 @@ jobs:
     name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
     with:
-      pokus: ${{ env.pokus }}
+      pokus: "klika"
 
   build-php-test-image:
     name: Build Test Image
