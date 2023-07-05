@@ -58,7 +58,7 @@ jobs:
             --target-branch ${{ github.event.repository.default_branch }} \
             --chart-dirs .deploy \
             --helm-extra-args "--timeout 1m" \
-            --helm-extra-set-args "--set=fetch_external_secrets_in_post_deploy_script=false,image.imagePullPolicy=Never"
+            --helm-extra-set-args "--set=fetch_external_secrets_in_post_deploy_script=false,image.imagePullPolicy=Never,image.nginx=${{ inputs.image-name }}/nginx,image.php=${{ inputs.image-name }}/php"
         # You can also use: helm upgrade --install symfony-react-skeleton .deploy/helm --wait --create-namespace --timeout 1m --set fetch_external_secrets_in_post_deploy_script=false
 
       - name: Debug On Failure

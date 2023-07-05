@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: php
+  name: {{ .Values.host }}-{{ .Values.environmentName }}-php
   labels:
     app.kubernetes.io/name: php
 spec:
