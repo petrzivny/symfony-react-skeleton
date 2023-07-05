@@ -11,6 +11,8 @@ jobs:
   build-nginx-prod-image:
     name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
+    with:
+      pokus: ${{ env.pokus }}
 
   build-php-test-image:
     name: Build Test Image
