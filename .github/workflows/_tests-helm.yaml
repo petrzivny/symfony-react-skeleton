@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
 
 jobs:
   lint:
@@ -48,8 +52,8 @@ jobs:
       - name: Run chart-testing (install)
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-          kind load docker-image ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}/php:latest --name chart-testing
-          kind load docker-image ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}/nginx:latest --name chart-testing
+          kind load docker-image ${{ inputs.image-name }}/php:latest --name chart-testing
+          kind load docker-image ${{ inputs.image-name }}/nginx:latest --name chart-testing
           ct install --all \
             --target-branch ${{ github.event.repository.default_branch }} \
             --chart-dirs .deploy \

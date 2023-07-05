@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
 
 jobs:
   phpcs:
@@ -8,7 +12,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }} composer phpcs
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer phpcs
 
   phpstan:
     runs-on: self-hosted
@@ -16,7 +20,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }} composer phpstan          
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer phpstan          
           
   psalm:
     runs-on: self-hosted
@@ -24,7 +28,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }} composer psalm 
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer psalm 
 
   vulnerabilities:
     runs-on: self-hosted
@@ -32,7 +36,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }} composer vuln           
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer vuln           
 
   composer:
     runs-on: self-hosted
@@ -40,7 +44,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }} composer validate --strict
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer validate --strict
 
   yaml:
     runs-on: self-hosted
@@ -48,7 +52,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }} composer yaml
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer yaml
 
   symfony_container:
     runs-on: self-hosted
@@ -56,7 +60,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }} composer container          
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer container          
 
   unit:
     runs-on: self-hosted
@@ -64,4 +68,4 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ vars.REGISTRY_NAME }}/${GITHUB_REPOSITORY#*/}/php-test:${{ github.sha }} composer unit  
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer unit  
