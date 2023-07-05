@@ -16,7 +16,6 @@ if [ "$1" = "--skip-vault-fetch" ] || [ "$1" = "-s" ]
    skipVaultFetch=true
 fi
 
-
 chmod 700 -R .
 mkdir -p var
 setfacl -dR -m u:"$HTTPD_USER":rwX -m u:"$CONSOLE_USER":rwX var
@@ -24,7 +23,7 @@ setfacl -R -m u:"$HTTPD_USER":rwX -m u:"$CONSOLE_USER":rwX var
 setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .
 
 if ! $skipVaultFetch
-  then bin/console secrets:external:decrypt-to-file $GCP_SECRET_MANAGER_PROJECT_ID
+  then bin/console secrets:external:decrypt-to-file
 fi
 
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative

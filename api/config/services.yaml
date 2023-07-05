@@ -50,3 +50,4 @@ services:
     App\Command\SecretsExternalDecryptToFileCommand:
         arguments:
             $applicationMode: '%env(enum:App\Enum\ApplicationMode:APP_ENV)%'
+            $projectId: '%env(GCP_PROJECT_ID)%'

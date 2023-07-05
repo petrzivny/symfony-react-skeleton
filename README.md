@@ -185,22 +185,25 @@ Create a global `.gitignore` file in a parent directory for your project and add
 
 ## Deploy to cloud
 This example is configured out-of-the-box for [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton). It is useful for debugging or if you want to see your app running in prod ASAP. Real world deployment should be setup in CD pipeline.
-1. Provision your infrastructure by using [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton). Save output values from terraform apply. You will use them in point 3. and 4. You can of course use your own infrastructure.
-2. `cd .deploy/helm`
-3. Edit values.yaml file (use outputs from infrastructure terraform provisioning from point 1.).
-4. Build and push your prod images
+1. Provision your infrastructure by using [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton). Save output values from terraform apply. You will use them in following steps. You can use your own infrastructure, in that case use your own output parameters.
+2. Build and push your prod images. For this you need `artifact_registry` terraform output.
    ```sh
-   REGISTRY={artifact_registry}
-   PROJECT_NAME={myproject}
-   cd .docker && REGISTRY="${REGISTRY}" PROJECT_NAME="${PROJECT_NAME}" docker compose -f docker-compose-prod.yaml build
-   docker push "${REGISTRY}/${PROJECT_NAME}/nginx"
-   docker push "${REGISTRY}/${PROJECT_NAME}/php"
+   # for {image_name} use {artifact_registry from terraform output}/{myproject} eg.: IMAGE_NAME=europe-west1-docker.pkg.dev/basic4-2542859/all-registry-europe-west1/symfony-react-skeleton
+   IMAGE_NAME=europe-west1-docker.pkg.dev/basic4-2542859/all-registry-europe-west1/symfony-react-skeleton
+   cd .docker && IMAGE_NAME="${IMAGE_NAME}" docker compose -f docker-compose-prod.yaml build
+   docker push "${IMAGE_NAME}/nginx"
+   docker push "${IMAGE_NAME}/php"
    ```
-5. Deploy your pushed images into k8 cluster created in point 1. 
+3. Edit values.yaml file (use `app_environment`, `gcp_project_id`, `app_gcp_service_account_name` and `app_k8_service_account_name` outputs from infrastructure terraform output from point 1.).
+4. Change `parameters.application_name:` parameter in api/config/services.yaml. Use applications key from terraform output.
+5. Deploy your pushed images into k8 cluster created in point 1. For this you need `app_k8_namespace` terraform output.
    ```sh
+   K8_NAMESPACE={app_k8_namespace}
    cd ../.deploy/helm
-   sed -i "s/symfony-react-skeleton/$PROJECT_NAME/g" Chart.yaml
-   helm upgrade --install --create-namespace --namespace {app_k8_namespace} $PROJECT_NAME .
+   helm upgrade --install --create-namespace $PROJECT_NAME . \
+      --namespace "${K8_NAMESPACE}" \
+      --set image.nginx="${IMAGE_NAME}/nginx" \
+      --set image.php="${IMAGE_NAME}/php" 
    ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

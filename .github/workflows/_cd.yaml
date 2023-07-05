@@ -1,6 +1,10 @@
 # Just a temp CD job, will be replaced with Argo CD
 on:
   workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
 
 jobs:
   all:
@@ -13,5 +17,8 @@ jobs:
 
       - name: Upgrade (or install) - idempotent
         run: |
-          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm --set image.artifact_registry=${{ vars.REGISTRY_NAME }}
+          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm \
+            --set environmentName=prod \
+            --set image.nginx=${{ inputs.image-name }}/nginx \
+            --set image.php=${{ inputs.image-name }}/php \
 
