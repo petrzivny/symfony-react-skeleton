@@ -12,7 +12,7 @@ jobs:
     name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
     with:
-      image-name: ${{ env.pokus-two }}
+      image-name: "${{ env.pokus-two }}"
 
 #  build-php-test-image:
 #    name: Build Test Image
