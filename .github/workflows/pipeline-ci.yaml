@@ -48,6 +48,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     name: CD
     uses: ./.github/workflows/_cd.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
   cleanup:
     if: success() || failure()
