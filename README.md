@@ -159,7 +159,7 @@ Take a look into your GitHub repository. All code should be there and your first
 6. Security:
    - [x] Secrets are not stored in file system, thus prevent directory traversal attack (_best-practice_ 👍).
    - [x] Secrets are not stored as environment variables, thus prevent any debug or log attacks or misconfigurations (_best-practice_ 👍).
-   - [x] HTTPS nginx certificate.
+   - [x] HTTPS Let's encrypt certificate. And if you use [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton) you receive automated creation of missing or expired certificates with [cert-manager](https://github.com/cert-manager/cert-manager).
    - [x] HTTP -> HTTPS 301 redirect (only for prod environments, not for eg dev.skeleton.cz).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -209,9 +209,10 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
       --set image.nginx="${IMAGE_NAME}/nginx" \
       --set image.php="${IMAGE_NAME}/php" 
    ```
-7. Give a nginx ingress approx 5 min to load up and test your running app. `{your_ip}` can be grabbed [here](https://console.cloud.google.com/kubernetes/ingresses). `{host}` is the same you used in point 4 in values.yaml.
+7. Give a nginx ingress approx 5 min to load up and test your running app. `{your_ip}` can be grabbed [here](https://console.cloud.google.com/kubernetes/ingresses) or via `kubectl get ingress -A`. `{host}` is the same you used in point 4 in values.yaml.
    ```sh
    curl --location --request GET "http://{your_ip}/api/status" --header "Host: {host}"
+   curl -ivL 'https://{your_ip}/api/status' --header 'Host: {host}'
    # eg: curl --location --request GET 'http://104.155.113.172/api/status' --header 'Host: skeleton.totea.cz'
    ```
 
@@ -221,6 +222,7 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
 ![ci-pipeline.png](documentation%2Fimages%2Fci-pipeline.png)
 ![status-dev.png](documentation%2Fimages%2Fstatus-dev.png)
 ![status-prod.png](documentation%2Fimages%2Fstatus-prod.png)
+![cert.png](documentation%2Fimages%2Fcert.png)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTING -->
@@ -244,7 +246,7 @@ Don't forget to give the project a star! Thanks again!
 - [x] Helm: Add readiness probe
 - [x] Add static URL as a Live Demo link
 - [x] Add OPCache
-- [ ] Add https certificate
+- [x] Add https certificate
 - [ ] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
 - [ ] Add CI e2e tests against prod images
