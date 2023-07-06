@@ -3,14 +3,14 @@ kind: Ingress
 metadata:
   name: nginx-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/issuer: {{ eq .Values.environmentName "prod" | ternary "letsencrypt-prod" "letsencrypt-staging" }}
 spec:
   ingressClassName: nginx
-  defaultBackend:
-    service:
-      name: nginx-service
-      port:
-        number: 8080
+  tls:
+  - hosts:
+    - {{ .Values.host | quote }}
+    secretName: staging-tls
   rules:
     - host: {{ .Values.host | quote }}
       http:
@@ -22,29 +22,3 @@ spec:
                 name: nginx-service
                 port:
                   number: 8080
-
-#  rules:
-#    - host: www.example.com
-#      http:
-#        paths:
-#          - pathType: Prefix
-#            backend:
-#              service:
-#                name: exampleService
-#                port:
-#                  number: 80
-#            path: /
-#  tls:
-#    - hosts:
-#        - www.example.com
-#      secretName: example-tls
-
-#apiVersion: v1
-#kind: Secret
-#metadata:
-#  name: example-tls
-#  namespace: foo
-#data:
-#  tls.crt: <base64 encoded cert>
-#  tls.key: <base64 encoded key>
-#type: kubernetes.io/tls

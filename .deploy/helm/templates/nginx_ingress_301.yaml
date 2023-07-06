@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress-301
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/permanent-redirect: $scheme://www.bungo.cz$request_uri
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: bungo.cz
+
