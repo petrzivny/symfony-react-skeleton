@@ -51,3 +51,8 @@ services:
         arguments:
             $applicationMode: '%env(enum:App\Enum\ApplicationMode:APP_ENV)%'
             $projectId: '%env(GCP_PROJECT_ID)%'
+
+    App\Controller\StatusController:
+        arguments:
+            $appName: '%application_name%'
+            $environmentName: '%env(ENVIRONMENT_NAME)%'
