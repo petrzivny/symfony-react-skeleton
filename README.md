@@ -159,6 +159,8 @@ Take a look into your GitHub repository. All code should be there and your first
 6. Security:
    - [x] Secrets are not stored in file system, thus prevent directory traversal attack (_best-practice_ 👍).
    - [x] Secrets are not stored as environment variables, thus prevent any debug or log attacks or misconfigurations (_best-practice_ 👍).
+   - [x] HTTPS nginx certificate.
+   - [x] HTTP -> HTTPS 301 redirect (only for prod environments, not for eg dev.skeleton.cz).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -207,7 +209,11 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
       --set image.nginx="${IMAGE_NAME}/nginx" \
       --set image.php="${IMAGE_NAME}/php" 
    ```
-6. Since you probably don't have DNS setup yes, try to access deployed app via curl. IP can be grabbed [here](https://console.cloud.google.com/kubernetes/ingresses).
+7. Give a nginx ingress approx 5 min to load up and test your running app. `{your_ip}` can be grabbed [here](https://console.cloud.google.com/kubernetes/ingresses). `{host}` is the same you used in point 4 in values.yaml.
+   ```sh
+   curl --location --request GET "http://{your_ip}/api/status" --header "Host: {host}"
+   # eg: curl --location --request GET 'http://104.155.113.172/api/status' --header 'Host: skeleton.totea.cz'
+   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -244,6 +250,8 @@ Don't forget to give the project a star! Thanks again!
 - [ ] Add CI e2e tests against prod images
 - [ ] Add Prometheus
 - [ ] Add Grafana (and disable GCP logs)
+- [ ] Log deprecations
+- [ ] Collect and display console logs
 - [ ] app_gcp_service_account_name, gcp_project and app_k8_service_account_name must set per environment
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
