@@ -6,7 +6,7 @@ services:
     container_name: ${PROJECT_NAME:-symfony-react-skeleton}_nginx_prod
     build:
       target: deployment
-    image: ${IMAGE_NAME:-external_registry/symfony-react-skeleton}/nginx
+    image: ${IMAGE_PATH:-external_registry/symfony-react-skeleton}/nginx
     ports:
       - "82:8080"
 
@@ -21,7 +21,7 @@ services:
       target: deployment
       args:
         - symfony_mode=prod
-    image: ${IMAGE_NAME:-external_registry/symfony-react-skeleton}/php
+    image: ${IMAGE_PATH:-external_registry/symfony-react-skeleton}/php
 #    environment:
 #      DATABASE_DRIVER: pdo_pgsql
 #      DATABASE_PORT: 5432

@@ -212,11 +212,10 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
 2. Change `parameters.application_name:` parameter in api/config/services.yaml. Use `app_name` output from terraform apply.
 3. Build and push your prod images. For this you need `artifact_registry` terraform output.
    ```sh
-   # for {image_name} use {artifact_registry from terraform output}/{myproject} eg.: IMAGE_NAME=europe-west1-docker.pkg.dev/basic4-2542859/all-registry-europe-west1/symfony-react-skeleton
-   IMAGE_NAME={artifact_registry}
-   cd .docker && IMAGE_NAME="${IMAGE_NAME}" docker compose -f docker-compose-prod.yaml build
-   docker push "${IMAGE_NAME}/nginx"
-   docker push "${IMAGE_NAME}/php"
+   # for {IMAGE_PATH} use {artifact_registry from terraform output}/{myproject} eg.: IMAGE_PATH=europe-west1-docker.pkg.dev/basic4-2542859/all-registry-europe-west1/symfony-react-skeleton
+   IMAGE_PATH={artifact_registry}/{myproject}
+   cd .docker && IMAGE_PATH="${IMAGE_PATH}" docker compose -f docker-compose-prod.yaml build
+   IMAGE_PATH="${IMAGE_PATH}" docker compose -f docker-compose-prod.yaml push
    ```
 4. Edit values.yaml file (use `app_environment`, `gcp_project_id`, `app_gcp_service_account_name` and `app_k8_service_account_name` outputs from infrastructure terraform apply from point 1.). Don't forget to edit also `host` which will be your url.
 5. Change `name` in .deploy/helm/Chart.yaml for example use `app_name` output from terraform apply.
@@ -225,14 +224,10 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
    K8_NAMESPACE={app_k8_namespace}
    HELM_RELEASE={helm_release_name}
    cd ../.deploy/helm
-   helm upgrade --install --create-namespace $HELM_RELEASE . \
-      --namespace "${K8_NAMESPACE}" \
-      --set image.nginx="${IMAGE_NAME}/nginx" \
-      --set image.php="${IMAGE_NAME}/php" 
+   helm upgrade $HELM_RELEASE . --create-namespace --install --namespace "${K8_NAMESPACE}" --set image.path="${IMAGE_PATH}"
    ```
 7. Give a nginx ingress approx 5 min to load up and test your running app. `{your_ip}` can be grabbed [here](https://console.cloud.google.com/kubernetes/ingresses) or via `kubectl get ingress -A`. `{host}` is the same you used in point 4 in values.yaml.
    ```sh
-   curl --location --request GET "http://{your_ip}/api/status" --header "Host: {host}"
    curl -ivL 'https://{your_ip}/api/status' --header 'Host: {host}'
    # eg: curl --location --request GET 'http://104.155.113.172/api/status' --header 'Host: skeleton.totea.cz'
    ```
@@ -250,13 +245,10 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
 ## Contributing
 I **greatly appreciate** all suggestions and contributions. Contributions are what make the open source community such an amazing place to learn, inspire, and create.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-You have two options how to contribute.
+There are two options how to contribute.
 - Send me a message via LinkedIn or email and I will grant you write access to this repo.
 or
-- Follow [this](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) instructions.
+- Follow [these](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) instructions.
 
 Both options are fine and I am looking forward for your awesome improvements or just typo fix.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
