@@ -7,6 +7,8 @@ services:
     build:
       target: base
     image: ${PROJECT_NAME:-symfony-react-skeleton}_nginx:1.25-alpine
+    ports:
+      - "81:8080"
     volumes:
       - ../fe/dist:/var/www/html
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
