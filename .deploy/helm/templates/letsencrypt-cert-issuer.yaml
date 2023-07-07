@@ -6,8 +6,8 @@ metadata:
 spec:
   acme:
     # The ACME server URL (use first line for testing or debugging because prod version of Let's encrypt has low limits for issuing new certificates)
-    server: https://acme-staging-v02.api.letsencrypt.org/directory
-{{/*    server: https://acme-v02.api.letsencrypt.org/directory*/}}
+{{/*    server: https://acme-staging-v02.api.letsencrypt.org/directory # staging version, high rate limits, untrusted by browsers*/}}
+    server: https://acme-v02.api.letsencrypt.org/directory # prod version, low rate limits, trusted by browsers
     # Email address used for ACME registration
     email: {{ .Values.letsencryptCertEmail }}
     # Name of a secret used to store the ACME account private key

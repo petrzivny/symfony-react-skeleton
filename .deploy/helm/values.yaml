@@ -8,7 +8,7 @@ app_environment: prod
 gcp_project_id: "{replace_me}"
 
 image:
-  path: {replace_me}
+  path: "{replace_me}"
   imagePullPolicy: Always
 
 # Use terraform output "app_gcp_service_account_name" from infrastructure repo.
@@ -31,4 +31,4 @@ redirectToMainHostFromTheseHosts:
 
 isCiPipeline: false
 
-letsencryptCertEmail: {replace_me}
+letsencryptCertEmail: "{replace_me}"
