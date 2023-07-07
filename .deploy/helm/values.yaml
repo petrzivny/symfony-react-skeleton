@@ -5,19 +5,19 @@
 app_environment: prod
 
 # Use terraform output "gcp_project_id" from infrastructure repo.
-gcp_project_id: "{replace_me}"
+gcp_project_id: replace-me
 
 image:
-  path: "{replace_me}"
+  path: replace-me
   imagePullPolicy: Always
 
 # Use terraform output "app_gcp_service_account_name" from infrastructure repo.
 # Or if you use your own infrastructure, use cloud provider service account identifier.
-app_gcp_service_account_name: "{replace_me}"
+app_gcp_service_account_name: replace-me
 
 # Use terraform output "app_k8_service_account_name" from infrastructure repo.
 # Or if you use your own infrastructure, use k8 serviceAccount name which is known to cloud provider service account.
-app_k8_service_account_name: "{replace_me}"
+app_k8_service_account_name: replace-me
 
 # Nginx ingress controller will route all request from {host} to your nginx service. If you want to test url with IP only, provide host header "www.example.com"
 host: www.example.com
@@ -31,4 +31,4 @@ redirectToMainHostFromTheseHosts:
 
 isCiPipeline: false
 
-letsencryptCertEmail: "{replace_me}"
+letsencryptCertEmail: replace-me
