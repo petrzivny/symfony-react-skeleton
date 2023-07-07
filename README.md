@@ -72,19 +72,17 @@ Don't forget to give the project a star!
    ```sh
    cp api/.env.local.dist api/.env.local
    ```
-3. Change name of your project (application) from symfony-react-skeleton to {myproject}. You can do it in your editor or use following command. Choose only one.
+3. Change name of your project (application) from symfony-react-skeleton to {myproject}. You can do it in your editor or use following command. Choose only one.  
+   For Linux:
    ```sh
-   # Linux
    sed -i "s/\${PROJECT_NAME:-symfony-react-skeleton}/$PROJECT_NAME/g" .docker/docker-compose.yaml .docker/docker-compose-prod.yaml 
    ```
-   or
+   or for MacOs
    ```sh
-   # MacOS
    sed -i '' "s/\${PROJECT_NAME:-symfony-react-skeleton}/$PROJECT_NAME/g" .docker/docker-compose.yaml .docker/docker-compose-prod.yaml
    ```
-   or
+   or manually
    ```sh
-   # Manually
    # Replace all occurrences of string "${PROJECT_NAME:-symfony-react-skeleton}" with {myproject}.
    ```
 4. Build BE docker images and run them as docker containers in dev mode
