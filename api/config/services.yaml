@@ -4,13 +4,14 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    application_name: 'skeleton'
     placeholder: "**placeholder**"
 
-    #   app.env-variable-templates is consumed by secrets:external:decrypt-to-file command. Format:
+    #   env_variable_template is used when fetching for secrets from a vault. Only these defined secrets will be requested. Use output from terraform apply. Format:
     #   ENV_NAME:
     #       secretName - specify a name used in external vault, if you omit this, environmental name is used as default
     #       secretVersion - specify a version of secret used in external vault, if you omit this, "latest" is used as default
-    app.env-variable-templates:
+    env_variable_template:
         DATABASE_HOST:
             secretName: 'DATABASE_HOST'
             secretVersion: 'latest' # latest is actually default if you omit secretVersion
@@ -42,4 +43,16 @@ services:
 
     App\Service\GcpExternalSecretsRetriever:
         arguments:
-            $template: '%app.env-variable-templates%'
+            $template: '%env_variable_template%'
+            $appName: '%application_name%'
+            $environmentName: '%env(ENVIRONMENT_NAME)%'
+
+    App\Command\SecretsExternalDecryptToFileCommand:
+        arguments:
+            $applicationMode: '%env(enum:App\Enum\ApplicationMode:APP_ENV)%'
+            $projectId: '%env(GCP_PROJECT_ID)%'
+
+    App\Controller\StatusController:
+        arguments:
+            $appName: '%application_name%'
+            $environmentName: '%env(ENVIRONMENT_NAME)%'

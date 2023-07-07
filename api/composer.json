@@ -32,6 +32,7 @@
         "roave/security-advisories": "dev-latest",
         "shipmonk/phpstan-rules": "^2.6",
         "slevomat/coding-standard": "^8.12",
+        "squizlabs/php_codesniffer": "dev-master",
         "symfony/browser-kit": "6.3.*",
         "symfony/css-selector": "6.3.*",
         "symfony/maker-bundle": "^1.48",

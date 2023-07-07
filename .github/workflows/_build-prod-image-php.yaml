@@ -6,6 +6,10 @@
 
 on:
   workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
 
 jobs:
   php:
@@ -23,7 +27,7 @@ jobs:
           context: .
           file: .docker/php/Dockerfile
           target: deployment
-          tags: ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/php
+          tags: ${{ inputs.image-name }}/php
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache

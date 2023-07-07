@@ -1,0 +1,15 @@
+{{ if and (.Values.redirectToMainHostFromTheseHosts) (eq .Values.app_environment "prod") }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-ingress-301
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/permanent-redirect: $scheme://{{ .Values.host }}$request_uri
+spec:
+  ingressClassName: nginx
+  rules:
+  {{- range $v := .Values.redirectToMainHostFromTheseHosts }}
+    - host: {{ $v }}
+  {{- end }}
+{{ end }}

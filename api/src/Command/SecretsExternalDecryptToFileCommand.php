@@ -4,22 +4,17 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Enum\ApplicationMode;
 use App\Service\EnvFileGenerator;
 use App\Service\GcpExternalSecretsRetriever;
 use Google\ApiCore\ApiException;
 use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\HttpKernel\Kernel;
 
-use function assert;
-use function get_debug_type;
-use function is_string;
 use function str_replace;
 
 /** @psalm-api */
@@ -29,40 +24,29 @@ use function str_replace;
 )]
 final class SecretsExternalDecryptToFileCommand extends Command
 {
-    private const DEFAULT_ENV_FILENAME = '/var/www/html/.env.{environment}.local';
+    private const APP_MODE_PLACEHOLDER = '{environment}';
+    private const DEFAULT_ENV_FILENAME = '/var/www/html/.env.' . self::APP_MODE_PLACEHOLDER . '.local';
 
     public function __construct(
         private readonly GcpExternalSecretsRetriever $secretsRetriever,
         private readonly EnvFileGenerator $envFileGenerator,
         private readonly LoggerInterface $logger,
+        private readonly ApplicationMode $applicationMode,
+        private readonly string $projectId,
     ) {
         parent::__construct();
-    }
-
-    protected function configure(): void
-    {
-        $this->addArgument('project', InputArgument::REQUIRED, 'GCP project id');
     }
 
     /** @throws ApiException */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $project = $input->getArgument('project');
 
-        if (!is_string($project)) {
-            $io->error('Argument project must be a string, instead ' . get_debug_type($project) . ' provided.');
+        $variables = $this->secretsRetriever->getAllSecrets($this->projectId);
 
-            return Command::FAILURE;
-        }
+        $envFile = str_replace(self::APP_MODE_PLACEHOLDER, $this->applicationMode->value, self::DEFAULT_ENV_FILENAME);
 
-        $variables = $this->secretsRetriever->getAllSecrets($project);
-
-        $environment = $this->getEnvironment();
-
-        $envFile = str_replace('{environment}', $environment, self::DEFAULT_ENV_FILENAME);
-
-        $this->envFileGenerator->storeEnvVariablesInFile($variables, $envFile, $environment);
+        $this->envFileGenerator->storeEnvVariablesInFile($variables, $envFile, $this->applicationMode->value);
 
         $message = count($variables)
             . ' secrets successfully stored unencrypted into ' . $envFile . ' file as environmental variables.';
@@ -72,16 +56,5 @@ final class SecretsExternalDecryptToFileCommand extends Command
         $this->logger->info($message);
 
         return Command::SUCCESS;
-    }
-
-    private function getEnvironment(): string
-    {
-        $application = $this->getApplication();
-        assert($application instanceof Application);
-
-        $kernel = $application->getKernel();
-        assert($kernel instanceof Kernel);
-
-        return $kernel->getEnvironment();
     }
 }

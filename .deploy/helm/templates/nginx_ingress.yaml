@@ -3,14 +3,18 @@ kind: Ingress
 metadata:
   name: nginx-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    {{ if not .Values.isCiPipeline }}
+    cert-manager.io/issuer: "letsencrypt-issuer"
+    {{ end }}
 spec:
   ingressClassName: nginx
-  defaultBackend:
-    service:
-      name: nginx-service
-      port:
-        number: 8080
+  tls:
+  - hosts:
+    - {{ .Values.host | quote }}
+    {{ if not .Values.isCiPipeline }}
+    secretName: {{ printf "%s-%s-%s" .Chart.Name .Values.app_environment "tls" | trunc 63 | trimSuffix "-" }}
+    {{ end }}
   rules:
     - host: {{ .Values.host | quote }}
       http:
@@ -22,29 +26,3 @@ spec:
                 name: nginx-service
                 port:
                   number: 8080
-
-#  rules:
-#    - host: www.example.com
-#      http:
-#        paths:
-#          - pathType: Prefix
-#            backend:
-#              service:
-#                name: exampleService
-#                port:
-#                  number: 80
-#            path: /
-#  tls:
-#    - hosts:
-#        - www.example.com
-#      secretName: example-tls
-
-#apiVersion: v1
-#kind: Secret
-#metadata:
-#  name: example-tls
-#  namespace: foo
-#data:
-#  tls.crt: <base64 encoded cert>
-#  tls.key: <base64 encoded key>
-#type: kubernetes.io/tls

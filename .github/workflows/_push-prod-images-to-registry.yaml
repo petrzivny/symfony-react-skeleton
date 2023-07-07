@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
 
 jobs:
   all:
@@ -8,8 +12,8 @@ jobs:
     steps:
       - name: Push php image
         run: |
-          docker push ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/php
+          docker push ${{ inputs.image-name }}/php
 
       - name: Push nginx image
         run: |
-          docker push ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/nginx
+          docker push ${{ inputs.image-name }}/nginx

@@ -10,14 +10,17 @@ use RuntimeException;
 
 use function count;
 
-final class GcpExternalSecretsRetriever
+final readonly class GcpExternalSecretsRetriever
 {
+    private const SECRET_NAME_KEY = 'secretName';
+    private const LATEST_SECRET_TAG = 'latest';
+
     /**
      * @param array<string, (array<string, string>|null)> $template
      *
      * @psalm-api
      */
-    public function __construct(private readonly array $template)
+    public function __construct(private array $template, private string $appName, private string $environmentName)
     {
     }
 
@@ -33,8 +36,12 @@ final class GcpExternalSecretsRetriever
         $variables = [];
 
         foreach ($this->template as $variableName => $variableOptions) {
-            $secretName = ($variableOptions['secretName'] ?? $variableName);
-            $secretVersion = ($variableOptions['$secretVersion'] ?? 'latest');
+            $secretName = implode(
+                '-',
+                [$this->appName, $this->environmentName, $variableOptions[self::SECRET_NAME_KEY] ?? $variableName],
+            );
+
+            $secretVersion = ($variableOptions['$secretVersion'] ?? self::LATEST_SECRET_TAG);
 
             $secretFqn = $client::secretVersionName($projectId, $secretName, $secretVersion);
             $response = $client->accessSecretVersion($secretFqn);

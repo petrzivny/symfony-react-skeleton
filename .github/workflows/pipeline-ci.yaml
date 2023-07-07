@@ -7,35 +7,57 @@ jobs:
   build-nginx-prod-image:
     name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
   build-php-test-image:
     name: Build Test Image
     uses: ./.github/workflows/_build-test-image-php.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
   helm-tests:
     name: Helm test
     uses: ./.github/workflows/_tests-helm.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
   php-code-quality-tests:
     needs: [build-php-test-image]
     name: PHP Test
     uses: ./.github/workflows/_tests-code-quality.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
   build-php-prod-images:
     needs: [php-code-quality-tests, helm-tests]
     name: Build Prod Image
     uses: ./.github/workflows/_build-prod-image-php.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
   push-prod-images:
     needs: [build-php-prod-images, build-nginx-prod-image]
     name: Push Prod Images
     uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
-  continuous-deployment:
+  continuous-deployment-dev:
+    needs: [push-prod-images]
+    if: startsWith(github.ref, 'refs/heads/feature')
+    name: Deployment
+    uses: ./.github/workflows/_cd-dev-temp.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
+
+  continuous-deployment-prod:
     needs: [push-prod-images]
     if: github.ref == 'refs/heads/main'
-    name: CD
-    uses: ./.github/workflows/_cd.yaml
+    name: Deployment
+    uses: ./.github/workflows/_cd-prod-temp.yaml
+    with:
+      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
   cleanup:
     if: success() || failure()
@@ -44,4 +66,4 @@ jobs:
     steps:
       - name: Remove php test docker image
         run: |
-          docker image rm ${{ github.repository }}/php-test:${{ github.sha }}
+          docker image rm ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}/php-test:${{ github.sha }}

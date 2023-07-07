@@ -1,10 +1,18 @@
 on:
   workflow_call:
+    inputs:
+      image-name:
+        required: true
+        type: string
 
 jobs:
   nginx:
     runs-on: self-hosted
     steps:
+      - name: Debug
+        run: |
+          echo ${{ inputs.image-name }}
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -23,7 +31,7 @@ jobs:
           context: .
           file: .docker/nginx/Dockerfile
           target: deployment
-          tags: ${{ vars.REGISTRY_NAME }}/symfony-react-skeleton/nginx
+          tags: ${{ inputs.image-name }}/nginx
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
