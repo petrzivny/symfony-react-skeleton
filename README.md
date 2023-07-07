@@ -150,7 +150,7 @@ Take a look into your GitHub repository. All code should be there and your first
    - [x] If everything passes there are php and nginx environment agnostic (_best-practice_ 👍) containers ready to be shipped into any environment (including prod of course).
    - [x] Pipeline expects self-hosted GitHub runner(s). [See](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners) for more information.
 5. DevOps: CD
-   - [x] Helm kubernetes deploy manifests prepared to deploy your app in any kubernetes environment.
+   - [x] Helm kubernetes deploys main branch to prod and branches starting with feature* to dev environment.
    - [x] Platform agnostic. As long as there is a Kubernetes you can use simple config files in `.deploy/helm` dir to deploy to your environment.
    - [x] Separate pods for nginx and php for better scalability (_best-practice_ 👍).
    - [x] Both nginx and php pods have readiness probes.
@@ -247,7 +247,7 @@ Don't forget to give the project a star! Thanks again!
 - [x] Add static URL as a Live Demo link
 - [x] Add OPCache
 - [x] Add https certificate
-- [ ] CI: Push prod images only for main branch
+- [x] CI: Push prod images only for main branch
 - [ ] CI: Use SHA for prod images
 - [ ] Add CI e2e tests against prod images
 - [ ] Add Prometheus

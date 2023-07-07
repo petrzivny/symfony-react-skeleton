@@ -23,7 +23,6 @@ app_k8_service_account_name: replace-me
 host: www.example.com
 
 # Used only in prod (environmentName=prod) for redirecting e.g. example.cz -> www.example.cz or www.example.cz -> www.example.com
-# redirectToMainHostFromTheseHosts: []
 redirectToMainHostFromTheseHosts:
   - example.cz
   - example.com
