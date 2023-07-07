@@ -17,8 +17,12 @@ jobs:
 
       - name: Upgrade (or install) - idempotent
         run: |
-          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m symfony-react-skeleton .deploy/helm \
-            --set environmentName=prod \
-            --set image.nginx=${{ inputs.image-name }}/nginx \
-            --set image.php=${{ inputs.image-name }}/php \
-
+          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m skeleton-prod .deploy/helm \
+            --namespace skeleton-prod \
+            --set app_environment=prod \
+            --set gcp_project_id=basic4-2542859 \
+            --set image.path=${{ inputs.image-name }}
+            --set app_gcp_service_account_name=skeleton-prod-gke-workload@basic4-2542859.iam.gserviceaccount.com \
+            --set app_k8_service_account_name=gcp-secret-manager-binding-service-account-for-skeleton-prod \
+            --set host=skeleton.totea.cz \
+            --set letsencryptCertEmail=peter.usmc@gmail.com

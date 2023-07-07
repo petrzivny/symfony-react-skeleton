@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: {{ printf "%s-%s" .Chart.Name "php" | trunc 63 | trimSuffix "-" }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    environment: {{ .Values.environmentName }}
+    environment: {{ .Values.app_environment }}
 spec:
   replicas: 3
   selector:
@@ -24,7 +24,7 @@ spec:
       serviceAccountName: {{ .Values.app_k8_service_account_name }}
       containers:
         - name: php
-          image: {{ .Values.image.php }}
+          image: {{ .Values.image.path | trimSuffix "/" }}/php
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           readinessProbe:
             exec:
@@ -48,5 +48,5 @@ spec:
                 command: [
                   '/bin/sh',
                   '-c',
-                  'echo -e "ENVIRONMENT_NAME={{ .Values.environmentName }}\nGCP_PROJECT_ID={{ .Values.gcpProjectId }}" >> .env.local && bin/postdeploy.sh {{ .Values.fetch_external_secrets_in_post_deploy_script | ternary "" "--skip-vault-fetch" }}'
+                  'echo -e "ENVIRONMENT_NAME={{ .Values.app_environment }}\nGCP_PROJECT_ID={{ .Values.gcp_project_id }}" >> .env.local && bin/postdeploy.sh {{ .Values.isCiPipeline | ternary "--skip-vault-fetch" "" }}'
                 ]

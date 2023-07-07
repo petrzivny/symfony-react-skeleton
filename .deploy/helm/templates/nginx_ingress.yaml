@@ -4,13 +4,17 @@ metadata:
   name: nginx-ingress
   annotations:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    cert-manager.io/issuer: {{ eq .Values.environmentName "prod" | ternary "letsencrypt-prod" "letsencrypt-staging" }}
+    {{ if not .Values.isCiPipeline }}
+    cert-manager.io/issuer: "letsencrypt-issuer"
+    {{ end }}
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
     - {{ .Values.host | quote }}
-    secretName: staging-tls
+    {{ if not .Values.isCiPipeline }}
+    secretName: {{ printf "%s-%s-%s" .Chart.Name .Values.app_environment "tls" | trunc 63 | trimSuffix "-" }}
+    {{ end }}
   rules:
     - host: {{ .Values.host | quote }}
       http:

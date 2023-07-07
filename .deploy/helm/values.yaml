@@ -1,28 +1,34 @@
 # Declare variables to be passed into your templates.
-
-# Don't hardcode namespace variable here, use "helm * --namespace {your_namespace}" instead
-# namespace: symfony-react-skeleton-prod
+# Variables using underscores (snake case) come from terraform output (https://github.com/petrzivny/infrastructure-skeleton)
 
 # Use terraform output "app_environment" from infrastructure repo.
-environmentName: "prod"
+app_environment: prod
 
 # Use terraform output "gcp_project_id" from infrastructure repo.
-gcpProjectId: "{replace_me}"
+gcp_project_id: "{replace_me}"
 
 image:
-  nginx: "{replace_me}"
-  php: "{replace_me}"
+  path: {replace_me}
   imagePullPolicy: Always
 
 # Use terraform output "app_gcp_service_account_name" from infrastructure repo.
 # Or if you use your own infrastructure, use cloud provider service account identifier.
-app_gcp_service_account_name: skeleton-prod-gke-workload@basic4-2542859.iam.gserviceaccount.com
+app_gcp_service_account_name: "{replace_me}"
 
 # Use terraform output "app_k8_service_account_name" from infrastructure repo.
 # Or if you use your own infrastructure, use k8 serviceAccount name which is known to cloud provider service account.
-app_k8_service_account_name: gcp-secret-manager-binding-service-account-for-skeleton-prod
+app_k8_service_account_name: "{replace_me}"
 
-# Nginx ingress controller will route all request from {host} to your nginx service. If you want to test url with IP only, provide host header "anything.example.com"
-host: "skeleton.totea.cz"
+# Nginx ingress controller will route all request from {host} to your nginx service. If you want to test url with IP only, provide host header "www.example.com"
+host: www.example.com
 
-fetch_external_secrets_in_post_deploy_script: true
+# Used only in prod (environmentName=prod) for redirecting e.g. example.cz -> www.example.cz or www.example.cz -> www.example.com
+#redirectToMainHostFromTheseHosts: []
+redirectToMainHostFromTheseHosts:
+  - example.cz
+  - example.com
+  - www.example.com
+
+isCiPipeline: false
+
+letsencryptCertEmail: {replace_me}

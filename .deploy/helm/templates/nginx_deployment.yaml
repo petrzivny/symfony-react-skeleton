@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: {{ printf "%s-%s" .Chart.Name "nginx" | trunc 63 | trimSuffix "-" }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    environment: {{ .Values.environmentName }}
+    environment: {{ .Values.app_environment }}
 spec:
   replicas: 2
   selector:
@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: {{ .Values.image.nginx }}
+          image: {{ .Values.image.path | trimSuffix "/" }}/nginx
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           readinessProbe:
             httpGet:

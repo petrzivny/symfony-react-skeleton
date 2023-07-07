@@ -254,7 +254,7 @@ Don't forget to give the project a star! Thanks again!
 - [ ] Add Grafana (and disable GCP logs)
 - [ ] Log deprecations
 - [ ] Collect and display console logs
-- [ ] app_gcp_service_account_name, gcp_project and app_k8_service_account_name must set per environment
+- [ ] Add Helm tests
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 
