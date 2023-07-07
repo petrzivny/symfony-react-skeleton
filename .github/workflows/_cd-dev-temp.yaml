@@ -17,7 +17,7 @@ jobs:
 
       - name: Deploy
         run: |
-          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 1m skeleton-dev .deploy/helm \
+          helm upgrade --install --atomic --cleanup-on-fail --create-namespace --timeout 2m skeleton-dev .deploy/helm \
             --namespace skeleton-dev \
             --set app_environment=dev \
             --set gcp_project_id=basic4-2542859 \

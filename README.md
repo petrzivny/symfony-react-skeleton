@@ -98,13 +98,13 @@ Don't forget to give the project a star!
    ```sh
    pnpm run dev
    ```
-9. Visit http://localhost:5173/. You are ready to start local development. Happy coding.
+9. Visit http://localhost:5173/. The green value is fetched from BE database. You are ready to start local development. Happy coding. Maybe time to give the project a [star](https://github.com/petrzivny/symfony-react-skeleton) 😉 
 
 Next time you only need to perform points 4. and 8. to start developing. I recommend to set up an <a href="#setup-alias-for-fast-start-of-development">alias</a> for them.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Linking your remote repository
-At this moment your only remote repository is origin: https://github.com/petrzivny/symfony-react-skeleton.git. But you need to have your own remote repository connected too (I recommend to leave original repository if you want to contribute this public project in future).
+At this moment your only remote repository is origin: https://github.com/petrzivny/symfony-react-skeleton.git. But you need to have your own remote repository connected too (I recommend to leave original repository if you want to contribute this public project in the future).
 ```shell
 # rename origin: https://github.com/petrzivny/symfony-react-skeleton.git to template: https://github.com/petrzivny/symfony-react-skeleton.git
 git remote rename origin template
@@ -232,10 +232,12 @@ I **greatly appreciate** all suggestions and contributions. Contributions are wh
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give the project a star! Thanks again!
 
-1. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-2. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-3. Push to the Branch (`git push origin feature/AmazingFeature`)
-4. Open a Pull Request
+You have two options how to contribute.
+- Send me a message via LinkedIn or email and I will grant you write access to this repo.
+or
+- Follow [this](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) instructions.
+
+Both options are fine and I am looking forward for your awesome improvements or just typo fix.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
