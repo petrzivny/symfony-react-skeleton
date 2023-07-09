@@ -31,6 +31,8 @@ services:
     image: postgres:${DATABASE_SERVER_VERSION:-15.3}
     volumes:
       - postgres-data:/var/lib/mysql
+      # no co je tohle za cunarnu? kdyz je to postgres tak to snad nema byt v mysql folderu, ne?
+      # dalsi vec je ze kdyz udelas nejaky docker purge, tak o ty data prijdes ... minimalne by to chtelo mit nekde popsane ze se to stane, pripadne moznost dat to nekam poradne na disk perzistentne
     environment:
       POSTGRES_DATABASE: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
