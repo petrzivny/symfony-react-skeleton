@@ -44,7 +44,7 @@ On top of it you will receive BE, FE and DevOps best practices already implement
 Don't forget to give the project a star!
 
 <a href="https://skeleton.totea.cz">Live Demo - FE - production environment</a>&nbsp;|&nbsp;<a href="https://skeleton.totea.cz/api/status">Live Demo - BE status - production environment</a>
-
+W: asi bych to nedaval na firemni web, to nemas nejakou svoji domenu, napr. petrzivny.cz? tu samozrejme taky muzes nasmerovat na stejny server, ale nebude to spojene s firmou
 <a href="https://skeleton-dev.totea.cz">Live Demo - FE - dev environment</a>&nbsp;|&nbsp;<a href="https://skeleton-dev.totea.cz/api/status">Live Demo - BE status - dev environment</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -105,9 +105,13 @@ Don't forget to give the project a star!
    pnpm run dev
    ```
 9. There should be newly opened http://localhost:5173/ window in your browser with react as a FE framework communicating with BE Symfony. The green value is fetched from BE database. You are ready to start local development. Happy coding. Maybe time to give this project a [star](https://github.com/petrzivny/symfony-react-skeleton) ⭐, thank you. 😉 
+W: nechybi tady nejaky popis toho, ze ti do toho vleze CORS a ze to neni uplne produkcni nastaveni apky, kdyz to vypnes nebo tak neco?
 
 Next time you only need to perform points 4. and 8. to start developing. I recommend to set up an <a href="#setup-alias-for-fast-start-of-development">alias</a> for them.
+W: nevidel jsem popis jak pridavat dalsi balicky, evidentne to musis delat taky v tom kontajneru ...
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+... tady mi nekde chybi obrazek nebo vysvetleni jak to spolu komunikuje ... 
 
 ### Linking your remote repository
 At this moment your only remote repository is origin: https://github.com/petrzivny/symfony-react-skeleton.git. But you need to have your own remote repository connected too (I recommend to leave original repository if you want to contribute this public project in the future).
@@ -117,7 +121,7 @@ git remote rename origin template
 
 # Create a new repository (preferably on GitHub to use all features of this template)
 git remote add origin {url_of_your_repo} 
-#eg: git remote add origin git remote add origin git@github.com/petrzivny/myproject.git
+#eg: git remote add origin git@github.com/petrzivny/myproject.git
 
 git push -u origin main
 ```
@@ -177,6 +181,7 @@ Take a look into your GitHub repository. All code should be there and your first
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## How to code like a PRO
+W: chybi mi tu nejaky hinty pro FE vyvoj ...
 All the following setup information are **optional**, but highly **recommended**. It should not take you more than 10 minutes of setup time, and it will save you hours of your time in a future. Senior developer uses all of them. Period. 
 
 ### Use PHPStan
@@ -249,8 +254,9 @@ There are two options how to contribute.
 - Send me a message via LinkedIn or email and I will grant you write access to this repo.
 or
 - Follow [these](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) instructions.
+- "open an issue" ... a smad se mu budu venovat, ... neco si tady vymysli, issues se bezne pouzivaji, a je to forma kontribuce
 
-Both options are fine and I am looking forward for your awesome improvements or just typo fix.
+Any option is fine and I am looking forward for your awesome improvements or just typo fix.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
@@ -296,5 +302,5 @@ A developer can run all FE tests at once `pnpm run test` or only selected FE tes
 <!-- LICENSE -->
 ## License
 Distributed under the MIT License. Use it however you want. And if you like it, don't forget to give the project a star at GutHub. 
-
+myslim ze bys mel mit v repu primo LICENSE.md a v tom ten text ty MIT licence ...
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

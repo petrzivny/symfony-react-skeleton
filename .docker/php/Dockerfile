@@ -48,6 +48,7 @@ RUN if [ "$symfony_mode" = "dev" ]; \
     fi
 
 RUN echo "opcache.preload=/var/www/html/config/preload.php" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+# nechtelo by nekde zminit, ze se ta preload cache pouziva, a ze kdyz se to zmeni, tak musis restartnout kontajner? hm ... ono to je ale jen v deployment stepu, tak to asi neni treba zminovat ... mozna jen okomentovat, at to nekoho neprekvapi jako mne.
 RUN echo "opcache.preload_user=www-data" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 RUN echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 RUN echo "realpath_cache_ttl=600" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
