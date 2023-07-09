@@ -30,7 +30,7 @@ services:
     container_name: ${PROJECT_NAME:-symfony-react-skeleton}_postgres
     image: postgres:${DATABASE_SERVER_VERSION:-15.3}
     volumes:
-      - postgres-data:/var/lib/mysql
+      - postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_DATABASE: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
