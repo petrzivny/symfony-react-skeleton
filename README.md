@@ -39,7 +39,7 @@ A template to jumpstart your new greenfield project. If you are a startup or an 
 
 This project covers common (repetitive) parts of most greenfield projects. Fully functional and communicating BE and FE parts via REST, CI pipeline with robust tests and helm deployment.
 
-On top of it you will receive BE, FE and DevOps best practices already implemented. You software development team can follow these guidance to deliver sustainable and maintainable top quality product.
+On top of it you will receive BE, FE and DevOps best practices already implemented. You software development team can follow these guidelines to deliver sustainable and maintainable top quality product.
 
 Don't forget to give the project a star!
 
