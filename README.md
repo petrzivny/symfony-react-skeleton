@@ -218,7 +218,7 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
    cd .docker && IMAGE_PATH="${IMAGE_PATH}" docker compose -f docker-compose-prod.yaml build
    IMAGE_PATH="${IMAGE_PATH}" docker compose -f docker-compose-prod.yaml push
    ```
-4. Edit values.yaml file (use `app_environment`, `gcp_project_id`, `app_gcp_service_account_name` and `app_k8_service_account_name` outputs from infrastructure terraform apply from point 1.). Don't forget to edit also `host` which will be your url.
+4. Edit values.yaml file (use `app_environment`, `gcp_project_id`, `app_gcp_service_account_name` and `app_k8_service_account_name` outputs from infrastructure terraform apply from point 1.). Don't forget to edit also `host` which will be your url and `letsencryptCertEmail` for Let's encrypt.
 5. Change `name` in .deploy/helm/Chart.yaml for example use `app_name` output from terraform apply.
 6. Deploy your pushed images into k8 cluster created in point 1. For this you need `app_k8_namespace` terraform output. You can choose any string for `{helm_release_name}`.
    ```sh
