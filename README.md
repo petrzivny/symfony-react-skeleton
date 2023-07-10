@@ -189,7 +189,7 @@ PHP_CodeSniffer is configured out of the box. For a better DX configure your IDE
 Xdebug is configured out of the box on the container side. You need to configure your IDE too. See [Xdebug usage](documentation%2Fxdebug%2FREADME.md) for more details.
 
 ### Setup alias for fast start of development
-Setup alias in your shell to deliver points 3., 4. and 5. from <a href="#installation">Installation</a>
+Setup aliases in your shell to start your local dev stack for your everyday use.
 For example what I have in my `.zshrc` file: 
 ```shell
 alias dcs="cd ~/Projects/personal/symfony-react-skeleton/.docker/ && docker compose --env-file ../api/.env.local up -d && cd ../fe && pnpm run dev"
