@@ -24,7 +24,7 @@
         <li><a href="#setup-alias-for-fast-start-of-development">Setup alias for fast start of development</a></li>
         <li><a href="#globally-gitignore-your-ide">Globally gitignore your IDE</a></li>
       </ul>
-    <li><a href="#deploy-to-cloud">Deploy to cloud</a></li>
+    <li><a href="#deploy-to-cloud-manually">Deploy to cloud (manually)</a></li>
     <li><a href="#pictures">Pictures</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -206,8 +206,9 @@ I know this is not favorite opinion, but if you are serious about SW development
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Deploy to cloud
-This example is configured out-of-the-box for [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton). It is useful for debugging or if you want to see your app running in prod ASAP. Real world deployment should be setup in CD pipeline.
+## Deploy to cloud (manually)
+Use this section for debugging or if you want to see your app running in prod ASAP. Real world deployment should be setup in CD pipeline.
+This example is configured out-of-the-box for [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton).
 1. Provision your infrastructure by using [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton). Save output values from terraform apply. You will use them in following steps. You can use your own infrastructure, in that case use your own output parameters.
 2. Change `parameters.application_name:` parameter in api/config/services.yaml. Use `app_name` output from terraform apply.
 3. Build and push your prod images. For this you need `artifact_registry` terraform output.
@@ -280,7 +281,7 @@ See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues
 
 ## Frequently Asked Questions
 - [How to run CI tests locally?](#how-to-run-ci-tests-locally)
-- [How to run BE application in prod mode locally?](#how-to-run-be-application-in-prod-mode-locally)
+- [How to run BE application in prod mode locally?](#how-to-run-be-application-imitating-prod-mode-locally)
 #### How to run CI tests locally?
 A developer can run all BE tests at once `composer test` or only selected BE test can be ran e.g. `composer phpstan`. Commands must be run inside php container.
 A developer can run all FE tests at once `pnpm run test` or only selected FE test can be ran e.g. `pnpm run lint`.
