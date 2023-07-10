@@ -271,6 +271,8 @@ Any options is fine and I am looking forward for your awesome improvements or ju
 - [ ] Log deprecations
 - [ ] Collect and display console logs
 - [ ] Add Helm tests
+- [ ] Add architecture schema into README
+- [ ] Change .docker -> docker (it is more intuitive to have this folder not hidden)
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 
