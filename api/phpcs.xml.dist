@@ -333,7 +333,7 @@
     <file>tests/</file>
 
     <exclude-pattern>fe/*</exclude-pattern>
-    <exclude-pattern>./src/Kernel.php</exclude-pattern>
+    <exclude-pattern>./src/App/Kernel.php</exclude-pattern>
 
 </ruleset>
 

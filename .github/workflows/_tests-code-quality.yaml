@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer psalm 
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer psalm
 
   vulnerabilities:
     runs-on: self-hosted
@@ -36,7 +36,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer vuln           
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer vuln
 
   composer:
     runs-on: self-hosted
@@ -60,7 +60,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer container          
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer container
 
   unit:
     runs-on: self-hosted
@@ -68,4 +68,4 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer unit  
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer unit

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace Tests\App\Functional;
 
 use Generator;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -20,7 +20,7 @@ final class SmokeTest extends WebTestCase
 
     public function urlProvider(): Generator
     {
-        yield ['/health'];
+        yield ['/status'];
         // ...
     }
 }
