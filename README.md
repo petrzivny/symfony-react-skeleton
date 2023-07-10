@@ -39,7 +39,7 @@ A template to jumpstart your new greenfield project. If you are a startup or an 
 
 This project covers common (repetitive) parts of most greenfield projects. Fully functional and communicating BE and FE parts via REST, CI pipeline with robust tests and helm deployment.
 
-On top of it you will receive BE, FE and DevOps best practices already implemented. You software development team can follow these guidance to deliver sustainable and maintainable top quality product.
+On top of it you will receive BE, FE and DevOps best practices already implemented. You software development team can follow these guidelines to deliver sustainable and maintainable top quality product.
 
 Don't forget to give the project a star!
 
@@ -117,7 +117,7 @@ git remote rename origin template
 
 # Create a new repository (preferably on GitHub to use all features of this template)
 git remote add origin {url_of_your_repo} 
-#eg: git remote add origin git remote add origin git@github.com/petrzivny/myproject.git
+#eg: git remote add origin git@github.com/petrzivny/myproject.git
 
 git push -u origin main
 ```
@@ -245,12 +245,13 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
 ## Contributing
 I **greatly appreciate** all suggestions and contributions. Contributions are what make the open source community such an amazing place to learn, inspire, and create.
 
-There are two options how to contribute.
+There are three options how to contribute.
+- Open an issue with the tag "enhancement".
 - Send me a message via LinkedIn or email and I will grant you write access to this repo.
 or
 - Follow [these](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) instructions.
 
-Both options are fine and I am looking forward for your awesome improvements or just typo fix.
+Any options is fine and I am looking forward for your awesome improvements or just typo fix.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
@@ -270,6 +271,8 @@ Both options are fine and I am looking forward for your awesome improvements or 
 - [ ] Log deprecations
 - [ ] Collect and display console logs
 - [ ] Add Helm tests
+- [ ] Add architecture schema into README
+- [ ] Change .docker -> docker (it is more intuitive to have this folder not hidden)
 
 See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues) for a full list of proposed features (and known issues).
 
@@ -295,6 +298,7 @@ A developer can run all FE tests at once `pnpm run test` or only selected FE tes
 
 <!-- LICENSE -->
 ## License
-Distributed under the MIT License. Use it however you want. And if you like it, don't forget to give the project a star at GutHub. 
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
