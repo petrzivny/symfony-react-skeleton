@@ -53,12 +53,13 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/App/",
+            "Context\\": "src/Context/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "replace": {
@@ -87,8 +88,8 @@
         "composer": "composer validate --strict",
         "yaml": "bin/console lint:yaml --parse-tags config",
         "container": "bin/console lint:container",
-        "unit": "php bin/phpunit tests/Unit --testdox",
-        "functional": "php bin/phpunit tests/Functional --testdox",
+        "unit": "php bin/phpunit tests/App/Unit --testdox",
+        "functional": "php bin/phpunit tests/App/Functional --testdox",
         "test": [
             "@phpcs",
             "@phpstan",
@@ -97,7 +98,8 @@
             "@composer",
             "@yaml",
             "@container",
-            "@phpunit"
+            "@unit",
+            "@functional"
         ]
     },
     "conflict": {

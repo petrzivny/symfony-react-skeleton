@@ -33,6 +33,11 @@
   </ol>
 </details>
 
+<p align="center">
+    <a href="https://react.dev/"><img src="https://img.shields.io/badge/React-18.2-orange.svg?style=flat-square&logo=react" alt="React 18.2"/></a>
+    <a href="https://symfony.com/"><img src="https://img.shields.io/badge/Symfony-6.3-purple.svg?style=flat-square&logo=symfony" alt="Symfony 6.3"/></a>
+</p>
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 A template to jumpstart your new greenfield project. If you are a startup or an entrepreneur thinking to start a new project with php and symfony as a BE and Typescript and React as a FE, consider to use Symfony React skeleton and save weeks of development.
@@ -140,6 +145,7 @@ Take a look into your GitHub repository. All code should be there and your first
    - [x] Other linters (Composer, Yaml, Symfony container).
    - [x] Php-fpm access proper logging (json format, GCP [LogEntry](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#httprequest) compatible, correct severity, trying to fix https://bugs.php.net/bug.php?id=73886)
    - [x] Symfony monolog proper logging (json format, GCP compatible using GoogleCloudLoggingFormatter)
+   - [x] DDD, TDD and BDD ready. If you want to follow DDD, create new bounded contexts in `api/src/Context`
 3. React framework as a frontend SPA
    - Independent on any used backend. Communicating via REST (_best-practice_ 💎)
    - [x] Typescript
@@ -282,12 +288,15 @@ See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues
 ## Frequently Asked Questions
 - [How to run CI tests locally?](#how-to-run-ci-tests-locally)
 - [How to run BE application in prod mode locally?](#how-to-run-be-application-imitating-prod-mode-locally)
+- [Where should I put my new php code?](#where-should-i-put-my-new-php-code)
+
 #### How to run CI tests locally?
 A developer can run all BE tests at once `composer test` or only selected BE test can be ran e.g. `composer phpstan`. Commands must be run inside php container.
 A developer can run all FE tests at once `pnpm run test` or only selected FE test can be ran e.g. `pnpm run lint`.
 ```sh
    docker exec ${PROJECT_NAME}_php composer test
 ```
+
 #### How to run BE application imitating prod mode locally?
 1. Uncomment services.php.environment section in `.docker/docker-compose-prod.yaml` to be able to connect to local DB if needed.
 2. 
@@ -296,6 +305,9 @@ A developer can run all FE tests at once `pnpm run test` or only selected FE tes
    ```
 3. Visit http://localhost:82/api/status.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+#### Where should I put my new php code?
+This skeleton is DDD ready. All code coupled to App (Symfony) should be placed in `api/src/App`. E.g. security, authentication, authorization, Entities if you want to use doctrine migrations and/or ORM, Controllers and console Commands. The rest (bounded contexts) should be independent on Symfony framework and placed in  `api/src/Context/MyBoundedContext`  
 
 <!-- LICENSE -->
 ## License
