@@ -34,10 +34,12 @@ services:
         exclude:
             - '../src/App/DependencyInjection/'
             - '../src/App/Entity/'
-            - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    Context\:
+        resource: '../src/Context/'
 
     Monolog\Formatter\GoogleCloudLoggingFormatter:
 
