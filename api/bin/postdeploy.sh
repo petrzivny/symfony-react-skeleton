@@ -40,4 +40,4 @@ if ! $skipVaultFetch
   then echo "" > .env.local.php && rm .env.prod.local
 fi
 
-bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
+#bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
