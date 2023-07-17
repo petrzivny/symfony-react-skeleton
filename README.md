@@ -245,6 +245,7 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
 ![ci-pipeline.png](documentation%2Fimages%2Fci-pipeline.png)
 ![status-dev.png](documentation%2Fimages%2Fstatus-dev.png)
 ![status-prod.png](documentation%2Fimages%2Fstatus-prod.png)
+![status-console.png](documentation%2Fimages%2Fstatus-console.png)
 ![cert.png](documentation%2Fimages%2Fcert.png)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

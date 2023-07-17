@@ -30,8 +30,6 @@ final class StatusCommand extends Command
 
         $io->table(['Parameter', 'Value'], $this->formatAsTable($payload));
 
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
-
         return Command::SUCCESS;
     }
 
