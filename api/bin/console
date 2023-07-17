@@ -1,4 +1,4 @@
-#!/usr/bin/env -S php -c bin/override-preloading-cli.ini
+#!/usr/bin/env php
 <?php
 
 use App\Kernel;
