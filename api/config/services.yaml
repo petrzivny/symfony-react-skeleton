@@ -48,7 +48,7 @@ services:
             $template: '%env_variable_template%'
             $appName: '%application_name%'
             $environmentName: '%env(ENVIRONMENT_NAME)%'
-            $projectId: '%env(GCP_PROJECT_ID)%'
+            $projectId: '%env(default::GCP_PROJECT_ID)%'
 
     App\Command\SecretsExternalDecryptToFileCommand:
         arguments:
@@ -59,6 +59,6 @@ services:
             $appName: '%application_name%'
             $environmentName: '%env(ENVIRONMENT_NAME)%'
 
-    App\EventSubscriber\VaultSubscriber:
+    App\EventSubscriber\GcpSecretRetrieverSubscriber:
         arguments:
-            $applicationMode: '%env(enum:App\Enum\ApplicationMode:APP_ENV)%'
+            $projectId: '%env(default::GCP_PROJECT_ID)%'

@@ -4,23 +4,22 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
-use App\Enum\ApplicationMode;
 use App\Service\GcpExternalSecretsRetriever;
+use Google\ApiCore\ApiException;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /** @psalm-api */
-final readonly class VaultSubscriber implements EventSubscriberInterface
+final readonly class GcpSecretRetrieverSubscriber implements EventSubscriberInterface
 {
-    public function __construct(
-        private GcpExternalSecretsRetriever $secretsRetriever,
-        private ApplicationMode $applicationMode,
-    ) {
+    public function __construct(private GcpExternalSecretsRetriever $secretsRetriever, private ?string $projectId,)
+    {
     }
 
+    /** @throws ApiException */
     public function onCommand(): void
     {
-        if ($this->applicationMode->value !== 'prod') {
+        if ($this->projectId === null) {
             return;
         }
 

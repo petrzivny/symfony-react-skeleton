@@ -24,7 +24,7 @@ final readonly class GcpExternalSecretsRetriever
         private array $template,
         private string $appName,
         private string $environmentName,
-        private string $projectId,
+        private ?string $projectId,
     ) {
     }
 
@@ -35,6 +35,10 @@ final readonly class GcpExternalSecretsRetriever
      */
     public function getAllSecrets(): array
     {
+        if ($this->projectId === null) {
+            throw new RuntimeException('Cannot retrieve secrets. GCP_PROJECT_ID env variable not set.');
+        }
+
         $client = new SecretManagerServiceClient();
 
         $variables = [];
