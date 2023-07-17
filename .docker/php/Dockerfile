@@ -68,6 +68,7 @@ COPY api/psalm.xml .
 COPY api/tests tests
 
 RUN echo "APP_ENV=test" > .env.local
+RUN mkdir var
 RUN bin/console cache:clear
 
 
