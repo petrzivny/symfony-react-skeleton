@@ -22,39 +22,48 @@ use function str_contains;
 /** @psalm-api */
 final class StatusController extends AbstractController
 {
-    public function __construct(private readonly string $appName, private readonly string $environmentName)
-    {
+    public function __construct(
+        private readonly string $appName,
+        private readonly string $environmentName,
+        private readonly EntityManagerInterface $entityManager,
+    ) {
     }
     #[Route('/status', name: 'api_status')]
-    public function index(EntityManagerInterface $entityManager): JsonResponse
+    public function index(): JsonResponse
+    {
+        return $this->json($this->constructResponsePayload());
+    }
+
+    /** @return array<string, string|array<string, int|string>> */
+    public function constructResponsePayload(): array
     {
         $status = 'OK';
 
         try {
             // To force connect to DB.
-            $entityManager->getConnection()->getNativeConnection();
-            $connectionDb = $entityManager->getConnection()->isConnected() ? 'OK' : 'NA';
+            $this->entityManager->getConnection()->getNativeConnection();
+            $connectionDb = $this->entityManager->getConnection()->isConnected() ? 'OK' : 'NA';
         } catch (Throwable $throwable) {
             $connectionDb = $throwable->getMessage();
             $status = 'No connection to DB';
         }
 
-        return $this->json(
-            [
-                'status' => $status,
-                'appName' => $this->appName,
-                'environmentName' => $this->environmentName,
-                // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-                '$_ENV[APP_ENV](aka Symfony app mode)' => ($_ENV['APP_ENV'] ?? 'NA'),
-                // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-                '$_ENV[DATABASE_NAME]' => ($_ENV['DATABASE_NAME'] ?? 'NA'),
-                // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-                '$_ENV[DATABASE_HOST]' => ($_ENV['DATABASE_HOST'] ?? 'NA'),
-                'php.ini file used' => $this->getPhpIniFileVersion(),
-                'connectionToDb' => $connectionDb,
-                'opcacheStatistics' => $this->getPreloadStatistics(),
-            ],
-        );
+        return [
+            'status' => $status,
+            'appName' => $this->appName,
+            'environmentName' => $this->environmentName,
+            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+            '$_ENV[APP_ENV](aka Symfony app mode)' => ($_ENV['APP_ENV'] ?? 'NA'),
+            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+            '$_ENV[DATABASE_NAME]' => ($_ENV['DATABASE_NAME'] ?? 'NA'),
+            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+            '$_ENV[DATABASE_HOST]' => ($_ENV['DATABASE_HOST'] ?? 'NA'),
+            'php.ini file used' => $this->getPhpIniFileVersion(),
+            'connectionToDb' => $connectionDb,
+            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+            '$_SERVER[USER]' => $_SERVER['USER'] ?? $_SERVER['HOME'] ?? 'NA',
+            'opcacheStatistics' => $this->getPreloadStatistics(),
+        ];
     }
 
     private function getPhpIniFileVersion(): string
@@ -87,7 +96,7 @@ final class StatusController extends AbstractController
             'isPreloadingUsed' => 'NO',
         ];
 
-        $file = dirname(__DIR__) . '/../var/cache/prod/App_KernelProdContainer.preload.php';
+        $file = dirname(__DIR__) . '/../../var/cache/prod/App_KernelProdContainer.preload.php';
 
         if (file_exists($file)) {
             $opcacheStatistics['preloadingFile'] = $file;

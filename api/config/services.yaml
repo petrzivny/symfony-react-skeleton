@@ -35,26 +35,30 @@ services:
             - '../src/App/DependencyInjection/'
             - '../src/App/Entity/'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
-
     Context\:
         resource: '../src/Context/'
 
-    Monolog\Formatter\GoogleCloudLoggingFormatter:
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Command\SecretsExternalDecryptToFileCommand:
+        arguments:
+            $applicationMode: '%env(enum:App\Enum\ApplicationMode:APP_ENV)%'
+
+    App\Controller\StatusController:
+        arguments:
+            $appName: '%application_name%'
+            $environmentName: '%env(ENVIRONMENT_NAME)%'
+
+    App\EventSubscriber\GcpSecretRetrieverSubscriber:
+        arguments:
+            $projectId: '%env(default::GCP_PROJECT_ID)%'
 
     App\Service\GcpExternalSecretsRetriever:
         arguments:
             $template: '%env_variable_template%'
             $appName: '%application_name%'
             $environmentName: '%env(ENVIRONMENT_NAME)%'
+            $projectId: '%env(default::GCP_PROJECT_ID)%'
 
-    App\Command\SecretsExternalDecryptToFileCommand:
-        arguments:
-            $applicationMode: '%env(enum:App\Enum\ApplicationMode:APP_ENV)%'
-            $projectId: '%env(GCP_PROJECT_ID)%'
-
-    App\Controller\StatusController:
-        arguments:
-            $appName: '%application_name%'
-            $environmentName: '%env(ENVIRONMENT_NAME)%'
+    Monolog\Formatter\GoogleCloudLoggingFormatter:

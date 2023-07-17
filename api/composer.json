@@ -81,7 +81,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "phpcs": "./vendor/bin/phpcs -sp",
+        "phpcs": "./vendor/bin/phpcs -sp -d memory_limit=512M",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1g",
         "psalm": "./vendor/bin/psalm --show-info=true",
         "vuln": "composer update --dry-run roave/security-advisories",
