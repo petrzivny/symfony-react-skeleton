@@ -20,8 +20,12 @@ final readonly class GcpExternalSecretsRetriever
      *
      * @psalm-api
      */
-    public function __construct(private array $template, private string $appName, private string $environmentName)
-    {
+    public function __construct(
+        private array $template,
+        private string $appName,
+        private string $environmentName,
+        private string $projectId,
+    ) {
     }
 
     /**
@@ -29,7 +33,7 @@ final readonly class GcpExternalSecretsRetriever
      *
      * @throws ApiException
      */
-    public function getAllSecrets(string $projectId): array
+    public function getAllSecrets(): array
     {
         $client = new SecretManagerServiceClient();
 
@@ -43,7 +47,7 @@ final readonly class GcpExternalSecretsRetriever
 
             $secretVersion = ($variableOptions['$secretVersion'] ?? self::LATEST_SECRET_TAG);
 
-            $secretFqn = $client::secretVersionName($projectId, $secretName, $secretVersion);
+            $secretFqn = $client::secretVersionName($this->projectId, $secretName, $secretVersion);
             $response = $client->accessSecretVersion($secretFqn);
 
             $payload = $response->getPayload();

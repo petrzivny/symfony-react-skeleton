@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use App\Enum\ApplicationMode;
 use App\Service\GcpExternalSecretsRetriever;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,18 +12,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /** @psalm-api */
 final readonly class VaultSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private GcpExternalSecretsRetriever $secretsRetriever)
-    {
+    public function __construct(
+        private GcpExternalSecretsRetriever $secretsRetriever,
+        private ApplicationMode $applicationMode,
+    ) {
     }
 
     public function onCommand(): void
     {
-        // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-        if ($_ENV['APP_ENV'] !== 'prod') {
+        if ($this->applicationMode->value !== 'prod') {
             return;
         }
 
-        $variables = $this->secretsRetriever->getAllSecrets('basic4-2542859');
+        $variables = $this->secretsRetriever->getAllSecrets();
 
         foreach ($variables as $name => $value) {
             // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable

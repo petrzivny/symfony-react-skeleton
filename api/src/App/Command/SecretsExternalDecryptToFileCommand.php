@@ -32,7 +32,6 @@ final class SecretsExternalDecryptToFileCommand extends Command
         private readonly EnvFileGenerator $envFileGenerator,
         private readonly LoggerInterface $logger,
         private readonly ApplicationMode $applicationMode,
-        private readonly string $projectId,
     ) {
         parent::__construct();
     }
@@ -42,7 +41,7 @@ final class SecretsExternalDecryptToFileCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $variables = $this->secretsRetriever->getAllSecrets($this->projectId);
+        $variables = $this->secretsRetriever->getAllSecrets();
 
         $envFile = str_replace(self::APP_MODE_PLACEHOLDER, $this->applicationMode->value, self::DEFAULT_ENV_FILENAME);
 
