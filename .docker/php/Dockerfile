@@ -3,8 +3,7 @@ FROM php:8.2-fpm-alpine as base
 LABEL maintainer="Petr Zivny (petr.zivny@gmail.com)"
 
 # fcgi is needed for php-fpm-healthcheck.sh
-# coreutils is needed for replacing BusyBox to add -C option is shebang
-RUN apk add --no-cache git acl fcgi coreutils
+RUN apk add --no-cache git acl fcgi
 
 # PDO PgSQL
 # Driver to enable access from PHP to Postgres databases. Implements PDO (doesn't need it).
@@ -68,7 +67,6 @@ COPY api/psalm.xml .
 COPY api/tests tests
 
 RUN echo "APP_ENV=test" > .env.local
-RUN mkdir var
 RUN bin/console cache:clear
 
 
