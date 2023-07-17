@@ -3,7 +3,8 @@ FROM php:8.2-fpm-alpine as base
 LABEL maintainer="Petr Zivny (petr.zivny@gmail.com)"
 
 # fcgi is needed for php-fpm-healthcheck.sh
-RUN apk add --no-cache git acl fcgi
+# coreutils is needed for replacing BusyBox to add -C option is shebang
+RUN apk add --no-cache git acl fcgi coreutils
 
 # PDO PgSQL
 # Driver to enable access from PHP to Postgres databases. Implements PDO (doesn't need it).
@@ -47,10 +48,7 @@ RUN if [ "$symfony_mode" = "dev" ]; \
     else composer i --no-dev --no-progress --no-scripts --ansi && composer clear-cache; \
     fi
 
-RUN echo "opcache.preload=/var/www/html/config/preload.php" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-RUN echo "opcache.preload_user=www-data" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-RUN echo "opcache.validate_timestamps=0" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
-RUN echo "realpath_cache_ttl=600" >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+COPY .docker/php/conf.d/docker-php-ext-opcache.ini /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 
 COPY api/bin bin

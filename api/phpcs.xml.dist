@@ -55,7 +55,7 @@
     <rule ref="SlevomatCodingStandard.Classes.PropertyDeclaration" />
     <rule ref="SlevomatCodingStandard.Classes.PropertySpacing" />
     <rule ref="SlevomatCodingStandard.Classes.RequireAbstractOrFinal">
-        <exclude-pattern>src/Entity</exclude-pattern>
+        <exclude-pattern>src/App/Entity</exclude-pattern>
     </rule>
     <rule ref="SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion" />
     <rule ref="SlevomatCodingStandard.Classes.RequireMultiLineMethodSignature" />
@@ -63,7 +63,7 @@
     <rule ref="SlevomatCodingStandard.Classes.RequireSingleLineMethodSignature" />
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming" />
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousErrorNaming" />
-    <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming" />
+    <!--    <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming" />-->
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousTraitNaming" />
     <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration" />
     <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
@@ -99,15 +99,23 @@
     <rule ref="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment" />
     <rule ref="SlevomatCodingStandard.Commenting.UselessFunctionDocComment" />
     <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment" />
-    <rule ref="SlevomatCodingStandard.Complexity.Cognitive" />
+    <rule ref="SlevomatCodingStandard.Complexity.Cognitive">
+        <properties>
+            <property name="warningThreshold" value="7" />
+        </properties>
+    </rule>
     <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition" />
     <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing" />
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch" />
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowEmpty" />
-<!--    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowNullSafeObjectOperator" />-->
+    <!--    <rule ref="SlevomatCodingStandard.ControlStructures.DisallowNullSafeObjectOperator" />-->
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowTrailingMultiLineTernaryOperator" />
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowYodaComparison" />
-    <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit">
+        <properties>
+            <property name="ignoreTrailingIfWithOneInstruction" value="true" />
+        </properties>
+    </rule>
     <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing" />
     <rule ref="SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses" />
     <rule ref="SlevomatCodingStandard.ControlStructures.NewWithParentheses" />
@@ -135,21 +143,23 @@
         <properties>
             <property name="lineLengthLimit" value="140" />
             <property name="ignoreImports" value="true" />
+            <property name="ignoreComments" value="true" />
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration" />
     <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction" />
     <rule ref="SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse" />
     <rule ref="SlevomatCodingStandard.Functions.FunctionLength" >
+        <exclude-pattern>tests</exclude-pattern>
         <properties>
             <property name="maxLinesLength" value="25" />
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Functions.RequireArrowFunction" />
     <rule ref="SlevomatCodingStandard.Functions.RequireMultiLineCall" >
-<!--        <properties>-->
-<!--            <property name="minLineLength" value="160" />-->
-<!--        </properties>-->
+    <!--        <properties>-->
+    <!--            <property name="minLineLength" value="160" />-->
+    <!--        </properties>-->
     </rule>
     <rule ref="SlevomatCodingStandard.Functions.RequireSingleLineCall" />
     <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall" />
@@ -167,9 +177,9 @@
     <rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing" />
     <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
         <exclude-pattern>config/bundles.php</exclude-pattern>
-<!--        <properties>-->
-<!--            <property name="searchAnnotations" value="true" />-->
-<!--        </properties>-->
+        <!--        <properties>-->
+        <!--            <property name="searchAnnotations" value="true" />-->
+        <!--        </properties>-->
     </rule>
     <rule ref="SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile" />
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
@@ -246,11 +256,11 @@
     <rule ref="Generic.WhiteSpace.ScopeIndent"/>
 
     <rule ref="PEAR">
-<!--        <exclude name="PEAR.NamingConventions.ValidFunctionName"/>-->
-<!--        <exclude name="PEAR.NamingConventions.ValidVariableName"/>-->
+        <!--        <exclude name="PEAR.NamingConventions.ValidFunctionName"/>-->
+        <!--        <exclude name="PEAR.NamingConventions.ValidVariableName"/>-->
         <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
         <exclude name="PEAR.Commenting.ClassComment"/>
-<!--        <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag"/>-->
+        <!--        <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag"/>-->
         <!--        <exclude name="PEAR.Commenting.FileComment.MissingPackageTag"/>-->
         <!--        <exclude name="PEAR.Commenting.FileComment.MissingLinkTag"/>-->
         <!--        <exclude name="PEAR.Commenting.FileComment.MissingVersion"/>-->
@@ -259,12 +269,15 @@
         <exclude name="Generic.Commenting.DocComment.ContentAfterOpen"/>
         <exclude name="Generic.Commenting.DocComment.ContentBeforeClose"/>
         <exclude name="Generic.Commenting.DocComment.MissingShort"/>
+        <exclude name="Generic.Commenting.DocComment.NonParamGroup"/>
         <exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
         <exclude name="PEAR.Commenting.FileComment"/>
         <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
         <exclude name="PEAR.Commenting.FunctionComment.MissingParamComment"/>
         <exclude name="PEAR.Commenting.FunctionComment.MissingParamTag"/>
         <exclude name="PEAR.Commenting.FunctionComment.MissingReturn"/>
+        <exclude name="PEAR.Commenting.FunctionComment.ParamNameNoMatch"/>
+        <exclude name="PEAR.Commenting.FunctionComment.SpacingAfterParamType"/>
     </rule>
 
     <!-- PEAR uses warnings for inline control structures, so switch back to errors-->
@@ -300,7 +313,7 @@
     <rule ref="Squiz.Commenting.DocCommentAlignment"/>
     <rule ref="Squiz.Commenting.EmptyCatchComment"/>
     <rule ref="Squiz.Commenting.InlineComment"/>
-    <rule ref="Squiz.Commenting.LongConditionClosingComment"/>
+    <!--    <rule ref="Squiz.Commenting.LongConditionClosingComment"/>-->
     <rule ref="Squiz.Commenting.PostStatementComment"/>
     <rule ref="Squiz.Commenting.VariableComment"/>
     <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing"/>
@@ -336,6 +349,3 @@
     <exclude-pattern>./src/App/Kernel.php</exclude-pattern>
 
 </ruleset>
-
-
-

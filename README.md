@@ -289,6 +289,7 @@ See the [open issues](https://github.com/petrzivny/symfony-react-skeleton/issues
 - [How to run CI tests locally?](#how-to-run-ci-tests-locally)
 - [How to run BE application in prod mode locally?](#how-to-run-be-application-imitating-prod-mode-locally)
 - [Where should I put my new php code?](#where-should-i-put-my-new-php-code)
+- [How to debug BE?](#how-to-debug-be)
 
 #### How to run CI tests locally?
 A developer can run all BE tests at once `composer test` or only selected BE test can be ran e.g. `composer phpstan`. Commands must be run inside php container.
@@ -308,6 +309,9 @@ A developer can run all FE tests at once `pnpm run test` or only selected FE tes
 
 #### Where should I put my new php code?
 This skeleton is DDD ready. All code coupled to App (Symfony) should be placed in `api/src/App`. E.g. security, authentication, authorization, Entities if you want to use doctrine migrations and/or ORM, Controllers and console Commands. The rest (bounded contexts) should be independent on Symfony framework and placed in  `api/src/Context/MyBoundedContext`  
+
+#### How to debug BE?
+You can use `/api/status` endpoint to get some debug information for php-fpm or `bin/console status` command to get same information for CLI.
 
 <!-- LICENSE -->
 ## License
