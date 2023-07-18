@@ -52,7 +52,7 @@ final class SecretsExternalDecryptToFileCommand extends Command
 
         $io->success($message);
 
-        $this->logger->info($message);
+        $this->logger->error($message);
 
         return Command::SUCCESS;
     }
