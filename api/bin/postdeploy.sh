@@ -37,6 +37,7 @@ setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .en*
 kill -USR2 1
 
 if ! $skipVaultFetch
-  then echo "" > .env.local.php && rm .env.prod.local
+  then echo "" > .env.local.php && \
+  rm .env.prod.local && \
   bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
 fi
