@@ -38,6 +38,5 @@ kill -USR2 1
 
 if ! $skipVaultFetch
   then echo "" > .env.local.php && rm .env.prod.local
+  bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
 fi
-
-bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
