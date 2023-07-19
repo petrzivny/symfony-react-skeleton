@@ -18,6 +18,7 @@ RUN docker-php-ext-install -j$(nproc) bcmath
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer;
 
 COPY .docker/php/profile.d/aliases.sh /etc/profile.d/
+COPY .docker/php/conf.d/docker.conf /usr/local/etc/php-fpm.d/docker.conf
 
 # Needed for php-fpm-healthcheck.sh which is used for k8 readinessProbe and livenessProbe
 RUN set -xe && echo "pm.status_path = /status" >> /usr/local/etc/php-fpm.d/zz-docker.conf

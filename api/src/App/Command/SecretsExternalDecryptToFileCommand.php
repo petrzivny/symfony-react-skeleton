@@ -30,7 +30,7 @@ final class SecretsExternalDecryptToFileCommand extends Command
     public function __construct(
         private readonly GcpExternalSecretsRetriever $secretsRetriever,
         private readonly EnvFileGenerator $envFileGenerator,
-        private readonly LoggerInterface $logger,
+        private readonly LoggerInterface $consoleLogger,
         private readonly ApplicationMode $applicationMode,
     ) {
         parent::__construct();
@@ -39,6 +39,8 @@ final class SecretsExternalDecryptToFileCommand extends Command
     /** @throws ApiException */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->consoleLogger->info(self::class . ' initiated.');
+
         $io = new SymfonyStyle($input, $output);
 
         $variables = $this->secretsRetriever->getAllSecrets();
@@ -52,7 +54,7 @@ final class SecretsExternalDecryptToFileCommand extends Command
 
         $io->success($message);
 
-        $this->logger->error($message);
+        $this->consoleLogger->info(self::class . ' finished with message: ' . $message);
 
         return Command::SUCCESS;
     }
