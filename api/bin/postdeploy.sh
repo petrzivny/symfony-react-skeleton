@@ -27,6 +27,7 @@ if ! $skipVaultFetch
 fi
 
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative
+# This command outputs to STDERR
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod 2>&1
 
 bin/console cache:clear
