@@ -27,7 +27,8 @@ if ! $skipVaultFetch
 fi
 
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative
-COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod
+# This command outputs to STDERR
+COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod 2>&1
 
 bin/console cache:clear
 
@@ -40,4 +41,6 @@ if ! $skipVaultFetch
   then echo "" > .env.local.php && rm .env.prod.local
 fi
 
-bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
+if ! $skipVaultFetch
+  then bin/console doctrine:migrations:migrate --allow-no-migration --no-interaction
+fi

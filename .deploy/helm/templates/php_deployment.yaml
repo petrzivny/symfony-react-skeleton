@@ -48,5 +48,5 @@ spec:
                 command: [
                   '/bin/sh',
                   '-c',
-                  'echo -e "ENVIRONMENT_NAME={{ .Values.app_environment }}\nGCP_PROJECT_ID={{ .Values.gcp_project_id }}" >> .env.local && bin/postdeploy.sh {{ .Values.isCiPipeline | ternary "--skip-vault-fetch" "" }}'
+                  'sleep 10 && echo -e "ENVIRONMENT_NAME={{ .Values.app_environment }}\n{{ .Values.isCiPipeline | ternary "" (printf "%s=%s" "GCP_PROJECT_ID" .Values.gcp_project_id) }}" >> .env.local && bin/postdeploy.sh {{ .Values.isCiPipeline | ternary "--skip-vault-fetch" "" }} 2&> /proc/1/fd/2'
                 ]

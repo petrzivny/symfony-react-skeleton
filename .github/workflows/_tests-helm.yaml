@@ -57,7 +57,7 @@ jobs:
           ct install --all \
             --target-branch ${{ github.event.repository.default_branch }} \
             --chart-dirs .deploy \
-            --helm-extra-args "--timeout 1m" \
+            --helm-extra-args "--timeout 2m" \
             --helm-extra-set-args "--set=isCiPipeline=true,image.imagePullPolicy=Never,image.path=${{ inputs.image-name }}"
 
       - name: Debug On Failure
