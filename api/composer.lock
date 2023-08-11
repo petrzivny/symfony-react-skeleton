@@ -101,16 +101,16 @@
         },
         {
             "name": "doctrine/collections",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/collections.git",
-                "reference": "db8cda536a034337f7dd63febecc713d4957f9ee"
+                "reference": "3023e150f90a38843856147b58190aa8b46cc155"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/collections/zipball/db8cda536a034337f7dd63febecc713d4957f9ee",
-                "reference": "db8cda536a034337f7dd63febecc713d4957f9ee",
+                "url": "https://api.github.com/repos/doctrine/collections/zipball/3023e150f90a38843856147b58190aa8b46cc155",
+                "reference": "3023e150f90a38843856147b58190aa8b46cc155",
                 "shasum": ""
             },
             "require": {
@@ -123,7 +123,7 @@
                 "phpstan/phpstan": "^1.8",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "phpunit/phpunit": "^9.5",
-                "vimeo/psalm": "^4.22"
+                "vimeo/psalm": "^5.11"
             },
             "type": "library",
             "autoload": {
@@ -167,7 +167,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/collections/issues",
-                "source": "https://github.com/doctrine/collections/tree/2.1.2"
+                "source": "https://github.com/doctrine/collections/tree/2.1.3"
             },
             "funding": [
                 {
@@ -183,7 +183,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-27T23:41:38+00:00"
+            "time": "2023-07-06T15:15:36+00:00"
         },
         {
             "name": "doctrine/common",
@@ -278,16 +278,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.6.3",
+            "version": "3.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "9a747d29e7e6b39509b8f1847e37a23a0163ea6a"
+                "reference": "96d5a70fd91efdcec81fc46316efc5bf3da17ddf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/9a747d29e7e6b39509b8f1847e37a23a0163ea6a",
-                "reference": "9a747d29e7e6b39509b8f1847e37a23a0163ea6a",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/96d5a70fd91efdcec81fc46316efc5bf3da17ddf",
+                "reference": "96d5a70fd91efdcec81fc46316efc5bf3da17ddf",
                 "shasum": ""
             },
             "require": {
@@ -302,10 +302,10 @@
             "require-dev": {
                 "doctrine/coding-standard": "12.0.0",
                 "fig/log-test": "^1",
-                "jetbrains/phpstorm-stubs": "2022.3",
-                "phpstan/phpstan": "1.10.14",
+                "jetbrains/phpstorm-stubs": "2023.1",
+                "phpstan/phpstan": "1.10.21",
                 "phpstan/phpstan-strict-rules": "^1.5",
-                "phpunit/phpunit": "9.6.7",
+                "phpunit/phpunit": "9.6.9",
                 "psalm/plugin-phpunit": "0.18.4",
                 "squizlabs/php_codesniffer": "3.7.2",
                 "symfony/cache": "^5.4|^6.0",
@@ -370,7 +370,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.6.3"
+                "source": "https://github.com/doctrine/dbal/tree/3.6.5"
             },
             "funding": [
                 {
@@ -386,7 +386,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-01T05:46:46+00:00"
+            "time": "2023-07-17T09:15:50+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -1070,16 +1070,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "2.15.2",
+            "version": "2.16.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "bf449bef7ddc47e62c22f9a06dacc1736abe1c0b"
+                "reference": "597a63a86ca8c5f9d1ec2dc74fe3d1269d43434a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/bf449bef7ddc47e62c22f9a06dacc1736abe1c0b",
-                "reference": "bf449bef7ddc47e62c22f9a06dacc1736abe1c0b",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/597a63a86ca8c5f9d1ec2dc74fe3d1269d43434a",
+                "reference": "597a63a86ca8c5f9d1ec2dc74fe3d1269d43434a",
                 "shasum": ""
             },
             "require": {
@@ -1108,14 +1108,14 @@
                 "doctrine/annotations": "^1.13 || ^2",
                 "doctrine/coding-standard": "^9.0.2 || ^12.0",
                 "phpbench/phpbench": "^0.16.10 || ^1.0",
-                "phpstan/phpstan": "~1.4.10 || 1.10.14",
+                "phpstan/phpstan": "~1.4.10 || 1.10.28",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.6",
                 "psr/log": "^1 || ^2 || ^3",
                 "squizlabs/php_codesniffer": "3.7.2",
                 "symfony/cache": "^4.4 || ^5.4 || ^6.0",
                 "symfony/var-exporter": "^4.4 || ^5.4 || ^6.2",
                 "symfony/yaml": "^3.4 || ^4.0 || ^5.0 || ^6.0",
-                "vimeo/psalm": "4.30.0 || 5.11.0"
+                "vimeo/psalm": "4.30.0 || 5.14.1"
             },
             "suggest": {
                 "ext-dom": "Provides support for XSD validation for XML mapping files",
@@ -1165,9 +1165,9 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.15.2"
+                "source": "https://github.com/doctrine/orm/tree/2.16.1"
             },
-            "time": "2023-06-01T09:35:50+00:00"
+            "time": "2023-08-09T13:05:08+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -6429,16 +6429,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.15",
+            "version": "1.10.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd"
+                "reference": "e4545b55904ebef470423d3ddddb74fa7325497a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/762c4dac4da6f8756eebb80e528c3a47855da9bd",
-                "reference": "762c4dac4da6f8756eebb80e528c3a47855da9bd",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/e4545b55904ebef470423d3ddddb74fa7325497a",
+                "reference": "e4545b55904ebef470423d3ddddb74fa7325497a",
                 "shasum": ""
             },
             "require": {
@@ -6487,20 +6487,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-09T15:28:01+00:00"
+            "time": "2023-08-08T12:33:42+00:00"
         },
         {
             "name": "phpstan/phpstan-doctrine",
-            "version": "1.3.40",
+            "version": "1.3.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-doctrine.git",
-                "reference": "f741919a720af6f84249abc62befeb15eee7bc88"
+                "reference": "e4678fa1055bfd7fad052506b422aeae35fc6f63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/f741919a720af6f84249abc62befeb15eee7bc88",
-                "reference": "f741919a720af6f84249abc62befeb15eee7bc88",
+                "url": "https://api.github.com/repos/phpstan/phpstan-doctrine/zipball/e4678fa1055bfd7fad052506b422aeae35fc6f63",
+                "reference": "e4678fa1055bfd7fad052506b422aeae35fc6f63",
                 "shasum": ""
             },
             "require": {
@@ -6528,8 +6528,8 @@
                 "nesbot/carbon": "^2.49",
                 "nikic/php-parser": "^4.13.2",
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpstan/phpstan-strict-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.3.13",
+                "phpstan/phpstan-strict-rules": "^1.5.1",
                 "phpunit/phpunit": "^9.5.10",
                 "ramsey/uuid-doctrine": "^1.5.0",
                 "symfony/cache": "^4.4.35"
@@ -6555,9 +6555,9 @@
             "description": "Doctrine extensions for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-doctrine/issues",
-                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.40"
+                "source": "https://github.com/phpstan/phpstan-doctrine/tree/1.3.42"
             },
-            "time": "2023-05-11T11:26:04+00:00"
+            "time": "2023-08-09T08:21:24+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -8728,16 +8728,16 @@
         },
         {
             "name": "shipmonk/phpstan-rules",
-            "version": "2.6.2",
+            "version": "2.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/shipmonk-rnd/phpstan-rules.git",
-                "reference": "20c7c73fdffeaab696559723636d71ddb273200a"
+                "reference": "122df5ff36e1c3da21afc54f063cf903a817ed14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shipmonk-rnd/phpstan-rules/zipball/20c7c73fdffeaab696559723636d71ddb273200a",
-                "reference": "20c7c73fdffeaab696559723636d71ddb273200a",
+                "url": "https://api.github.com/repos/shipmonk-rnd/phpstan-rules/zipball/122df5ff36e1c3da21afc54f063cf903a817ed14",
+                "reference": "122df5ff36e1c3da21afc54f063cf903a817ed14",
                 "shasum": ""
             },
             "require": {
@@ -8778,9 +8778,9 @@
             ],
             "support": {
                 "issues": "https://github.com/shipmonk-rnd/phpstan-rules/issues",
-                "source": "https://github.com/shipmonk-rnd/phpstan-rules/tree/2.6.2"
+                "source": "https://github.com/shipmonk-rnd/phpstan-rules/tree/2.6.3"
             },
-            "time": "2023-05-24T09:02:37+00:00"
+            "time": "2023-08-01T13:48:36+00:00"
         },
         {
             "name": "slevomat/coding-standard",
@@ -8916,12 +8916,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "d148febc2a2eb82972121d7f962883f7a5697b55"
+                "reference": "a813c38729aef0034ff7b0f5f0ac54e94ea76804"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d148febc2a2eb82972121d7f962883f7a5697b55",
-                "reference": "d148febc2a2eb82972121d7f962883f7a5697b55",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/a813c38729aef0034ff7b0f5f0ac54e94ea76804",
+                "reference": "a813c38729aef0034ff7b0f5f0ac54e94ea76804",
                 "shasum": ""
             },
             "require": {
@@ -8966,7 +8966,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2023-05-26T22:32:02+00:00"
+            "time": "2023-08-06T23:03:57+00:00"
         },
         {
             "name": "symfony/browser-kit",
@@ -9817,16 +9817,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "5.12.0",
+            "version": "5.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "f90118cdeacd0088e7215e64c0c99ceca819e176"
+                "reference": "086b94371304750d1c673315321a55d15fc59015"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/f90118cdeacd0088e7215e64c0c99ceca819e176",
-                "reference": "f90118cdeacd0088e7215e64c0c99ceca819e176",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/086b94371304750d1c673315321a55d15fc59015",
+                "reference": "086b94371304750d1c673315321a55d15fc59015",
                 "shasum": ""
             },
             "require": {
@@ -9917,9 +9917,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vimeo/psalm/issues",
-                "source": "https://github.com/vimeo/psalm/tree/5.12.0"
+                "source": "https://github.com/vimeo/psalm/tree/5.13.1"
             },
-            "time": "2023-05-22T21:19:03+00:00"
+            "time": "2023-06-27T16:39:49+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -9981,16 +9981,16 @@
         },
         {
             "name": "weirdan/doctrine-psalm-plugin",
-            "version": "v2.8.1",
+            "version": "v2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-doctrine.git",
-                "reference": "4f62e33f523b2e452997228405dfe8d5d886d13a"
+                "reference": "3db8e55b2ea15373338d2a3eab71c5f5a31c8b08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-doctrine/zipball/4f62e33f523b2e452997228405dfe8d5d886d13a",
-                "reference": "4f62e33f523b2e452997228405dfe8d5d886d13a",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-doctrine/zipball/3db8e55b2ea15373338d2a3eab71c5f5a31c8b08",
+                "reference": "3db8e55b2ea15373338d2a3eab71c5f5a31c8b08",
                 "shasum": ""
             },
             "require": {
@@ -10053,9 +10053,9 @@
             ],
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-doctrine/issues",
-                "source": "https://github.com/psalm/psalm-plugin-doctrine/tree/v2.8.1"
+                "source": "https://github.com/psalm/psalm-plugin-doctrine/tree/v2.9.0"
             },
-            "time": "2023-01-17T23:18:44+00:00"
+            "time": "2023-07-15T05:44:30+00:00"
         }
     ],
     "aliases": [],
