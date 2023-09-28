@@ -6,8 +6,7 @@ const BackendValue = (): JSX.Element => {
     data: { optionName: string; isSupported: string };
   }
 
-  const queryFn = (): Promise<BeData> =>
-    axios.get<BeData>('/api/test-get-db-value').then((res) => res.data);
+  const queryFn = (): Promise<BeData> => axios.get<BeData>('/api/test-get-db-value').then((res) => res.data);
 
   const { isLoading, error, data, isFetching } = useQuery({
     queryKey: ['cacheIndex1'],
@@ -29,7 +28,10 @@ const BackendValue = (): JSX.Element => {
   return (
     <>
       <p>Data from Backend database received.</p>
-      Data: <span className={'db-data'}>{data?.data.optionName}: {data?.data.isSupported === "YES" ? 'Is supported' : 'Is not supported'}</span>
+      Data:{' '}
+      <span className={'db-data'}>
+        {data?.data.optionName}: {data?.data.isSupported === 'YES' ? 'Is supported' : 'Is not supported'}
+      </span>
     </>
   );
 };
