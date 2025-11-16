@@ -11901,6 +11901,6 @@
         "ext-iconv": "*",
         "ext-zend-opcache": "*"
     },
-    "platform-dev": {},
+    "platform-dev": [],
     "plugin-api-version": "2.9.0"
 }
