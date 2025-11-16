@@ -8,6 +8,7 @@ use App\Enum\ApplicationMode;
 use App\Service\EnvFileGenerator;
 use App\Service\GcpExternalSecretsRetriever;
 use Google\ApiCore\ApiException;
+use Override;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -37,6 +38,7 @@ final class SecretsExternalDecryptToFileCommand extends Command
     }
 
     /** @throws ApiException */
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->consoleLogger->info(self::class . ' initiated.');

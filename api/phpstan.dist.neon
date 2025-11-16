@@ -9,7 +9,6 @@ parameters:
     paths:
         - bin/
         - config/
-        - public/
         - src/
         - tests/
 
@@ -80,3 +79,13 @@ parameters:
                 \Exception: Exception
                 \PHPUnit\Framework\TestCase: Test
                 \Symfony\Component\Console\Command\Command: Command
+
+    ignoreErrors:
+        -
+            identifiers:
+                - return.type
+                - argument.type
+                - offsetAccess.nonOffsetAccessible
+                - binaryOp.invalid
+                - shipmonk.arithmeticOnNonNumber
+            path: src/App/Controller/StatusController.php

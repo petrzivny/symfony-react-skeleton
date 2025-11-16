@@ -17,6 +17,10 @@ if (array_key_exists('APP_ENV', $_SERVER) === false) {
 // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
 $appEnv = $_SERVER['APP_ENV'];
 
+if (!is_string($appEnv)) {
+    throw new RuntimeException('$_SERVER[APP_ENV] must be string');
+}
+
 // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
 if (array_key_exists('APP_DEBUG', $_SERVER) === false) {
     throw new RuntimeException('APP_DEBUG env variable is not defined');
@@ -24,7 +28,6 @@ if (array_key_exists('APP_DEBUG', $_SERVER) === false) {
 
 // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
 $appDebug = $_SERVER['APP_DEBUG'];
-
 
 $kernel = new Kernel($appEnv, (bool) $appDebug);
 $kernel->boot();

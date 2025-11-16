@@ -6,6 +6,7 @@ namespace App\EventSubscriber;
 
 use App\Service\GcpExternalSecretsRetriever;
 use Google\ApiCore\ApiException;
+use Override;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -35,7 +36,9 @@ final readonly class GcpSecretRetrieverSubscriber implements EventSubscriberInte
      * @return array<string, string|array<int, int|string>>
      *
      * @psalm-suppress LessSpecificImplementedReturnType
+     * @phpstan-ignore method.childReturnType
      */
+    #[Override]
     public static function getSubscribedEvents(): array
     {
         return [

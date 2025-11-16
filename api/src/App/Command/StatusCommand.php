@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Controller\StatusController;
+use Override;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,6 +23,7 @@ final class StatusCommand extends Command
         parent::__construct();
     }
 
+    #[Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -35,7 +37,7 @@ final class StatusCommand extends Command
 
     /**
      * @param array<string, string|array<string, int|string>> $data
-     * @return array<int, array<int, int|string>>
+     * @return list<array{string, int|string}>
      */
     private function formatAsTable(array $data): array
     {

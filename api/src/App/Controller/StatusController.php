@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
 
 use function array_key_exists;
+use function count;
 use function dirname;
 use function file_exists;
 use function file_get_contents;

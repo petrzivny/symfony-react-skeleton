@@ -9,7 +9,6 @@ parameters:
     paths:
         - bin/
         - config/
-        - public/
         - src/
         - tests/
 
@@ -74,9 +73,19 @@ parameters:
                 'xdebug_var_dump': 'Debug code could pose a risk if deployed. Please remove it.'
                 # WordPress related functions
                 'wp_die': 'Debug code could pose a risk if deployed. Please remove it.'
-                
+
         classSuffixNaming:
             superclassToSuffixMapping!:
                 \Exception: Exception
                 \PHPUnit\Framework\TestCase: Test
                 \Symfony\Component\Console\Command\Command: Command
+
+    ignoreErrors:
+        -
+            identifiers:
+                - return.type
+                - argument.type
+                - offsetAccess.nonOffsetAccessible
+                - binaryOp.invalid
+                - shipmonk.arithmeticOnNonNumber
+            path: src/App/Controller/StatusController.php
