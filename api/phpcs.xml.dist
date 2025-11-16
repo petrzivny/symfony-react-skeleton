@@ -341,7 +341,6 @@
     <rule ref="PSR2.Files.EndFileNewline"/>
     <rule ref="PSR2.Methods.MethodDeclaration"/>
     <rule ref="Zend.Files.ClosingTag"/>
-    <rule ref="Zend.Debug.CodeAnalyzer"/>
 
     <rule ref="PSR12">
         <exclude name="Generic.Files.LineLength" />

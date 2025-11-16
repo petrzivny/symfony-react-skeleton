@@ -44,7 +44,6 @@ final class TestController extends AbstractController
         return new JsonResponse($responseData);
     }
 
-
     #[Route('/test-logger', name: 'test_logger')]
     public function test(LoggerInterface $logger): Response
     {

@@ -28,6 +28,7 @@ final class StatusController extends AbstractController
         private readonly EntityManagerInterface $entityManager,
     ) {
     }
+
     #[Route('/status', name: 'api_status')]
     public function index(): JsonResponse
     {
