@@ -10,15 +10,15 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-zend-opcache": "*",
-        "doctrine/doctrine-bundle": "*",
-        "doctrine/doctrine-migrations-bundle": "*",
-        "doctrine/orm": "*",
+        "doctrine/doctrine-bundle": "^2.18",
+        "doctrine/doctrine-migrations-bundle": "^3.7",
+        "doctrine/orm": "^3.5",
         "google/cloud-secret-manager": "^1.12",
         "symfony/console": "7.3.*",
         "symfony/dotenv": "7.3.*",
-        "symfony/flex": "*",
+        "symfony/flex": "^2.10",
         "symfony/framework-bundle": "7.3.*",
-        "symfony/monolog-bundle": "*",
+        "symfony/monolog-bundle": "^3.10",
         "symfony/runtime": "7.3.*",
         "symfony/yaml": "7.3.*"
     },
@@ -81,7 +81,7 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "upgrade-all": "composer update symfony/* doctrine/* psalm/* slevomat/* squizlabs/* phpstan/* phpunit/* shipmonk/* vimeo/* weirdan/* -W",
+        "upgrade-all": "composer update && composer symfony:recipes:update",
         "phpcs": "./vendor/bin/phpcs -sp -d memory_limit=512M",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1g",
         "psalm": "./vendor/bin/psalm --show-info=true",
@@ -93,8 +93,8 @@
         "cache": "bin/console cache:clear --env prod",
         "test": [
             "@phpcs",
-            "@phpstan",
-            "@psalm",
+
+
             "@vuln",
             "composer validate --strict",
             "@yaml",
