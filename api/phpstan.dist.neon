@@ -74,7 +74,7 @@ parameters:
                 'xdebug_var_dump': 'Debug code could pose a risk if deployed. Please remove it.'
                 # WordPress related functions
                 'wp_die': 'Debug code could pose a risk if deployed. Please remove it.'
-                
+
         classSuffixNaming:
             superclassToSuffixMapping!:
                 \Exception: Exception
