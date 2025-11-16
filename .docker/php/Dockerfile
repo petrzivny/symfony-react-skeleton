@@ -56,18 +56,17 @@ COPY api/migrations migrations
 COPY api/public public
 COPY api/src src
 COPY api/.env .
+RUN bin/console cache:clear
 
 
 FROM deployment as ci-pipeline-test
 COPY api/.env.test .
 COPY api/phpcs.xml.dist .
-COPY api/phpstan.neon .
+COPY api/phpstan.neon api/phpstan-baseline.* ./
 COPY api/phpunit.xml.dist .
-COPY api/psalm.xml .
+COPY api/psalm.xml api/psalm-baseline.* ./
 COPY api/tests tests
 
 RUN echo "APP_ENV=test" > .env.local
+RUN bin/console cache:clear --env prod
 RUN bin/console cache:clear
-
-
-

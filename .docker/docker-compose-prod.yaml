@@ -15,8 +15,6 @@ services:
       file: common-services.yaml
       service: php
     container_name: ${PROJECT_NAME:-symfony-react-skeleton}_php_prod
-    # Environment name is generated in deploy step of CI. But is needed for /api/status endpoint, that is why we need to generate it here for local prod environment test.
-    command: sh -c "echo 'ENVIRONMENT_NAME=prod' >> .env.local && php-fpm"
     build:
       target: deployment
       args:

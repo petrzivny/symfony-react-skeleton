@@ -31,6 +31,7 @@ COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritat
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-env prod 2>&1
 
 bin/console cache:clear
+setfacl -dR -m u:"$HTTPD_USER":rwX -m u:"$CONSOLE_USER":rwX var/cache
 
 setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .en*
 

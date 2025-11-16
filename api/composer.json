@@ -87,8 +87,9 @@
         "vuln": "composer update --dry-run roave/security-advisories",
         "yaml": "bin/console lint:yaml --parse-tags config",
         "container": "bin/console lint:container",
-        "unit": "php bin/phpunit tests/App/Unit --testdox",
-        "functional": "php bin/phpunit tests/App/Functional --testdox",
+        "unit": "bin/phpunit tests/App/Unit --testdox",
+        "functional": "bin/phpunit tests/App/Functional --testdox",
+        "cache": "bin/console cache:clear --env prod",
         "test": [
             "@phpcs",
             "@phpstan",
@@ -98,7 +99,8 @@
             "@yaml",
             "@container",
             "@unit",
-            "@functional"
+            "@functional",
+            "@cache"
         ]
     },
     "conflict": {

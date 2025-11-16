@@ -88,7 +88,9 @@ Don't forget to give the project a star!
    ```
    or manually
    ```sh
-   # Replace all occurrences of string "${PROJECT_NAME:-symfony-react-skeleton}" with {myproject}.
+   # Replace all occurrences of string "${PROJECT_NAME:-symfony-react-skeleton}" with {myproject} in .docker/docker-compose-prod.yaml
+   # Change parameters.application_name value in api/config/services.yaml
+   # Change name value in .deploy/helm/Chart.yaml
    ```
 4. Build BE docker images and run them as docker containers in dev mode
    ```sh
