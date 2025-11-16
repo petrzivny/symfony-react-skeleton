@@ -93,8 +93,8 @@
         "cache": "bin/console cache:clear --env prod",
         "test": [
             "@phpcs",
-
-
+            "phpstan",
+            "psalm",
             "@vuln",
             "composer validate --strict",
             "@yaml",
