@@ -18,7 +18,7 @@ final class SmokeTest extends WebTestCase
         self::assertResponseIsSuccessful();
     }
 
-    public function urlProvider(): Generator
+    public static function urlProvider(): Generator
     {
         yield ['/status'];
         // ...
