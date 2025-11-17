@@ -1,17 +1,5 @@
 #!/usr/bin/env php
 <?php
 
-if (is_file(dirname(__DIR__) . '/vendor/phpunit/phpunit/phpunit')) {
-    echo "/vendor/phpunit/phpunit/phpunit exist\n";
-} else {
-    echo "/vendor/phpunit/phpunit/phpunit not exist\n";
-}
-
-if (is_file(dirname(__DIR__) . '/vendor/symfony/phpunit-bridge/bin/simple-phpunit.php')) {
-    echo "/vendor/symfony/phpunit-bridge/bin/simple-phpunit.php exist\n";
-} else {
-    echo "/vendor/symfony/phpunit-bridge/bin/simple-phpunit.php not exist\n";
-}
-
 require dirname(__DIR__).'/vendor/phpunit/phpunit/phpunit';
 
