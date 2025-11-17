@@ -17,8 +17,8 @@ use function sprintf;
 /** @psalm-api */
 final class TestController extends AbstractController
 {
-    private const SUB_FEATURE_NAME = 'UPDATE privilege at the table level';
-    private const COLUMN_NAME = 'is_supported';
+    private const string SUB_FEATURE_NAME = 'UPDATE privilege at the table level';
+    private const string COLUMN_NAME = 'is_supported';
 
     #[Route('/test-get-db-value', name: 'app_test')]
     public function index(EntityManagerInterface $entityManager): JsonResponse

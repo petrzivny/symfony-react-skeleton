@@ -140,10 +140,10 @@ final class StatusController extends AbstractController
 
             return sprintf(
                 '%s MB used out of %s MB (%s%%). %s MB wasted.',
-                round($opcacheStatus['memory_usage']['used_memory'] / (1024 * 1024)),
-                round($totalMemory / (1024 * 1024)),
+                round($opcacheStatus['memory_usage']['used_memory'] / (1_024 * 1_024)),
+                round($totalMemory / (1_024 * 1_024)),
                 round($opcacheStatus['memory_usage']['used_memory'] / $totalMemory * 100),
-                round(($opcacheStatus['memory_usage']['wasted_memory'] ?? 0) / (1024 * 1024), 2),
+                round(($opcacheStatus['memory_usage']['wasted_memory'] ?? 0) / (1_024 * 1_024), 2),
             );
         }
 
