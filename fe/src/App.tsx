@@ -22,7 +22,9 @@ function App(): JSX.Element {
         </a>
       </div>
       <QueryClientProvider client={queryClient}>
-        <h2><BackendVersions /> and React {version} with Vite (FE) skeleton demo</h2>
+        <h2>
+          <BackendVersions /> and React {version} with Vite (FE) skeleton demo
+        </h2>
         <BackendValue />
       </QueryClientProvider>
       <div className="card">
