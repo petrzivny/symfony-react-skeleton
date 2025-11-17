@@ -48,7 +48,7 @@ services:
     App\Controller\StatusController:
         arguments:
             $appName: '%application_name%'
-            $environmentName: '%env(ENVIRONMENT_NAME)%'
+            $environmentName: '%env(string:default:placeholder:ENVIRONMENT_NAME)%'
 
     App\EventSubscriber\GcpSecretRetrieverSubscriber:
         arguments:
@@ -58,7 +58,7 @@ services:
         arguments:
             $template: '%env_variable_template%'
             $appName: '%application_name%'
-            $environmentName: '%env(ENVIRONMENT_NAME)%'
+            $environmentName: '%env(string:default:placeholder:ENVIRONMENT_NAME)%'
             $projectId: '%env(default::GCP_PROJECT_ID)%'
 
     Monolog\Formatter\GoogleCloudLoggingFormatter:
