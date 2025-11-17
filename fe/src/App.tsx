@@ -1,4 +1,4 @@
-import { useState, version } from 'react';
+import { JSX, useState, version } from 'react';
 import reactLogo from './assets/react.svg';
 import symfonyLogo from './assets/symfony.svg';
 import './App.css';

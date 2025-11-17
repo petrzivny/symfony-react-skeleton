@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { JSX } from 'react';
 
 const BackendVersions = (): JSX.Element => {
   interface BeData {
@@ -28,7 +29,7 @@ const BackendVersions = (): JSX.Element => {
   return (
     <>
       <span>
-        Symfony {data?.data.symfonyVersion} with Php {data?.data.phpVersion} (BE)
+        Symfony {data?.data.symfonyVersion} on Php {data?.data.phpVersion} (BE)
       </span>
     </>
   );
