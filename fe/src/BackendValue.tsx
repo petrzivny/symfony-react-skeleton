@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { JSX } from 'react';
 
 const BackendValue = (): JSX.Element => {
   interface BeData {
