@@ -68,9 +68,4 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} ls bin -la
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} php bin/phpunit --version
-          echo 1
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} php bin/phpunit tests/App/Unit --testdox
-          echo 2
           docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer unit
