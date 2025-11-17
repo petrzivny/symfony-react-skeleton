@@ -19,7 +19,7 @@ jobs:
 
       - name: helm lint
         run: |
-          cd .deploy/helm && helm lint --strict --with-subcharts
+          cd .deploy/helm && helm lint . --strict --with-subcharts
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
