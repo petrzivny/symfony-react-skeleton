@@ -22,7 +22,7 @@ services:
       target: local
       args:
         - symfony_mode=dev
-    image: ${PROJECT_NAME:-symfony-react-skeleton}_php:8.2-fpm-alpine
+    image: ${PROJECT_NAME:-symfony-react-skeleton}_php:8.4-fpm-alpine
     volumes:
       - ../api:/var/www/html
 
