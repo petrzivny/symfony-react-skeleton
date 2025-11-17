@@ -28,15 +28,22 @@ services:
 
   postgres:
     container_name: ${PROJECT_NAME:-symfony-react-skeleton}_postgres
-    image: postgres:${DATABASE_SERVER_VERSION:-15.3}
+    image: postgres:${DATABASE_SERVER_VERSION:-16}-alpine
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - database_data:/var/lib/postgresql/data:rw
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
     environment:
-      POSTGRES_DATABASE: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_DB: ${DATABASE_NAME:-app}
+      POSTGRES_USER: ${DATABASE_USER:-app}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-d", "${DATABASE_NAME:-app}", "-U", "${DATABASE_USER:-app}" ]
+      timeout: 5s
+      retries: 5
+      start_period: 60s
     ports:
-      - ${DATABASE_PORT:-5432}:${DATABASE_PORT:-5432}
+      - ${DATABASE_PORT:-5432}
     networks:
       - backend
 
@@ -47,5 +54,5 @@ networks:
     name: ${PROJECT_NAME:-symfony-react-skeleton}_backend
 
 volumes:
-  postgres-data:
+  database_data:
     name: ${PROJECT_NAME:-symfony-react-skeleton}_postgresql-data

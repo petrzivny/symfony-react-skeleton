@@ -23,7 +23,7 @@ services:
 #    environment:
 #      DATABASE_DRIVER: pdo_pgsql
 #      DATABASE_PORT: 5432
-#      DATABASE_SERVER_VERSION: 15.3
+#      DATABASE_SERVER_VERSION: 16
 #      DATABASE_HOST: postgres
 #      DATABASE_NAME: develop
 #      DATABASE_USER: develop
