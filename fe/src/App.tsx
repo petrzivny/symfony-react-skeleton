@@ -1,4 +1,4 @@
-import { JSX, useState, version } from 'react';
+import React, { useState, version } from 'react';
 import reactLogo from './assets/react.svg';
 import symfonyLogo from './assets/symfony.svg';
 import './App.css';
@@ -6,7 +6,7 @@ import BackendValue from './BackendValue.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import BackendVersions from './BackendVersions.tsx';
 
-function App(): JSX.Element {
+function App(): React.JSX.Element {
   const [count, setCount] = useState(0);
 
   const queryClient = new QueryClient();
