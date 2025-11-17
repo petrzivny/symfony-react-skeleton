@@ -10,7 +10,7 @@ docker exec -it ${PROJECT_NAME}_php sh -l
 ```
 4. Debug any php script by using alias `xphp`
 ```sh
-xphp bin/console secrets:external:decrypt-to-file foo
+xphp bin/console status
 ```
 5. If asked by PhpStorm to provide server mappings, do it like this ![xdebug-mapping.png](xdebug-mapping.png)
 6. Debugger should stop at your breakpoint, and you should see all debug info.

@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# If you don't want fetch secrets from external GCP vault (e.g. in CI pipeline) use flag "./postdeploy.sh --skip-vault-fetch"
-
 set -e
 #HTTPD_USER=$(ps axo -o user,comm | grep -E '[a]pache|[h]ttpd|[_]www|[w]ww-data|[n]ginx' | grep -v root | head -1 | cut -d\  -f1)
 HTTPD_USER=www-data
@@ -21,10 +19,6 @@ mkdir -p var
 setfacl -dR -m u:"$HTTPD_USER":rwX -m u:"$CONSOLE_USER":rwX var
 setfacl -R -m u:"$HTTPD_USER":rwX -m u:"$CONSOLE_USER":rwX var
 setfacl -R -m u:"$HTTPD_USER":rx -m u:"$CONSOLE_USER":rx .
-
-if ! $skipVaultFetch
-  then bin/console secrets:external:decrypt-to-file
-fi
 
 COMPOSER_ALLOW_SUPERUSER=1 composer dump-autoload --no-dev --classmap-authoritative
 # This command outputs to STDERR

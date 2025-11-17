@@ -7,20 +7,6 @@ parameters:
     application_name: 'skeleton'
     placeholder: "**placeholder**"
 
-    #   env_variable_template is used when fetching for secrets from a vault. Only these defined secrets will be requested. Use output from terraform apply. Format:
-    #   ENV_NAME:
-    #       secretName - specify a name used in external vault, if you omit this, environmental name is used as default
-    #       secretVersion - specify a version of secret used in external vault, if you omit this, "latest" is used as default
-    env_variable_template:
-        DATABASE_HOST:
-            secretName: 'DATABASE_HOST'
-            secretVersion: 'latest' # latest is actually default if you omit secretVersion
-        DATABASE_NAME:
-            secretName: 'DATABASE_NAME'
-        DATABASE_USER:
-            secretVersion: 'latest'
-        DATABASE_PASSWORD:
-
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -41,24 +27,9 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Command\SecretsExternalDecryptToFileCommand:
-        arguments:
-            $applicationMode: '%env(enum:App\Enum\ApplicationMode:APP_ENV)%'
-
     App\Controller\StatusController:
         arguments:
             $appName: '%application_name%'
             $environmentName: '%env(string:default:placeholder:ENVIRONMENT_NAME)%'
-
-    App\EventSubscriber\GcpSecretRetrieverSubscriber:
-        arguments:
-            $projectId: '%env(default::GCP_PROJECT_ID)%'
-
-    App\Service\GcpExternalSecretsRetriever:
-        arguments:
-            $template: '%env_variable_template%'
-            $appName: '%application_name%'
-            $environmentName: '%env(string:default:placeholder:ENVIRONMENT_NAME)%'
-            $projectId: '%env(default::GCP_PROJECT_ID)%'
 
     Monolog\Formatter\GoogleCloudLoggingFormatter:
