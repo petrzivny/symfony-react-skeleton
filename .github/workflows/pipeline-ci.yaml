@@ -36,28 +36,28 @@ jobs:
     with:
       image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
-  push-prod-images:
-    needs: [build-php-prod-images, build-nginx-prod-image]
-    name: Push Prod Images
-    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
-    with:
-      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
-
-  continuous-deployment-dev:
-    needs: [push-prod-images]
-    if: startsWith(github.ref, 'refs/heads/feature')
-    name: Deployment
-    uses: ./.github/workflows/_cd-dev-temp.yaml
-    with:
-      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
-
-  continuous-deployment-prod:
-    needs: [push-prod-images]
-    if: github.ref == 'refs/heads/main'
-    name: Deployment
-    uses: ./.github/workflows/_cd-prod-temp.yaml
-    with:
-      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
+#  push-prod-images:
+#    needs: [build-php-prod-images, build-nginx-prod-image]
+#    name: Push Prod Images
+#    uses: ./.github/workflows/_push-prod-images-to-registry.yaml
+#    with:
+#      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
+#
+#  continuous-deployment-dev:
+#    needs: [push-prod-images]
+#    if: startsWith(github.ref, 'refs/heads/feature')
+#    name: Deployment
+#    uses: ./.github/workflows/_cd-dev-temp.yaml
+#    with:
+#      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
+#
+#  continuous-deployment-prod:
+#    needs: [push-prod-images]
+#    if: github.ref == 'refs/heads/main'
+#    name: Deployment
+#    uses: ./.github/workflows/_cd-prod-temp.yaml
+#    with:
+#      image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
 
   cleanup:
     if: success() || failure()
