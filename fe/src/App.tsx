@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, version } from 'react';
 import reactLogo from './assets/react.svg';
 import symfonyLogo from './assets/symfony.svg';
 import './App.css';
 import BackendValue from './BackendValue.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import BackendVersions from './BackendVersions.tsx';
 
 function App(): JSX.Element {
   const [count, setCount] = useState(0);
@@ -20,8 +21,8 @@ function App(): JSX.Element {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Symfony + React (Vite) skeleton demo</h1>
       <QueryClientProvider client={queryClient}>
+        <h2><BackendVersions /> and React {version} with Vite (FE) skeleton demo</h2>
         <BackendValue />
       </QueryClientProvider>
       <div className="card">

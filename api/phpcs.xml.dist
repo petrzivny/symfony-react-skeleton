@@ -198,7 +198,7 @@
     <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse" />
     <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation" />
 <!--    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions" />-->
-    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants" />
+<!--    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants" />-->
 <!--    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions" />-->
     <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine" />
     <rule ref="SlevomatCodingStandard.Namespaces.NamespaceDeclaration" />

@@ -10,9 +10,12 @@ use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\Annotation\Route;
 
 use function sprintf;
+
+use const PHP_VERSION;
 
 /** @psalm-api */
 final class TestController extends AbstractController
@@ -33,7 +36,14 @@ final class TestController extends AbstractController
         try {
             $stmt = $connection->prepare($sql);
             $result = $stmt->executeQuery();
-            $responseData = ['data' => ['optionName' => self::SUB_FEATURE_NAME, 'isSupported' => $result->fetchOne()]];
+            $responseData = [
+                'data' => [
+                    'optionName' => self::SUB_FEATURE_NAME,
+                    'isSupported' => $result->fetchOne(),
+                    'phpVersion' => PHP_VERSION,
+                    'symfonyVersion' => Kernel::VERSION,
+                ],
+            ];
         } catch (Exception $exception) {
             return new JsonResponse(
                 ['error' => ['code' => $exception->getCode(), 'message' => $exception->getMessage()]],
