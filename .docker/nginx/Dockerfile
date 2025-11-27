@@ -1,4 +1,4 @@
-FROM nginx:1.25-alpine as base
+FROM nginx:1.29-alpine as base
 
 
 FROM base as deployment
