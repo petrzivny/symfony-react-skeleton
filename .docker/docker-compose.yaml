@@ -6,7 +6,7 @@ services:
     container_name: ${PROJECT_NAME:-symfony-react-skeleton}_nginx
     build:
       target: base
-    image: ${PROJECT_NAME:-symfony-react-skeleton}_nginx:1.25-alpine
+    image: ${PROJECT_NAME:-symfony-react-skeleton}_nginx:1.29-alpine
     ports:
       - "81:8080"
     volumes:
