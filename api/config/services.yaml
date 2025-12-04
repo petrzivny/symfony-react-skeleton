@@ -6,6 +6,9 @@
 parameters:
     application_name: 'skeleton'
     placeholder: "**placeholder**"
+    env(DATABASE_HOST_RESOLVED): '%env(DATABASE_HOST)%'
+    env(DATABASE_USER_RESOLVED): '%env(DATABASE_USER)%'
+    env(DATABASE_PASSWORD_RESOLVED): '%env(DATABASE_PASSWORD)%'
 
 services:
     # default configuration for services in *this* file

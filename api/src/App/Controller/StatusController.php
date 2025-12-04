@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Throwable;
@@ -27,6 +28,7 @@ final class StatusController extends AbstractController
         private readonly string $appName,
         private readonly string $environmentName,
         private readonly EntityManagerInterface $entityManager,
+        private readonly ParameterBagInterface $params,
     ) {
     }
 
@@ -60,6 +62,10 @@ final class StatusController extends AbstractController
             '$_ENV[DATABASE_NAME]' => ($_ENV['DATABASE_NAME'] ?? 'NA'),
             // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
             '$_ENV[DATABASE_HOST]' => ($_ENV['DATABASE_HOST'] ?? 'NA'),
+            'env(DATABASE_HOST_RESOLVED)' => (
+                $this->params->has('env(DATABASE_HOST_RESOLVED)')
+                    ? $this->params->get('env(DATABASE_HOST_RESOLVED)')
+                    : 'NA'),
             'php.ini file used' => $this->getPhpIniFileVersion(),
             'connectionToDb' => $connectionDb,
             // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable

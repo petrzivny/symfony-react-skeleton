@@ -1,10 +1,10 @@
 doctrine:
     dbal:
 #        url: '%env(resolve:DATABASE_URL)%'
-        host: '%env(string:default:placeholder:DATABASE_HOST)%'
+        host: '%env(string:default:placeholder:DATABASE_HOST_RESOLVED)%'
         dbname: '%env(string:default:placeholder:DATABASE_NAME)%'
-        user: '%env(string:default:placeholder:DATABASE_USER)%'
-        password: '%env(string:default:placeholder:DATABASE_PASSWORD)%'
+        user: '%env(string:default:placeholder:DATABASE_USER_RESOLVED)%'
+        password: '%env(string:default:placeholder:DATABASE_PASSWORD_RESOLVED)%'
         port: '%env(string:DATABASE_PORT)%'
         server_version: '%env(string:DATABASE_SERVER_VERSION)%'
         driver: '%env(string:DATABASE_DRIVER)%'

@@ -1,2 +1,5 @@
 parameters:
     .container.dumper.inline_factories: true
+    env(DATABASE_HOST_RESOLVED): '%env(file:DATABASE_HOST)%'
+    env(DATABASE_USER_RESOLVED): '%env(file:DATABASE_USER)%'
+    env(DATABASE_PASSWORD_RESOLVED): '%env(file:DATABASE_PASSWORD)%'
