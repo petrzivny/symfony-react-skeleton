@@ -1,4 +1,4 @@
-FROM php:8.4-fpm-alpine as base
+FROM php:8.5-fpm-alpine as base
 
 LABEL maintainer="Petr Zivny (petr.zivny@gmail.com)"
 
@@ -8,9 +8,6 @@ RUN apk add --no-cache git acl fcgi
 # PDO PgSQL
 # Driver to enable access from PHP to Postgres databases. Implements PDO (doesn't need it).
 RUN apk add --no-cache libpq-dev && docker-php-ext-install -j$(nproc) pdo_pgsql
-
-# Install opcache extension
-RUN docker-php-ext-install -j$(nproc) opcache && docker-php-ext-enable opcache
 
 # Install bcmath extension
 RUN docker-php-ext-install -j$(nproc) bcmath
