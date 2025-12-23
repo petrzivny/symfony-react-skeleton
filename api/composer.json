@@ -26,8 +26,6 @@
         "phpstan/phpstan-doctrine": "*",
         "phpstan/phpstan-strict-rules": "*",
         "phpunit/phpunit": "*",
-        "psalm/plugin-phpunit": "*",
-        "psalm/plugin-symfony": "*",
         "roave/security-advisories": "dev-latest",
         "shipmonk/phpstan-rules": "*",
         "slevomat/coding-standard": "*",
@@ -38,8 +36,6 @@
         "symfony/phpunit-bridge": "7.3.*",
         "symfony/stopwatch": "7.3.*",
         "symfony/web-profiler-bundle": "*",
-        "vimeo/psalm": "*",
-        "weirdan/doctrine-psalm-plugin": "*"
     },
     "config": {
         "allow-plugins": {
@@ -93,7 +89,6 @@
         "test": [
             "@phpcs",
             "phpstan",
-            "psalm",
             "@vuln",
             "composer validate --strict",
             "@yaml",
