@@ -261,7 +261,6 @@
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint" />
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint" />
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing" />
-    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat" />
     <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" />
     <rule ref="SlevomatCodingStandard.Variables.DisallowVariableVariable" />
     <rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable" />
