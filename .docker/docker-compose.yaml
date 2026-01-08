@@ -12,6 +12,11 @@ services:
     volumes:
       - ../fe/dist:/var/www/html
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8080/nginx-health || exit 1" ]
+      timeout: 5s
+      retries: 3
+      start_period: 2s
 
   php:
     extends:
@@ -25,10 +30,15 @@ services:
     image: ${PROJECT_NAME:-symfony-react-skeleton}_php:8.5-fpm-alpine
     volumes:
       - ../api:/var/www/html
+    healthcheck:
+      test: [ "CMD", "bin/php-fpm-healthcheck.sh" ]
+      timeout: 5s
+      retries: 3
+      start_period: 2s
 
   postgres:
     container_name: ${PROJECT_NAME:-symfony-react-skeleton}_postgres
-    image: postgres:${DATABASE_SERVER_VERSION:-16}-alpine
+    image: postgres:${DATABASE_SERVER_VERSION:-18}-alpine
     volumes:
       - database_data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
@@ -41,9 +51,9 @@ services:
       test: [ "CMD", "pg_isready", "-d", "${DATABASE_NAME:-app}", "-U", "${DATABASE_USER:-app}" ]
       timeout: 5s
       retries: 5
-      start_period: 60s
+      start_period: 30s
     ports:
-      - ${DATABASE_PORT:-5432}
+      - "5432"
     networks:
       - backend
 
