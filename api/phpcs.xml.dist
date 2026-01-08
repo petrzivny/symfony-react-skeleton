@@ -387,5 +387,6 @@
 
     <exclude-pattern>fe/*</exclude-pattern>
     <exclude-pattern>./src/App/Kernel.php</exclude-pattern>
+    <exclude-pattern>./config/reference.php</exclude-pattern>
 
 </ruleset>
