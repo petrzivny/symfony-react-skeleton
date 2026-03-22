@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { JSX } from 'react';
+import type { JSX } from 'react';
 
 const BackendVersions = (): JSX.Element => {
   interface BeData {
