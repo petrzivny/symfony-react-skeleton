@@ -31,7 +31,13 @@ export function App(): React.JSX.Element {
         <BackendValue />
       </QueryClientProvider>
       <div className="card">
-        <button onClick={() => { setCount((count) => count + 1); }}>count is {count}</button>
+        <button
+          onClick={() => {
+            setCount((count) => count + 1);
+          }}
+        >
+          count is {count}
+        </button>
         <p>
           Edit <code>src/BackendValue.tsx</code> and save to test HMR
         </p>

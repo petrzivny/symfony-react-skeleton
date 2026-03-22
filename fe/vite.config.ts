@@ -12,7 +12,6 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-
   },
   test: {
     environment: 'jsdom',
@@ -21,4 +20,4 @@ export default defineConfig({
     include: ['src/**/*.{test,spec}.{ts,tsx}'],
     css: true,
   },
-})
+});
