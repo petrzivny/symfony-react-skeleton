@@ -1,12 +1,15 @@
-import React, { useState, version } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState, version } from 'react';
+
 import reactLogo from './assets/react.svg';
 import symfonyLogo from './assets/symfony.svg';
 import './App.css';
 import BackendValue from './BackendValue.tsx';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import BackendVersions from './BackendVersions.tsx';
 
-function App(): React.JSX.Element {
+import type React from 'react';
+
+export function App(): React.JSX.Element {
   const [count, setCount] = useState(0);
 
   const queryClient = new QueryClient();
@@ -28,7 +31,7 @@ function App(): React.JSX.Element {
         <BackendValue />
       </QueryClientProvider>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
+        <button onClick={() => { setCount((count) => count + 1); }}>count is {count}</button>
         <p>
           Edit <code>src/BackendValue.tsx</code> and save to test HMR
         </p>
@@ -36,5 +39,3 @@ function App(): React.JSX.Element {
     </>
   );
 }
-
-export default App;
