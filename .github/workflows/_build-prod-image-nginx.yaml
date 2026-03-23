@@ -23,6 +23,21 @@ jobs:
           # Keep this aligned with `fe/package.json#engines.node`
           node-version: '22.12.0'
 
+      - name: Activate pnpm for this Node
+        run: |
+          set -e
+          node -v
+          command -v corepack && corepack enable || true
+          # Use packageManager's pnpm version to avoid mismatches.
+          if command -v corepack; then
+            corepack prepare pnpm@9.15.4 --activate
+          else
+            npm i -g pnpm@9.15.4
+          fi
+          echo "node: $(which node)"
+          echo "pnpm: $(which pnpm)"
+          pnpm -v
+
       - run: pnpm install --frozen-lockfile
         working-directory: fe
 
