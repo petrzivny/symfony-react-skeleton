@@ -26,6 +26,7 @@
         "phpstan/phpstan-strict-rules": "*",
         "phpunit/phpunit": "*",
         "psalm/plugin-phpunit": "^0.19.5",
+        "psalm/plugin-symfony": "^5.3",
         "roave/security-advisories": "dev-latest",
         "shipmonk/phpstan-rules": "*",
         "slevomat/coding-standard": "*",
