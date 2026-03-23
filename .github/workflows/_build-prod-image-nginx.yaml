@@ -12,7 +12,6 @@ jobs:
       - name: Debug
         run: |
           echo ${{ inputs.image-name }}
-          nvm ls
           node -v
 
       - name: Checkout repository
