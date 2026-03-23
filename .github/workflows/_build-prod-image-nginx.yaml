@@ -13,6 +13,7 @@ jobs:
         run: |
           echo ${{ inputs.image-name }}
           node -v
+          pnpm -v
 
       - name: Checkout repository
         uses: actions/checkout@v3
