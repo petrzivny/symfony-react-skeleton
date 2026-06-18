@@ -4,15 +4,12 @@ services:
       context: ../
       dockerfile: .docker/nginx/Dockerfile
     networks:
-      - public
+      - local
 
   php:
     build:
       context: ../
       dockerfile: .docker/php/Dockerfile
     networks:
-      public:
-        aliases:
-          - php-fpm
-      backend:
+      local:
 

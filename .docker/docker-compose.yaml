@@ -1,14 +1,11 @@
 services:
   nginx:
-    extends:
-      file: common-services.yaml
-      service: nginx
     container_name: ${PROJECT_NAME:-symfony-react-skeleton}_nginx
     build:
+      context: ../
+      dockerfile: .docker/nginx/Dockerfile
       target: base
     image: ${PROJECT_NAME:-symfony-react-skeleton}_nginx:1.29-alpine
-    ports:
-      - "81:8080"
     volumes:
       - ../fe/dist:/var/www/html
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
@@ -17,7 +14,10 @@ services:
       timeout: 5s
       retries: 3
       start_period: 2s
-
+    network_mode: "service:php" # nginx now lives in php's network namespace - simulate sidecar in k8s
+    depends_on:
+      php:
+        condition: service_healthy
   php:
     extends:
       file: common-services.yaml
@@ -28,6 +28,8 @@ services:
       args:
         - symfony_mode=dev
     image: ${PROJECT_NAME:-symfony-react-skeleton}_php:8.5-fpm-alpine
+    ports:
+      - "81:8080"
     volumes:
       - ../api:/var/www/html
     healthcheck:
@@ -55,13 +57,11 @@ services:
     ports:
       - "5432"
     networks:
-      - backend
+      - local
 
 networks:
-  public:
-    name: ${PROJECT_NAME:-symfony-react-skeleton}_public
-  backend:
-    name: ${PROJECT_NAME:-symfony-react-skeleton}_backend
+  local:
+    name: ${PROJECT_NAME:-symfony-react-skeleton}
 
 volumes:
   database_data:
