@@ -1,0 +1,32 @@
+# Copy to terraform.tfvars and adjust as needed.
+# Defaults match the known dev environment; most values can be omitted.
+
+subscription_id              = ""
+project_name                 = ""
+environment                  = "dev"
+location                     = "westeurope"
+# resource_group_name        = "skeleton-dev-aca-rg"
+shared_resource_group_name   = "erp-ornamento-cz-app-service"
+log_analytics_workspace_name = "totea-law-01"
+acr_name                     = "petreastusdevlbacr"
+
+# Set to false if you lack Owner/User Access Administrator on the shared ACR
+# and an admin assigns AcrPull to the managed identity manually.
+create_acr_pull_role_assignment = true
+
+nginx_image_repo = "pricemonitor/nginx"
+nginx_image_tag  = "latest"
+php_image_repo   = "pricemonitor/php"
+php_image_tag    = "latest"
+
+nginx_cpu    = 0.25
+nginx_memory = "0.5Gi"
+php_cpu      = 0.25
+php_memory   = "0.5Gi"
+
+min_replicas = 0
+max_replicas = 1
+
+tags = {
+  project = "pricemonitor"
+}

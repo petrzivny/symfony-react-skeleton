@@ -1,0 +1,25 @@
+# Provider plugin cache (downloaded by terraform init)
+.terraform/
+
+# State files — may contain secrets; use remote backend in team/CI
+*.tfstate
+*.tfstate.*
+.terraform.tfstate.lock.info
+
+# Local variable values (copy from terraform.tfvars.example)
+*.tfvars
+*.tfvars.json
+
+# Override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Crash logs
+crash.log
+crash.*.log
+
+# CLI config (may contain credentials)
+.terraformrc
+terraform.rc
