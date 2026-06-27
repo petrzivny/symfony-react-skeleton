@@ -17,3 +17,18 @@ output "managed_identity_client_id" {
   description = "Client ID of the user-assigned managed identity used for ACR pull."
   value       = azurerm_user_assigned_identity.this.client_id
 }
+
+output "key_vault_name" {
+  description = "Name of the Azure Key Vault storing database secrets."
+  value       = azurerm_key_vault.this.name
+}
+
+output "key_vault_uri" {
+  description = "URI of the Azure Key Vault."
+  value       = azurerm_key_vault.this.vault_uri
+}
+
+output "database_secret_names" {
+  description = "Database secret names created in Key Vault (set values manually in Azure)."
+  value       = sort(var.database_secret_names)
+}

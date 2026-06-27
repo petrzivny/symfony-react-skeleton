@@ -108,6 +108,23 @@ variable "max_replicas" {
   default     = 1
 }
 
+variable "key_vault_name" {
+  description = "Globally unique Key Vault name (3–24 alphanumeric characters). Defaults to \"<project><env>kv\" with hyphens removed."
+  type        = string
+  default     = null
+}
+
+variable "database_secret_names" {
+  description = "Names of database secrets to create in Key Vault (values are set manually after apply)."
+  type        = list(string)
+  default = [
+    "database-host",
+    "database-name",
+    "database-user",
+    "database-password",
+  ]
+}
+
 variable "tags" {
   description = "Tags applied to created resources."
   type        = map(string)

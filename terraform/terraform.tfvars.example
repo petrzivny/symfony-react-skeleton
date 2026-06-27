@@ -27,6 +27,17 @@ php_memory   = "0.5Gi"
 min_replicas = 0
 max_replicas = 1
 
+# Optional: override auto-generated Key Vault name (must be globally unique, 3–24 alphanumeric chars)
+# key_vault_name = "myappdevkv"
+
+# Key Vault secret names (values are set manually in Azure after apply)
+database_secret_names = [
+  "database-host",
+  "database-name",
+  "database-user",
+  "database-password",
+]
+
 tags = {
   project = "pricemonitor"
 }
