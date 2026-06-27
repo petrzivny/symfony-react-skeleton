@@ -63,12 +63,29 @@ resource "azurerm_container_app" "this" {
     identity = azurerm_user_assigned_identity.this.id
   }
 
-  # Future: store DATABASE_URL in Key Vault and reference it here.
-  # secret {
-  #   name                = "database-url"
-  #   key_vault_secret_id = azurerm_key_vault_secret.database_url.versionless_id
-  #   identity            = azurerm_user_assigned_identity.this.id
-  # }
+  secret {
+    name                = "database-host"
+    key_vault_secret_id = azurerm_key_vault_secret.database["database-host"].versionless_id
+    identity            = azurerm_user_assigned_identity.this.id
+  }
+
+  secret {
+    name                = "database-name"
+    key_vault_secret_id = azurerm_key_vault_secret.database["database-name"].versionless_id
+    identity            = azurerm_user_assigned_identity.this.id
+  }
+
+  secret {
+    name                = "database-user"
+    key_vault_secret_id = azurerm_key_vault_secret.database["database-user"].versionless_id
+    identity            = azurerm_user_assigned_identity.this.id
+  }
+
+  secret {
+    name                = "database-password"
+    key_vault_secret_id = azurerm_key_vault_secret.database["database-password"].versionless_id
+    identity            = azurerm_user_assigned_identity.this.id
+  }
 
   ingress {
     external_enabled = true
@@ -124,11 +141,21 @@ resource "azurerm_container_app" "this" {
       cpu    = var.php_cpu
       memory = var.php_memory
 
+      volume_mounts {
+        name = "secrets"
+        path = "/mnt/secrets"
+      }
+
       # Future: wire DATABASE_URL from a secret (Key Vault recommended).
       # env {
       #   name        = "DATABASE_URL"
       #   secret_name = "database-url"
       # }
+    }
+
+    volume {
+      name = "secrets"
+      storage_type = "Secret"
     }
   }
 }

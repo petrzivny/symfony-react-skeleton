@@ -58,14 +58,15 @@ final class StatusController extends AbstractController
             'environmentName' => $this->environmentName,
             // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
             '$_ENV[APP_ENV](aka Symfony app mode)' => ($_ENV['APP_ENV'] ?? 'NA'),
-            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+
             '$_ENV[DATABASE_NAME]' => ($_ENV['DATABASE_NAME'] ?? 'NA'),
-            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+            '$_ENV[DATABASE_NAME_FILE]' => ($_ENV['DATABASE_NAME_FILE'] ?? 'NA'),
+            'env(DATABASE_NAME)' => ($this->params->has('env(DATABASE_NAME)') ? $this->params->get('env(DATABASE_NAME)') : 'NA'),
+
             '$_ENV[DATABASE_HOST]' => ($_ENV['DATABASE_HOST'] ?? 'NA'),
-            'env(DATABASE_HOST_RESOLVED)' => (
-                $this->params->has('env(DATABASE_HOST_RESOLVED)')
-                    ? $this->params->get('env(DATABASE_HOST_RESOLVED)')
-                    : 'NA'),
+            '$_ENV[DATABASE_HOST_FILE]' => ($_ENV['DATABASE_HOST_FILE'] ?? 'NA'),
+            'env(DATABASE_HOST)' => ($this->params->has('env(DATABASE_HOST)') ? $this->params->get('env(DATABASE_HOST)') : 'NA'),
+
             'php.ini file used' => $this->getPhpIniFileVersion(),
             'connectionToDb' => $connectionDb,
             // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
