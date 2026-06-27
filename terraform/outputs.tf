@@ -32,18 +32,3 @@ output "database_secret_names" {
   description = "Database secret names created in Key Vault (set values manually in Azure)."
   value       = sort(var.database_secret_names)
 }
-
-output "postgresql_server_fqdn" {
-  description = "FQDN of the existing PostgreSQL flexible server."
-  value       = data.azurerm_postgresql_flexible_server.this.fqdn
-}
-
-output "database_name" {
-  description = "Name of the application database created on the shared PostgreSQL flexible server."
-  value       = azurerm_postgresql_flexible_server_database.this.name
-}
-
-output "database_user" {
-  description = "PostgreSQL login scoped to the application database."
-  value       = postgresql_role.app.name
-}

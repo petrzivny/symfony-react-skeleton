@@ -38,11 +38,6 @@ database_secret_names = [
   "database-password",
 ]
 
-# Existing shared PostgreSQL flexible server (database + app user are created here)
-postgresql_flexible_server_name = "totea-main-db-server"
-# database_name                 = "pricemonitor_dev"
-# database_user                 = "pricemonitor_dev_user"
-
 tags = {
   project = "pricemonitor"
 }

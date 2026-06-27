@@ -125,42 +125,6 @@ variable "database_secret_names" {
   ]
 }
 
-variable "postgresql_flexible_server_name" {
-  description = "Name of the existing Azure Database for PostgreSQL flexible server."
-  type        = string
-  default     = "totea-main-db-server"
-}
-
-variable "database_name" {
-  description = "Name of the application database to create. Defaults to \"<project>_<env>\" with hyphens replaced by underscores."
-  type        = string
-  default     = null
-}
-
-variable "database_user" {
-  description = "PostgreSQL login for the application database only. Defaults to \"<database_name>_user\"."
-  type        = string
-  default     = null
-}
-
-variable "database_user_password" {
-  description = "Password for the application PostgreSQL user."
-  type        = string
-  sensitive   = true
-}
-
-variable "postgresql_admin_username" {
-  description = "Administrator login for the existing PostgreSQL flexible server (used only to provision the database and app user)."
-  type        = string
-  sensitive   = true
-}
-
-variable "postgresql_admin_password" {
-  description = "Administrator password for the existing PostgreSQL flexible server (used only to provision the database and app user)."
-  type        = string
-  sensitive   = true
-}
-
 variable "tags" {
   description = "Tags applied to created resources."
   type        = map(string)
