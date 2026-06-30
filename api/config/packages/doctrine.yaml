@@ -1,6 +1,5 @@
 doctrine:
     dbal:
-#        url: '%env(resolve:DATABASE_URL)%'
         host: '%env(string:default:placeholder:DATABASE_HOST)%'
         dbname: '%env(string:default:placeholder:DATABASE_NAME)%'
         user: '%env(string:default:placeholder:DATABASE_USER)%'
@@ -13,12 +12,8 @@ doctrine:
             keepalives_idle: 30
             keepalives_interval: 10
             keepalives_count: 3
-
-        # IMPORTANT: You MUST configure your server version,
-        # either here or in the DATABASE_URL env var (see .env file)
-        #server_version: '16'
-
         profiling_collect_backtrace: '%kernel.debug%'
+
     orm:
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
