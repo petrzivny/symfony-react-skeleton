@@ -13,9 +13,8 @@ output "resource_group_name" {
   value       = azurerm_resource_group.this.name
 }
 
-output "managed_identity_client_id" {
-  description = "Client ID of the user-assigned managed identity used for ACR pull."
-  value       = azurerm_user_assigned_identity.this.client_id
+output "managed_identity_name" {
+  value       = azurerm_user_assigned_identity.this.name
 }
 
 output "key_vault_name" {
