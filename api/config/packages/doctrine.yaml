@@ -4,9 +4,15 @@ doctrine:
         host: '%env(string:default:placeholder:DATABASE_HOST)%'
         dbname: '%env(string:default:placeholder:DATABASE_NAME)%'
         user: '%env(string:default:placeholder:DATABASE_USER)%'
-        password: '%env(string:default:placeholder:DATABASE_PASSWORD)%'
+        password: '%env(string:DATABASE_PASSWORD)%'
         server_version: '18'
-        driver: '%env(string:DATABASE_DRIVER)%'
+        driver: pdo_pgsql
+        port: 5432
+        options:
+            keepalives: 1
+            keepalives_idle: 30
+            keepalives_interval: 10
+            keepalives_count: 3
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
@@ -42,6 +48,8 @@ when@prod:
             result_cache_driver:
                 type: pool
                 pool: doctrine.result_cache_pool
+        dbal:
+            sslmode: require
 
     framework:
         cache:

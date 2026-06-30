@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -29,6 +30,7 @@ final class StatusController extends AbstractController
         private readonly string $environmentName,
         private readonly EntityManagerInterface $entityManager,
         private readonly ParameterBagInterface $params,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -42,6 +44,10 @@ final class StatusController extends AbstractController
     public function constructResponsePayload(): array
     {
         $status = 'OK';
+
+        $this->logger->info('StatusController::constructResponsePayload');
+        $this->logger->warning('StatusController::Warning');
+        $this->logger->error('StatusController::Error');
 
         try {
             // To force connect to DB.
@@ -66,6 +72,20 @@ final class StatusController extends AbstractController
             '$_ENV[DATABASE_HOST]' => ($_ENV['DATABASE_HOST'] ?? 'NA'),
             '$_ENV[DATABASE_HOST_FILE]' => ($_ENV['DATABASE_HOST_FILE'] ?? 'NA'),
             'env(DATABASE_HOST)' => ($this->params->has('env(DATABASE_HOST)') ? $this->params->get('env(DATABASE_HOST)') : 'NA'),
+
+            '$_ENV[DATABASE_USER]' => ($_ENV['DATABASE_USER'] ?? 'NA'),
+            '$_ENV[DATABASE_USER_FILE]' => ($_ENV['DATABASE_USER_FILE'] ?? 'NA'),
+            'env(DATABASE_USER)' => ($this->params->has('env(DATABASE_USER)') ? $this->params->get('env(DATABASE_USER)') : 'NA'),
+
+            '$_ENV[AZURE_POSTGRESQL_CLIENTID]' => ($_ENV['AZURE_POSTGRESQL_CLIENTID'] ?? 'NA'),
+            '$_ENV[AZURE_POSTGRESQL_CLIENTID_FILE]' => ($_ENV['AZURE_POSTGRESQL_CLIENTID_FILE'] ?? 'NA'),
+            'env(AZURE_POSTGRESQL_CLIENTID)' => ($this->params->has('env(AZURE_POSTGRESQL_CLIENTID)') ? $this->params->get('env(AZURE_POSTGRESQL_CLIENTID)') : 'NA'),
+
+            '$_ENV[IDENTITY_ENDPOINT]' => ($_ENV['IDENTITY_ENDPOINT'] ?? 'NA'),
+            'env(IDENTITY_ENDPOINT)' => ($this->params->has('env(IDENTITY_ENDPOINT)') ? $this->params->get('env(IDENTITY_ENDPOINT)') : 'NA'),
+
+            '$_ENV[IDENTITY_HEADER]' => ($_ENV['IDENTITY_HEADER'] ?? 'NA'),
+            'env(IDENTITY_HEADER)' => ($this->params->has('env(IDENTITY_HEADER)') ? $this->params->get('env(IDENTITY_HEADER)') : 'NA'),
 
             'php.ini file used' => $this->getPhpIniFileVersion(),
             'connectionToDb' => $connectionDb,

@@ -82,8 +82,8 @@ resource "azurerm_container_app" "this" {
   }
 
   secret {
-    name                = "database-password"
-    key_vault_secret_id = azurerm_key_vault_secret.database["database-password"].versionless_id
+    name                = "azure-postgresql-clientid"
+    key_vault_secret_id = azurerm_key_vault_secret.database["azure-postgresql-clientid"].versionless_id
     identity            = azurerm_user_assigned_identity.this.id
   }
 
@@ -145,12 +145,6 @@ resource "azurerm_container_app" "this" {
         name = "secrets"
         path = "/mnt/secrets"
       }
-
-      # Future: wire DATABASE_URL from a secret (Key Vault recommended).
-      # env {
-      #   name        = "DATABASE_URL"
-      #   secret_name = "database-url"
-      # }
     }
 
     volume {

@@ -33,3 +33,11 @@ services:
             $environmentName: '%env(string:default:placeholder:ENVIRONMENT_NAME)%'
 
     Monolog\Formatter\GoogleCloudLoggingFormatter:
+
+    App\Azure\AzurePostgresTokenProvider:
+        arguments:
+            $identityEndpoint: '%env(default:placeholder:IDENTITY_ENDPOINT)%'
+            $identityHeader:   '%env(default:placeholder:IDENTITY_HEADER)%'
+            $clientId:         '%env(default:placeholder:AZURE_POSTGRESQL_CLIENTID)%'
+#            $cache:            '@cache.azure_identity'
+            $logger:           '@logger'

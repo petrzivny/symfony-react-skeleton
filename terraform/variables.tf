@@ -121,7 +121,7 @@ variable "database_secret_names" {
     "database-host",
     "database-name",
     "database-user",
-    "database-password",
+    "azure-postgresql-clientid",
   ]
 }
 

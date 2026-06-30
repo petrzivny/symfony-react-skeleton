@@ -3,4 +3,5 @@ parameters:
     env(DATABASE_HOST): '%env(trim:file:DATABASE_HOST_FILE)%'
     env(DATABASE_NAME): '%env(trim:file:DATABASE_NAME_FILE)%'
     env(DATABASE_USER): '%env(trim:file:DATABASE_USER_FILE)%'
-    env(DATABASE_PASSWORD): '%env(trim:file:DATABASE_PASSWORD_FILE)%'
+    env(AZURE_POSTGRESQL_CLIENTID): '%env(trim:file:AZURE_POSTGRESQL_CLIENTID_FILE)%'
+    env(DATABASE_PASSWORD): ''

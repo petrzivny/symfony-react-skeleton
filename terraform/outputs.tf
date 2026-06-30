@@ -13,7 +13,13 @@ output "resource_group_name" {
   value       = azurerm_resource_group.this.name
 }
 
+output "managed_identity_client_id" {
+  description = "Client ID of the user-assigned managed identity used for ACR pull and for azure-postgresql-clientid"
+  value       = azurerm_user_assigned_identity.this.client_id
+}
+
 output "managed_identity_name" {
+  description = "This is used for pgaadauth_create_principal and for database-user."
   value       = azurerm_user_assigned_identity.this.name
 }
 
