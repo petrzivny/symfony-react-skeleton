@@ -30,7 +30,6 @@ final class StatusController extends AbstractController
         private readonly string $environmentName,
         private readonly EntityManagerInterface $entityManager,
         private readonly ParameterBagInterface $params,
-        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -44,10 +43,6 @@ final class StatusController extends AbstractController
     public function constructResponsePayload(): array
     {
         $status = 'OK';
-
-        $this->logger->info('StatusController::constructResponsePayload');
-        $this->logger->warning('StatusController::Warning');
-        $this->logger->error('StatusController::Error');
 
         try {
             // To force connect to DB.

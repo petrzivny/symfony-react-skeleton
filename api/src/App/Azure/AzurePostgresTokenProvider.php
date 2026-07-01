@@ -38,11 +38,10 @@ final class AzurePostgresTokenProvider
     {
         $cacheKey = 'azpg_token.' . ($this->clientId ?? 'system');
         $item = $this->cache->getItem($cacheKey);
+
         if ($item->isHit()) {
             return $item->get();
         }
-
-        $this->logger->alert('Failed to use getToken cache.');
 
         $query = [
             'api-version' => self::API_VERSION,
