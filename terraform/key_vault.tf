@@ -33,7 +33,7 @@ resource "azurerm_role_assignment" "identity_kv_secrets_user" {
 # Placeholder values are required on create; set real values in the Azure portal or CLI.
 # lifecycle.ignore_changes keeps Terraform from overwriting manual updates.
 resource "azurerm_key_vault_secret" "database" {
-  for_each = toset(var.database_secret_names)
+  for_each = toset(var.environment_variables)
 
   name         = each.key
   value        = "initial-value_change-manually-in-azure-portal"

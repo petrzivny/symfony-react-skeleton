@@ -1,6 +1,6 @@
 locals {
   name_prefix         = "${var.project_name}-${var.environment}"
-  resource_group_name = coalesce(var.resource_group_name, "${local.name_prefix}-aca-rg")
+  resource_group_name = coalesce(var.resource_group_name, "${local.name_prefix}-rg")
 
   nginx_image = "${data.azurerm_container_registry.this.login_server}/${var.nginx_image_repo}:${var.nginx_image_tag}"
   php_image   = "${data.azurerm_container_registry.this.login_server}/${var.php_image_repo}:${var.php_image_tag}"
@@ -45,7 +45,7 @@ resource "azurerm_role_assignment" "acr_pull" {
 }
 
 resource "azurerm_container_app" "this" {
-  name                         = "${local.name_prefix}-app"
+  name                         = "${local.name_prefix}-ca"
   container_app_environment_id = azurerm_container_app_environment.this.id
   resource_group_name          = azurerm_resource_group.this.name
   revision_mode                = "Single"

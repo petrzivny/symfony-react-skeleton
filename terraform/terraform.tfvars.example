@@ -31,7 +31,7 @@ max_replicas = 1
 # key_vault_name = "myappdevkv"
 
 # Key Vault secret names (values are set manually in Azure after apply)
-database_secret_names = [
+environment_variables = [
   "database-host",
   "database-name",
   "database-user",

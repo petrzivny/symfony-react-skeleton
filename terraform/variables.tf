@@ -114,7 +114,7 @@ variable "key_vault_name" {
   default     = null
 }
 
-variable "database_secret_names" {
+variable "environment_variables" {
   description = "Names of database secrets to create in Key Vault (values are set manually after apply)."
   type        = list(string)
   default = [
