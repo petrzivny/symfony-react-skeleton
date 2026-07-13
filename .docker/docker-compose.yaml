@@ -33,7 +33,7 @@ services:
     volumes:
       - ../api:/var/www/html
     healthcheck:
-      test: [ "CMD", "bin/php-fpm-healthcheck.sh" ]
+      test: [ "CMD", "sh", "bin/php-fpm-healthcheck.sh" ]
       timeout: 5s
       retries: 3
       start_period: 2s
@@ -42,9 +42,9 @@ services:
     container_name: ${PROJECT_NAME:-symfony-react-skeleton}_postgres
     image: postgres:${DATABASE_SERVER_VERSION:-18}-alpine
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
+      - database_data:/var/lib/postgresql:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
+      # - ./docker/db/data:/var/lib/postgresql:rw
     environment:
       POSTGRES_DB: ${DATABASE_NAME:-app}
       POSTGRES_USER: ${DATABASE_USER:-app}
