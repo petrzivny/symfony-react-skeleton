@@ -28,11 +28,9 @@ const BackendVersions = (): JSX.Element => {
   }
 
   return (
-    <>
-      <span>
-        Symfony {data?.data.symfonyVersion} on Php {data?.data.phpVersion} (BE)
-      </span>
-    </>
+    <span>
+      Symfony {data?.data.symfonyVersion} on Php {data?.data.phpVersion} (BE)
+    </span>
   );
 };
 

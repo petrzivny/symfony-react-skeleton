@@ -7,9 +7,7 @@ import './App.css';
 import BackendValue from './BackendValue.tsx';
 import BackendVersions from './BackendVersions.tsx';
 
-import type React from 'react';
-
-export function App(): React.JSX.Element {
+export function App() {
   const [count, setCount] = useState(0);
 
   const queryClient = new QueryClient();
