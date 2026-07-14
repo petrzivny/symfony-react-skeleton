@@ -85,7 +85,7 @@
     <rule ref="SlevomatCodingStandard.Commenting.AnnotationName" />
     <rule ref="SlevomatCodingStandard.Commenting.DeprecatedAnnotationDeclaration" />
     <rule ref="SlevomatCodingStandard.Commenting.DisallowCommentAfterCode" />
-    <rule ref="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment" />
+<!--    <rule ref="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment" />-->
     <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
         <properties>
             <property name="annotationsGroups" type="array">
