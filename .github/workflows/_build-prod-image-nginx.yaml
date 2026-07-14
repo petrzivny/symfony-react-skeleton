@@ -4,25 +4,31 @@ on:
       image-name:
         required: true
         type: string
+      node-version:
+        required: false
+        type: string
+        default: '24.11.1'
 
 jobs:
   nginx:
     runs-on: self-hosted
+    env:
+      NODE_VERSION: ${{ inputs.node-version }}
     steps:
-      - name: Debug
-        run: |
-          echo ${{ inputs.image-name }}
-          node -v
-          pnpm -v
-
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
-      - name: Set up Node.js
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 9.15.4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          # Keep this aligned with `fe/package.json#engines.node`
-          node-version: '24.11.1'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          cache-dependency-path: fe/pnpm-lock.yaml
 
       - run: pnpm install --frozen-lockfile
         working-directory: fe
@@ -31,10 +37,10 @@ jobs:
         working-directory: fe
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v4
 
       - name: Build and load to local docker images - nginx
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: .docker/nginx/Dockerfile
@@ -43,4 +49,3 @@ jobs:
           load: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
-

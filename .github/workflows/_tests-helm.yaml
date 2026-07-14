@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
         with:
           # disable shallow checkout to prevent ct to "failed identifying charts to process"
           fetch-depth: "0"
@@ -22,11 +22,11 @@ jobs:
           cd .deploy/helm && helm lint . --strict --with-subcharts
 
       - name: Set up Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v5
         with:
           version: v3.11.2
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.9'
           check-latest: true
