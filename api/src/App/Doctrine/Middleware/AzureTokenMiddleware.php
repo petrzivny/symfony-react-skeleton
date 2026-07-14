@@ -1,6 +1,7 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
+
 namespace App\Doctrine\Middleware;
 
 use App\Azure\AzurePostgresTokenProvider;
@@ -11,7 +12,9 @@ use Doctrine\DBAL\Driver\Middleware;
 #[AsMiddleware(priority: 100)]
 final class AzureTokenMiddleware implements Middleware
 {
-    public function __construct(private readonly AzurePostgresTokenProvider $tokens) {}
+    public function __construct(private readonly AzurePostgresTokenProvider $tokens)
+    {
+    }
 
     public function wrap(Driver $driver): Driver
     {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,7 +21,6 @@ use function round;
 use function sprintf;
 use function str_contains;
 
-/** @psalm-api */
 final class StatusController extends AbstractController
 {
     public function __construct(
@@ -42,6 +40,19 @@ final class StatusController extends AbstractController
     /** @return array<string, string|array<string, int|string>> */
     public function constructResponsePayload(): array
     {
+        [$status, $connectionDb] = $this->resolveDatabaseStatus();
+
+        return array_merge(
+            $this->buildCoreStatus($status, $connectionDb),
+            $this->buildDatabaseEnvDiagnostics(),
+            $this->buildAzureEnvDiagnostics(),
+            $this->buildIdentityEnvDiagnostics(),
+        );
+    }
+
+    /** @return array{0: string, 1: string} */
+    private function resolveDatabaseStatus(): array
+    {
         $status = 'OK';
 
         try {
@@ -53,41 +64,78 @@ final class StatusController extends AbstractController
             $status = 'No connection to DB';
         }
 
+        return [$status, $connectionDb];
+    }
+
+    /** @return array<string, string|array<string, int|string>> */
+    private function buildCoreStatus(string $status, string $connectionDb): array
+    {
         return [
             'status' => $status,
             'appName' => $this->appName,
             'environmentName' => $this->environmentName,
-            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-            '$_ENV[APP_ENV](aka Symfony app mode)' => ($_ENV['APP_ENV'] ?? 'NA'),
-
-            '$_ENV[DATABASE_NAME]' => ($_ENV['DATABASE_NAME'] ?? 'NA'),
-            '$_ENV[DATABASE_NAME_FILE]' => ($_ENV['DATABASE_NAME_FILE'] ?? 'NA'),
-            'env(DATABASE_NAME)' => ($this->params->has('env(DATABASE_NAME)') ? $this->params->get('env(DATABASE_NAME)') : 'NA'),
-
-            '$_ENV[DATABASE_HOST]' => ($_ENV['DATABASE_HOST'] ?? 'NA'),
-            '$_ENV[DATABASE_HOST_FILE]' => ($_ENV['DATABASE_HOST_FILE'] ?? 'NA'),
-            'env(DATABASE_HOST)' => ($this->params->has('env(DATABASE_HOST)') ? $this->params->get('env(DATABASE_HOST)') : 'NA'),
-
-            '$_ENV[DATABASE_USER]' => ($_ENV['DATABASE_USER'] ?? 'NA'),
-            '$_ENV[DATABASE_USER_FILE]' => ($_ENV['DATABASE_USER_FILE'] ?? 'NA'),
-            'env(DATABASE_USER)' => ($this->params->has('env(DATABASE_USER)') ? $this->params->get('env(DATABASE_USER)') : 'NA'),
-
-            '$_ENV[AZURE_POSTGRESQL_CLIENTID]' => ($_ENV['AZURE_POSTGRESQL_CLIENTID'] ?? 'NA'),
-            '$_ENV[AZURE_POSTGRESQL_CLIENTID_FILE]' => ($_ENV['AZURE_POSTGRESQL_CLIENTID_FILE'] ?? 'NA'),
-            'env(AZURE_POSTGRESQL_CLIENTID)' => ($this->params->has('env(AZURE_POSTGRESQL_CLIENTID)') ? $this->params->get('env(AZURE_POSTGRESQL_CLIENTID)') : 'NA'),
-
-            '$_ENV[IDENTITY_ENDPOINT]' => ($_ENV['IDENTITY_ENDPOINT'] ?? 'NA'),
-            'env(IDENTITY_ENDPOINT)' => ($this->params->has('env(IDENTITY_ENDPOINT)') ? $this->params->get('env(IDENTITY_ENDPOINT)') : 'NA'),
-
-            '$_ENV[IDENTITY_HEADER]' => ($_ENV['IDENTITY_HEADER'] ?? 'NA'),
-            'env(IDENTITY_HEADER)' => ($this->params->has('env(IDENTITY_HEADER)') ? $this->params->get('env(IDENTITY_HEADER)') : 'NA'),
-
+            '$_ENV[APP_ENV](aka Symfony app mode)' => $this->getRawEnv('APP_ENV'),
             'php.ini file used' => $this->getPhpIniFileVersion(),
             'connectionToDb' => $connectionDb,
-            // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
-            '$_SERVER[USER]' => $_SERVER['USER'] ?? $_SERVER['HOME'] ?? 'NA',
+            '$_SERVER[USER]' => $this->getServerUser(),
             'opcacheStatistics' => $this->getPreloadStatistics(),
         ];
+    }
+
+    /** @return array<string, string> */
+    private function buildDatabaseEnvDiagnostics(): array
+    {
+        return array_merge(
+            $this->envWithFile('DATABASE_NAME'),
+            $this->envWithFile('DATABASE_HOST'),
+            $this->envWithFile('DATABASE_USER'),
+        );
+    }
+
+    /** @return array<string, string> */
+    private function buildAzureEnvDiagnostics(): array
+    {
+        return $this->envWithFile('AZURE_POSTGRESQL_CLIENTID');
+    }
+
+    /** @return array<string, string> */
+    private function buildIdentityEnvDiagnostics(): array
+    {
+        return [
+            '$_ENV[IDENTITY_ENDPOINT]' => $this->getRawEnv('IDENTITY_ENDPOINT'),
+            'env(IDENTITY_ENDPOINT)' => $this->getResolvedEnv('IDENTITY_ENDPOINT'),
+            '$_ENV[IDENTITY_HEADER]' => $this->getRawEnv('IDENTITY_HEADER'),
+            'env(IDENTITY_HEADER)' => $this->getResolvedEnv('IDENTITY_HEADER'),
+        ];
+    }
+
+    /** @return array<string, string> */
+    private function envWithFile(string $key): array
+    {
+        return [
+            '$_ENV[' . $key . ']' => $this->getRawEnv($key),
+            '$_ENV[' . $key . '_FILE]' => $this->getRawEnv($key . '_FILE'),
+            'env(' . $key . ')' => $this->getResolvedEnv($key),
+        ];
+    }
+
+    private function getResolvedEnv(string $key): string
+    {
+        $param = 'env(' . $key . ')';
+
+        return $this->params->has($param) ? $this->params->get($param) : 'NA';
+    }
+
+    private function getRawEnv(string $key): string
+    {
+        // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+        return $_ENV[$key] ?? 'NA';
+    }
+
+    private function getServerUser(): string
+    {
+        // phpcs:ignore SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable
+        return $_SERVER['USER'] ?? $_SERVER['HOME'] ?? 'NA';
     }
 
     private function getPhpIniFileVersion(): string

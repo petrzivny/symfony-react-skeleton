@@ -14,7 +14,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 use function is_array;
 
-/** @psalm-api */
 #[AsCommand(name: 'status', description: 'Add a short description for your command')]
 final class StatusCommand extends Command
 {

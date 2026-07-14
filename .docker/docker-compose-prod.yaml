@@ -7,7 +7,7 @@ services:
       target: deployment
 #    image: ${IMAGE_PATH:-external_registry/symfony-react-skeleton}/nginx
 #    image: europe-west1-docker.pkg.dev/basic4-2542859/all-registry-europe-west1/symfony-react-skeleton/nginx
-    image: petreastusdevlbacr.azurecr.io/pricemonitor/nginx
+    image: totea1.azurecr.io/pricemonitor/nginx
     ports:
       - "82:8080"
 
@@ -22,7 +22,7 @@ services:
         - symfony_mode=prod
 #    image: ${IMAGE_PATH:-external_registry/symfony-react-skeleton}/php
 #    image: europe-west1-docker.pkg.dev/basic4-2542859/all-registry-europe-west1/symfony-react-skeleton/php
-    image: petreastusdevlbacr.azurecr.io/pricemonitor/php
+    image: totea1.azurecr.io/pricemonitor/php
 #    environment:
 #      DATABASE_DRIVER: pdo_pgsql
 #      DATABASE_PORT: 5432

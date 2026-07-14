@@ -17,7 +17,6 @@ use function sprintf;
 
 use const PHP_VERSION;
 
-/** @psalm-api */
 final class TestController extends AbstractController
 {
     private const string SUB_FEATURE_NAME = 'UPDATE privilege at the table level';

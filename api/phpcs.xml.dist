@@ -23,7 +23,11 @@
     <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement" />
     <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace" />
     <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma" />
-    <rule ref="SlevomatCodingStandard.Attributes.AttributeAndTargetSpacing" />
+    <rule ref="SlevomatCodingStandard.Attributes.AttributeAndTargetSpacing">
+        <properties>
+            <property name="allowOnSameLine" value="true" />
+        </properties>
+    </rule>
     <rule ref="SlevomatCodingStandard.Attributes.AttributesOrder">
         <properties>
             <property name="orderAlphabetically" value="true" />
@@ -88,10 +92,7 @@
                 <element value="
                     @var,
                     @param,
-                    @return,
-			    "/>
-                <element value="
-				    @psalm-api,
+                    @return
 			    "/>
             </property>
             <property name="linesCountBetweenAnnotationsGroups" value="1" />

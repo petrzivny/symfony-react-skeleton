@@ -141,7 +141,6 @@ Take a look into your GitHub repository. All code should be there and your first
    - [x] Xdebug setup to debug both html requests and CLI commands.
    - [x] Phpstan in a very strict level. Including [shipmonk-rules](https://github.com/shipmonk-rnd/phpstan-rules).
    - [x] PHP_CodeSniffer in a very strict level (lots of rules are my personal "taste", feel free to change/remove them). Including [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) and [slevomat-coding-standard](https://github.com/slevomat/coding-standard)
-   - [x] Psalm.
    - [x] PHPUnit Unit tests.
    - [x] PHPUnit Functional tests (including smoke tests).
    - [x] Other linters (Composer, Yaml, Symfony container).
@@ -157,7 +156,7 @@ Take a look into your GitHub repository. All code should be there and your first
    - [x] wsc (should be 20x faster than Babel but see the current [caveats](https://github.com/vitejs/vite-plugin-react-swc#caveats)).
    - [x] Prettier
 4. DevOps: CI pipeline to build both test and prod images, test them and push prod images to registry
-   - [x] Run all BE tests from point 2 on final (test) docker image (_best-practice_ 💎) (Phpstan, CodeSniffer, Psalm, PHPUnit, linters, etc ...).
+   - [x] Run all BE tests from point 2 on final (test) docker image (_best-practice_ 💎) (Phpstan, CodeSniffer, PHPUnit, linters, etc ...).
    - [x] Run helm lint and helm dry installation into minikube cluster to ensure real deployment will be without surprises.
    - [x] If everything passes there are php and nginx environment agnostic (_best-practice_ 💎) containers ready to be shipped into any environment (including prod of course).
    - [x] Pipeline expects self-hosted GitHub runner(s). [See](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners) for more information.

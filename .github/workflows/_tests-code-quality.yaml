@@ -20,15 +20,7 @@ jobs:
     steps:
       - name: Perform test
         run: |
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer phpstan          
-          
-  psalm:
-    runs-on: self-hosted
-    name: Psalm
-    steps:
-      - name: Perform test
-        run: |
-          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer psalm
+          docker run --rm ${{ inputs.image-name }}/php-test:${{ github.sha }} composer phpstan
 
   vulnerabilities:
     runs-on: self-hosted

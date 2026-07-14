@@ -26,8 +26,6 @@
         "phpstan/phpstan-doctrine": "*",
         "phpstan/phpstan-strict-rules": "*",
         "phpunit/phpunit": "*",
-        "psalm/plugin-phpunit": "^0.19.5",
-        "psalm/plugin-symfony": "^5.3",
         "roave/security-advisories": "dev-latest",
         "shipmonk/phpstan-rules": "*",
         "slevomat/coding-standard": "*",
@@ -37,9 +35,7 @@
         "symfony/maker-bundle": "*",
         "symfony/phpunit-bridge": "8.0.*",
         "symfony/stopwatch": "8.0.*",
-        "symfony/web-profiler-bundle": "8.0.*",
-        "vimeo/psalm": "^6.14",
-        "weirdan/doctrine-psalm-plugin": "^2.10"
+        "symfony/web-profiler-bundle": "8.0.*"
     },
     "config": {
         "allow-plugins": {
@@ -84,7 +80,6 @@
         "upgrade-all": "composer update && composer symfony:recipes:update",
         "phpcs": "./vendor/bin/phpcs -sp -d memory_limit=512M",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=1g",
-        "psalm": "./vendor/bin/psalm --show-info=true",
         "vuln": "composer update --dry-run roave/security-advisories",
         "yaml": "bin/console lint:yaml --parse-tags config",
         "container": "bin/console lint:container",
@@ -94,7 +89,6 @@
         "test": [
             "@phpcs",
             "@phpstan",
-            "@psalm",
             "@vuln",
             "composer validate --strict",
             "@yaml",

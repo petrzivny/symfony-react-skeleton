@@ -61,7 +61,6 @@ COPY api/.env.test .
 COPY api/phpcs.xml.dist .
 COPY api/phpstan.neon api/phpstan-baseline.* ./
 COPY api/phpunit.xml.dist .
-COPY api/psalm.xml api/psalm-baseline.* ./
 COPY api/tests tests
 
 RUN echo "APP_ENV=test" > .env.local
