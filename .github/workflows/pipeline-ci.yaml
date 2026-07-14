@@ -2,9 +2,6 @@ name: CI-pipeline
 
 on: [push]
 
-env:
-  NODE_VERSION: '24.11.1'
-
 jobs:
 
   build-nginx-prod-image:
@@ -12,7 +9,6 @@ jobs:
     uses: ./.github/workflows/_build-prod-image-nginx.yaml
     with:
       image-name: ${{ vars.REGISTRY_NAME }}/${{ github.event.repository.name }}
-      node-version: ${{ env.NODE_VERSION }}
 
   build-php-test-image:
     name: Build Test Image
@@ -36,8 +32,6 @@ jobs:
   frontend-check:
     name: Frontend Test
     uses: ./.github/workflows/_tests-frontend.yaml
-    with:
-      node-version: ${{ env.NODE_VERSION }}
 
   build-php-prod-images:
     needs: [php-code-quality-tests, helm-tests]

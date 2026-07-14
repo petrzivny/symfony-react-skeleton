@@ -4,16 +4,10 @@ on:
       image-name:
         required: true
         type: string
-      node-version:
-        required: false
-        type: string
-        default: '24.11.1'
 
 jobs:
   nginx:
     runs-on: self-hosted
-    env:
-      NODE_VERSION: ${{ inputs.node-version }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -26,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version-file: fe/package.json
           cache: pnpm
           cache-dependency-path: fe/pnpm-lock.yaml
 
