@@ -1,4 +1,4 @@
-FROM php:8.5-fpm-alpine as base
+FROM php:8.5-fpm-alpine AS base
 
 LABEL maintainer="Petr Zivny (petr.zivny@gmail.com)"
 
@@ -27,7 +27,7 @@ RUN if [ "$symfony_mode" = "dev" ]; \
     fi
 
 
-FROM base as local
+FROM base AS local
 # Xdebug
 COPY .docker/php/conf.d/ext-xdebug.ini /usr/local/etc/php/conf.d/ext-xdebug.ini
 RUN apk --no-cache add --virtual .build-dependencies $PHPIZE_DEPS linux-headers && \
@@ -36,7 +36,7 @@ RUN apk --no-cache add --virtual .build-dependencies $PHPIZE_DEPS linux-headers 
     apk del .build-dependencies && rm -rf /tmp/*
 
 
-FROM base as deployment
+FROM base AS deployment
 COPY api/composer.lock api/composer.json ./
 
 RUN if [ "$symfony_mode" = "dev" ]; \
@@ -56,7 +56,7 @@ COPY api/.env .
 RUN bin/console cache:clear
 
 
-FROM deployment as ci-pipeline-test
+FROM deployment AS ci-pipeline-test
 COPY api/.env.test .
 COPY api/phpcs.xml.dist .
 COPY api/phpstan.neon api/phpstan-baseline.* ./
