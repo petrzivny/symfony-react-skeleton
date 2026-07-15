@@ -38,6 +38,7 @@
     <rule ref="SlevomatCodingStandard.Attributes.RequireAttributeAfterDocComment" />
     <rule ref="SlevomatCodingStandard.Classes.BackedEnumTypeSpacing" />
     <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility" />
+    <rule ref="SlevomatCodingStandard.Classes.ClassKeywordOrder" />
     <rule ref="SlevomatCodingStandard.Classes.ClassLength" />
     <rule ref="SlevomatCodingStandard.Classes.ClassMemberSpacing" />
     <rule ref="SlevomatCodingStandard.Classes.ClassStructure" />
@@ -75,6 +76,7 @@
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming" />
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousTraitNaming" />
     <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration" />
+    <rule ref="SlevomatCodingStandard.Classes.TraitUseOrder" />
     <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
         <properties>
             <property name="linesCountBeforeFirstUseWhenFirstInClass" value="0" />
@@ -105,6 +107,7 @@
     <rule ref="SlevomatCodingStandard.Commenting.RequireOneDocComment" />
     <rule ref="SlevomatCodingStandard.Commenting.RequireOneLineDocComment" />
     <rule ref="SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment" />
+    <rule ref="SlevomatCodingStandard.Commenting.ThrowsAnnotationsOrder" />
     <rule ref="SlevomatCodingStandard.Commenting.UselessFunctionDocComment" />
     <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment" />
     <rule ref="SlevomatCodingStandard.Complexity.Cognitive">
@@ -145,6 +148,7 @@
 <!--    <rule ref="SlevomatCodingStandard.ControlStructures.RequireYodaComparison" />-->
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn" />
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator" />
+    <rule ref="SlevomatCodingStandard.Exceptions.CatchExceptionsOrder" />
     <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch" />
     <rule ref="SlevomatCodingStandard.Exceptions.DisallowNonCapturingCatch" />
     <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly" />
@@ -262,6 +266,7 @@
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint" />
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint" />
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing" />
+<!--    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat" />-->
     <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" />
     <rule ref="SlevomatCodingStandard.Variables.DisallowVariableVariable" />
     <rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable" />
