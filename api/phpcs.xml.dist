@@ -8,7 +8,7 @@
     <arg name="colors"/>
     <arg name="extensions" value="php"/>
     <arg name="parallel" value="75"/>
-    <arg name="severity" value="1"/>
+<!--    <arg name="severity" value="1"/>-->
 
     <!-- Don't hide tokenizer exceptions -->
     <rule ref="Internal.Tokenizer.Exception">
@@ -72,9 +72,9 @@
     <rule ref="SlevomatCodingStandard.Classes.RequireSingleLineMethodSignature" />
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming" />
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousErrorNaming" />
-    <!--    <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming" />-->
-    <rule ref="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming" />
-    <rule ref="SlevomatCodingStandard.Classes.SuperfluousTraitNaming" />
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming" />
+<!--    <rule ref="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming" />-->
+<!--    <rule ref="SlevomatCodingStandard.Classes.SuperfluousTraitNaming" />-->
     <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration" />
     <rule ref="SlevomatCodingStandard.Classes.TraitUseOrder" />
     <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
@@ -201,7 +201,22 @@
     <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue" />
     <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses" />
     <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse" />
-    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation" />
+    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation">
+        <properties>
+            <property name="ignoredAnnotationNames" type="array">
+                <element value="@phpstan-import-type"/>
+                <element value="@phpstan-param"/>
+                <element value="@phpstan-return"/>
+                <element value="@phpstan-type"/>
+                <element value="@phpstan-var"/>
+                <element value="@psalm-import-type"/>
+                <element value="@psalm-param"/>
+                <element value="@psalm-return"/>
+                <element value="@psalm-type"/>
+                <element value="@psalm-var"/>
+            </property>
+        </properties>
+    </rule>
 <!--    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions" />-->
 <!--    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants" />-->
 <!--    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions" />-->
@@ -277,7 +292,11 @@
 
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
-    <rule ref="Generic.Commenting.Todo"/>
+    <rule ref="Generic.Commenting.Todo.CommentFound"/>
+    <rule ref="Generic.Commenting.Todo.TaskFound">
+        <message>Please review this TODO comment: %s</message>
+        <severity>3</severity>
+    </rule>
     <rule ref="Generic.ControlStructures.DisallowYodaConditions"/>
     <rule ref="Generic.ControlStructures.InlineControlStructure"/>
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
@@ -364,7 +383,7 @@
     <rule ref="Squiz.Scope.MethodScope"/>
     <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
     <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
-        <severity>0</severity>
+        <severity>3</severity>
     </rule>
     <rule ref="Squiz.WhiteSpace.ControlStructureSpacing"/>
     <rule ref="Squiz.WhiteSpace.MemberVarSpacing">
