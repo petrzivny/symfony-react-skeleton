@@ -96,6 +96,10 @@
             "@unit",
             "@functional",
             "@cache"
+        ],
+        "fix": [
+            "./vendor/bin/phpcbf",
+            "./vendor/bin/phpstan analyse --fix"
         ]
     },
     "conflict": {
