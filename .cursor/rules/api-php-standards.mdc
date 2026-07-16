@@ -1,0 +1,38 @@
+---
+---
+description: PHP backend standards for api/ — PHPCS, PHPStan, and best practices
+globs: api/**/*.php
+alwaysApply: false
+---
+
+# API PHP Standards
+
+When modifying or adding backend code under `api/`, follow these rules.
+
+## Static analysis
+
+- Follow `api/phpcs.xml.dist` (Slevomat + PSR-12, strict types, constructor promotion, typed properties, etc.).
+- Follow `api/phpstan.dist.neon` (level max, strict rules, Doctrine + Shipmonk rules).
+- After changes, run from `api/`:
+  - `composer phpcs`
+  - `composer phpstan`
+
+## No suppressions
+
+Never add PHPCS or PHPStan ignore/suppression comments or config entries to silence issues:
+
+- PHPCS: `phpcs:ignore`, `phpcs:disable`, `@phpcsSuppress`
+- PHPStan: `@phpstan-ignore`, `@phpstan-ignore-next-line`, `ignoreErrors` entries
+
+If a violation cannot be fixed cleanly, **flag it in your output** for the user instead of suppressing it. Explain the rule, the affected code, and suggested fixes or trade-offs.
+
+## PHP best practices
+
+- Use `declare(strict_types=1);` in every PHP file.
+- Prefer `final` or `abstract` classes (entities are exempt per PHPCS config).
+- Use constructor property promotion and explicit parameter/return/property types.
+- Prefer early returns over deep nesting.
+- Use `===` / `!==`; avoid `empty()`, Yoda conditions, and loose comparisons.
+- Keep functions short and classes focused; extract when complexity grows.
+- Use meaningful names; match file names to class names per project namespaces.
+- Do not leave debug calls (`dump`, `dd`, `var_dump`, etc.) — forbidden by PHPStan config.
