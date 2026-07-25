@@ -1,5 +1,4 @@
 ---
----
 description: PHP backend standards for api/ — PHPCS, PHPStan, and best practices
 globs: api/**/*.php
 alwaysApply: false
@@ -13,9 +12,9 @@ When modifying or adding backend code under `api/`, follow these rules.
 
 - Follow `api/phpcs.xml.dist` (Slevomat + PSR-12, strict types, constructor promotion, typed properties, etc.).
 - Follow `api/phpstan.dist.neon` (level max, strict rules, Doctrine + Shipmonk rules).
-- After changes, run from `api/`:
-  - `composer phpcs`
-  - `composer phpstan`
+- After changes, run:
+  - `docker exec -it symfony-react-skeleton_php composer phpcs`
+  - `docker exec -it symfony-react-skeleton_php composer phpstan`
 
 ## No suppressions
 
