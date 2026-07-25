@@ -11,6 +11,8 @@ parameters:
         - config/
         - src/
         - tests/
+    excludePaths:
+        - config/reference.php
 
     inferPrivatePropertyTypeFromConstructor: true
     doctrine:
