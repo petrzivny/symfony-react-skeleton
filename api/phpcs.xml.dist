@@ -142,7 +142,7 @@
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator" />
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator" />
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullSafeObjectOperator" />
-    <rule ref="SlevomatCodingStandard.ControlStructures.RequireShortTernaryOperator" />
+<!--    <rule ref="SlevomatCodingStandard.ControlStructures.RequireShortTernaryOperator" />-->
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition" />
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireTernaryOperator" />
 <!--    <rule ref="SlevomatCodingStandard.ControlStructures.RequireYodaComparison" />-->
@@ -150,7 +150,7 @@
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator" />
     <rule ref="SlevomatCodingStandard.Exceptions.CatchExceptionsOrder" />
     <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch" />
-    <rule ref="SlevomatCodingStandard.Exceptions.DisallowNonCapturingCatch" />
+<!--    <rule ref="SlevomatCodingStandard.Exceptions.DisallowNonCapturingCatch" />-->
     <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly" />
     <rule ref="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch" />
     <rule ref="SlevomatCodingStandard.Files.FileLength" />
@@ -175,7 +175,7 @@
     <rule ref="SlevomatCodingStandard.Functions.DisallowEmptyFunction" />
 <!--    <rule ref="SlevomatCodingStandard.Functions.DisallowNamedArguments" />-->
 <!--    <rule ref="SlevomatCodingStandard.Functions.DisallowTrailingCommaInCall" />-->
-    <rule ref="SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse" />
+<!--    <rule ref="SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse" />-->
 <!--    <rule ref="SlevomatCodingStandard.Functions.DisallowTrailingCommaInDeclaration" />-->
     <rule ref="SlevomatCodingStandard.Functions.FunctionLength" >
         <exclude-pattern>tests</exclude-pattern>
@@ -330,6 +330,7 @@
         <exclude name="Generic.Commenting.DocComment.ContentBeforeClose"/>
         <exclude name="Generic.Commenting.DocComment.MissingShort"/>
         <exclude name="Generic.Commenting.DocComment.NonParamGroup"/>
+        <exclude name="Generic.Commenting.DocComment.SpacingBeforeShort"/>
         <exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
         <exclude name="PEAR.Commenting.FileComment"/>
         <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
