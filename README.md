@@ -48,9 +48,9 @@ On top of it you will receive BE, FE and DevOps best practices already implement
 
 Don't forget to give the project a star!
 
-<a href="https://skeleton.totea.cz">Live Demo - FE - production environment</a>&nbsp;|&nbsp;<a href="https://skeleton.totea.cz/api/status">Live Demo - BE status - production environment</a>
+<a href="https://skeleton.my-company.cz">Live Demo - FE - production environment</a>&nbsp;|&nbsp;<a href="https://skeleton.my-company.cz/api/status">Live Demo - BE status - production environment</a>
 
-<a href="https://skeleton-dev.totea.cz">Live Demo - FE - dev environment</a>&nbsp;|&nbsp;<a href="https://skeleton-dev.totea.cz/api/status">Live Demo - BE status - dev environment</a>
+<a href="https://skeleton-dev.my-company.cz">Live Demo - FE - dev environment</a>&nbsp;|&nbsp;<a href="https://skeleton-dev.my-company.cz/api/status">Live Demo - BE status - dev environment</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -214,6 +214,14 @@ I know this is not favorite opinion, but if you are serious about SW development
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Deploy to cloud (manually)
+```sh
+az acr login -n my-company
+cd /home/petr/Projects/personal/symfony-react-skeleton/fe/ && pnpm run build
+cd /home/petr/Projects/personal/symfony-react-skeleton/.docker/ && docker compose -f docker-compose-prod.yaml build
+docker push my-company.azurecr.io/symfony-react-skeleton/php && docker push my-company.azurecr.io/symfony-react-skeleton/nginx
+az containerapp revision restart -n symfony-react-skeleton-dev-ca -g pricemonitor-dev-rg --revision symfony-react-skeleton-dev-ca--gv29cfc
+```
+
 Use this section for debugging or if you want to see your app running in prod ASAP. Real world deployment should be setup in CD pipeline.
 This example is configured out-of-the-box for [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton).
 1. Provision your infrastructure by using [infrastructure-skeleton](https://github.com/petrzivny/infrastructure-skeleton). Save output values from terraform apply. You will use them in following steps. You can use your own infrastructure, in that case use your own output parameters.
@@ -237,7 +245,7 @@ This example is configured out-of-the-box for [infrastructure-skeleton](https://
 7. Give a nginx ingress approx 5 min to load up and test your running app. `{your_ip}` can be grabbed [here](https://console.cloud.google.com/kubernetes/ingresses) or via `kubectl get ingress -A`. `{host}` is the same you used in point 4 in values.yaml.
    ```sh
    curl -ivL 'https://{your_ip}/api/status' --header 'Host: {host}'
-   # eg: curl --location --request GET 'http://104.155.113.172/api/status' --header 'Host: skeleton.totea.cz'
+   # eg: curl --location --request GET 'http://104.155.113.172/api/status' --header 'Host: skeleton.my-company.cz'
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

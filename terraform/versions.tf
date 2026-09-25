@@ -6,7 +6,7 @@ terraform {
   #   resource_group_name  = "terraform-state-rg"
   #   storage_account_name = "tfstateaccount"
   #   container_name       = "tfstate"
-  #   key                  = "pricemonitor-dev.terraform.tfstate"
+  #   key                  = "my-app-dev.terraform.tfstate"
   # }
 
   required_providers {
@@ -27,5 +27,6 @@ provider "azurerm" {
     "Microsoft.App",
     "Microsoft.KeyVault",
     "Microsoft.DBforPostgreSQL",
+    "Microsoft.Storage",
   ]
 }

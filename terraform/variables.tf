@@ -97,15 +97,20 @@ variable "php_memory" {
 }
 
 variable "min_replicas" {
-  description = "Minimum number of replicas (0 allows scale-to-zero)."
+  description = "Minimum number of replicas. Use 1 when preserving file-based sessions across idle periods; 0 allows scale-to-zero (sessions are lost)."
   type        = number
-  default     = 0
+  default     = 1
 }
 
 variable "max_replicas" {
-  description = "Maximum number of replicas."
+  description = "Maximum number of replicas. Must remain 1 while using native file sessions and local RateLimiter cache. Shared session/limiter storage is required before scale-out."
   type        = number
   default     = 1
+
+  validation {
+    condition     = var.max_replicas == 1
+    error_message = "max_replicas must be 1 while auth uses local file sessions and RateLimiter cache. See documentation/auth/ops.md."
+  }
 }
 
 variable "key_vault_name" {
@@ -114,14 +119,21 @@ variable "key_vault_name" {
   default     = null
 }
 
+variable "storage_account_name" {
+  description = "Globally unique Storage Account name (3–24 lowercase alphanumeric characters). Defaults to \"<project><env>st\" with hyphens removed."
+  type        = string
+  default     = null
+}
+
 variable "environment_variables" {
-  description = "Names of database secrets to create in Key Vault (values are set manually after apply)."
+  description = "Names of secrets to create in Key Vault and mount on the Container App and cron Job (values are set manually after apply)."
   type        = list(string)
   default = [
     "database-host",
     "database-name",
     "database-user",
     "azure-postgresql-clientid",
+    "mailer-dsn",
   ]
 }
 

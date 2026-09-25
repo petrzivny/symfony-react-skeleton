@@ -6,17 +6,17 @@ project_name                 = ""
 environment                  = "dev"
 location                     = "westeurope"
 # resource_group_name        = "skeleton-dev-aca-rg"
-shared_resource_group_name   = "erp-ornamento-cz-app-service"
-log_analytics_workspace_name = "totea-law-01"
-acr_name                     = "petreastusdevlbacr"
+shared_resource_group_name   = "shared-project-group"
+log_analytics_workspace_name = "shared-project-law-01"
+acr_name                     = "sharedprojectacr"
 
 # Set to false if you lack Owner/User Access Administrator on the shared ACR
 # and an admin assigns AcrPull to the managed identity manually.
 create_acr_pull_role_assignment = true
 
-nginx_image_repo = "pricemonitor/nginx"
+nginx_image_repo = "nginximage/nginx"
 nginx_image_tag  = "latest"
-php_image_repo   = "pricemonitor/php"
+php_image_repo   = "phpimage/php"
 php_image_tag    = "latest"
 
 nginx_cpu    = 0.25
@@ -24,11 +24,21 @@ nginx_memory = "0.5Gi"
 php_cpu      = 0.25
 php_memory   = "0.5Gi"
 
-min_replicas = 0
+min_replicas = 1
 max_replicas = 1
+
+# ACA Job: bin/console app:cron (UTC). Defaults: every 5 minutes, 0.25 CPU, 0.5Gi.
+# cron_expression              = "*/5 * * * *"
+# cron_cpu                     = 0.25
+# cron_memory                  = "0.5Gi"
+# cron_replica_timeout_seconds = 120
+# cron_replica_retry_limit     = 1
 
 # Optional: override auto-generated Key Vault name (must be globally unique, 3–24 alphanumeric chars)
 # key_vault_name = "myappdevkv"
+
+# Optional: override auto-generated Storage Account name (3–24 lowercase alphanumeric chars)
+# storage_account_name = "myappdevst"
 
 # Key Vault secret names (values are set manually in Azure after apply)
 environment_variables = [
@@ -36,8 +46,6 @@ environment_variables = [
   "database-name",
   "database-user",
   "azure-postgresql-clientid",
+  "mailer-dsn",
+  "app-public-origin",
 ]
-
-tags = {
-  project = "pricemonitor"
-}
